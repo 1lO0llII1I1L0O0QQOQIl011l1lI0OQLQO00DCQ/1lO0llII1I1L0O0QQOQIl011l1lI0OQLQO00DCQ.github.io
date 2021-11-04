@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>面積容積換算小程式</title>
+<style>
+body{color:#616a6b; font-size:17pt}
+h1 {color:#2874a6; font-size:22pt}
+</style>
+
+</head>
+<body>
+
+	<h1 >《面積單位換算》</h1>
+	<form>
+	<!-- D1 平方公尺、D6坪、D7甲、D3公頃、D2公畝、D4平方公里、D5市畝、D8英畝、D9美畝、D10分-->
+	平方公尺<input type="text" name="D1" size="10" onInput="
+		D2.value = 0.01 * this.value;
+		D3.value = 0.0001 * this.value;
+		D4.value = 0.000001 * this.value;
+		D5.value = 0.0015 * this.value;
+		D6.value = 0.3025 * this.value;
+		D7.value = 0.000103 * this.value;
+		D8.value = 0.00025 * this.value;
+		D9.value = 0.00025 * this.value;
+		D10.value = 0.00103 * this.value;">
+	　　　　坪<input type="text" name="D6" size="10" onInput="
+		D1.value = 3.30579 * this.value;
+		D2.value = 0.03306 * this.value;
+		D3.value = 0.00033 * this.value;
+		D4.value = 3305790 * this.value;
+		D5.value = 0.00496 * this.value;
+		D7.value = 0.00034 * this.value;
+		D8.value = 0.00082 * this.value;
+		D9.value = 0.00082 * this.value;
+		 D10.value = 0.0034 * this.value;">
+			　　　　分<input type="text" name="D10" size="10" onInput="
+		D1.value = 969.917 * this.value;
+		D2.value = 9.69917 * this.value;
+		D3.value = 0.096992 * this.value;
+		D4.value = 0.000970 * this.value;
+		D5.value = 1.45488 * this.value;
+		D6.value = 293.4 * this.value;
+		 D7.value = 0.1 * this.value;
+		D8.value = 0.239672 * this.value;
+		D9.value = 0.239647 * this.value;">
+		
+		<br/>
+		　臺灣甲<input type="text" name="D7" size="10" onInput="
+		D1.value = 9699.17 * this.value;
+		D2.value = 96.9917 * this.value;
+		D3.value = 0.96992 * this.value;
+		D4.value = 0.00970 * this.value;
+		D5.value = 14.5488 * this.value;
+		D6.value = 2934 * this.value;
+		D8.value = 2.39672 * this.value;
+		D9.value = 2.39647 * this.value;
+		 D10.value = 10 * this.value;">
+	　　　公頃<input type="text" name="D3" size="10" onInput="
+		D1.value = 10000 * this.value;
+		D2.value = 100 * this.value;
+		D4.value = 0.01 * this.value;
+		D5.value = 15 * this.value;
+		D6.value = 3025 * this.value;
+		D7.value = 1.03102 * this.value;
+		D8.value = 2.47106 * this.value;
+		D9.value = 2.47104 * this.value;
+		 D10.value = 10.3102 * this.value;">
+	　　公　畝<input type="text" name="D2" size="10" onInput="
+		D1.value = 100 * this.value;
+		D3.value = 0.01 * this.value;
+		D4.value = 0.0001 * this.value;
+		D5.value = 0.15 * this.value;
+		D6.value = 30.25 * this.value;
+		D7.value = 0.01031 * this.value;
+		D8.value = 0.02471 * this.value;
+		D9.value = 0.02471 * this.value;
+		 D10.value = 0.1031 * this.value;">
+		<br>
+	平方公里<input type="text" name="D4" size="10" onInput="
+		D1.value = 1000000 * this.value;
+		D2.value = 10000 * this.value;
+		D3.value = 100 * this.value;
+		D5.value = 1500 * this.value;
+		D6.value = 302500 * this.value;
+		D7.value = 10.3102 * this.value;
+		D8.value = 247.104 * this.value;
+		D9.value = 247.104 * this.value;
+		 D10.value = 103.102 * this.value;">
+	　　　市畝<input type="text" name="D5" size="10" onInput="
+		D1.value = 666.666 * this.value;
+		D2.value = 6.6667 * this.value;
+		D3.value = 0.06667 * this.value;
+		D4.value = 0.000667 * this.value;
+		D6.value = 201.667 * this.value;
+		D7.value = 0.06874 * this.value;
+		D8.value = 0.16441 * this.value;
+		D9.value = 0.16474 * this.value;
+		 D10.value = 0.6874 * this.value;">
+	　　　英畝<input type="text" name="D8" size="10" onInput="
+		D1.value = 4046.85 * this.value;
+		D2.value = 40.4685 * this.value;
+		D3.value = 0.40469 * this.value;
+		D4.value = 0.00405 * this.value;
+		D5.value = 6.00029 * this.value;
+		D6.value = 1224.17 * this.value;
+		D7.value = 0.41724 * this.value;
+		D9.value = 0.99999 * this.value;
+		 D10.value = 4.1724 * this.value;">
+		
+	　<!--
+		美畝<input type="text" name="D9" size="10" onInput="
+		D1.value = 4046.87 * this.value;
+		D2.value = 40.4687 * this.value;
+		D3.value = 0.40469 * this.value;
+		D4.value = 0.00405 * this.value;
+		D5.value = 6.07031 * this.value;
+		D6.value = 1224.18 * this.value;
+		D7.value = 0.41724 * this.value;
+		D8.value = 1.000005 * this.value;
+		 D10.value = 4.1724 * this.value;">
+		 -->
+	</form>
+
+<br>		
+	<div style="border-style:dotted;border-color:gray;padding-left:10px;padding-top:3px;padding-bottom:3px;width:430px;font-size:14pt">
+	<STRONG>地籍測量常用面積單位換算：</STRONG><br/>
+	1平方公尺 = 0.3025坪<br/>
+	1坪 = 3.3058平方公尺<br/>
+	1分地 = 969.9平方公尺<br/>
+	1公頃 = 10000平方公尺 = 3025坪 = 1.03102甲<br/>
+	1甲 = 10分 = 2934坪 = 0.96992公頃<br/>
+	1平方公里 = 100公頃<br/>
+	</div>
+<br/>
+						<h1>《容積養殖數量換算》</h1>
+<form>
+<B>圓形池：</B>半徑 <input type="text" name="C1_RADIUS" size="1" value="15" onChange="
+    C1_FISH.value = (this.value*this.value*3.14*C1_HEIGHT.value*C1_SIZE.value).toFixed(0);">米
+　深 <input type="text" name="C1_HEIGHT" size="1" value="1.7" onChange="
+	C1_FISH.value = (C1_RADIUS.value*C1_RADIUS.value*3.14*this.value*C1_SIZE.value).toFixed(0);">米
+	　　　　　　一噸幾尾 <input type="text" name="C1_SIZE" value="25" size="1" onChange="
+	C1_FISH.value = (C1_RADIUS.value*C1_RADIUS.value*3.14*C1_HEIGHT.value*this.value).toFixed(0);">
+	　建議數量 <input type="text" name="C1_FISH" value="30000" size="2">
+	<BR/><BR/>
+<B>　方池：</B>
+長 <input type="text" name="C2_LENGTH" size="1" value="40"onChange="
+    C2_FISH.value = (this.value*C2_WIDTH.value*C2_HEIGHT.value*C2_SIZE.value).toFixed(0);">米
+　寬 <input type="text" name="C2_WIDTH" size="1" value="25" onChange="
+    C2_FISH.value = (this.value*C2_LENGTH.value*C2_HEIGHT.value*C2_SIZE.value).toFixed(0);">米
+　深 <input type="text" name="C2_HEIGHT" size="1" value="1.5" onChange="
+    C2_FISH.value = (this.value*C2_LENGTH.value*C2_WIDTH.value*C2_SIZE.value).toFixed(0);">米
+	　一噸幾尾 <input type="text" name="C2_SIZE" value="25" size="1" onChange="
+    C2_FISH.value = (C2_LENGTH.value*C2_WIDTH.value*C2_HEIGHT.value*this.value).toFixed(0);">
+	　建議數量 <input type="text" name="C2_FISH" value="37500" size="2">
+	<BR/>
+	<BR/>
+　　　　	幾分地 <input type="text" name="C3_UNIT" size="1" value="1"onChange="
+    C3_FISH.value = (this.value*C3_HEIGHT.value*C3_SIZE.value*970).toFixed(0);">
+　深 <input type="text" name="C3_HEIGHT" size="1" value="1.5" onChange="
+    C3_FISH.value = (this.value*C3_UNIT.value*C3_SIZE.value*970).toFixed(0);">米
+	　　　　　　一噸幾尾 <input type="text" name="C3_SIZE" value="25" size="1" onChange="
+    C3_FISH.value = (C3_UNIT.value*C3_HEIGHT.value*this.value*970).toFixed(0);">
+	　建議數量 <input type="text" name="C3_FISH" value="36375" size="2">
+	<BR/>
+	<BR/>
+	
+	<div style="border-style:dotted;border-color:gray;padding-left:10px;padding-top:3px;padding-bottom:3px;width:430px;font-size:14pt">
+	<STRONG>計算方式：</STRONG><br/>
+	一立方公尺=一噸水，一噸水可養殖25隻魚(1尾斤)<br/>
+	直徑30的圓形系統池：15*15*1.7*3.14*25=30000尾<br/>
+	</div>
+<BR/>
+	<!-- TABLE-->
+	<table border="1" cellpadding="0" cellspacing="0" style="width:558px;font-size:14pt" width="698" >
+	<tbody>
+		<tr>
+			<td rowspan="2" style="width:101px;"><p align="center"><strong>養殖方式</strong></p>
+			</td>
+			<td colspan="3" style="width:215px;"><p align="center"><strong>1</strong><strong>立方公尺</strong><strong>/</strong><strong>噸</strong></p>
+			</td>
+			<td colspan="2" style="width:243px;"><p align="center"><strong>1455</strong><strong>噸</strong> <strong>（</strong><strong>1</strong><strong>分地</strong><strong>&times;</strong><strong>1.5</strong><strong>米深）</strong></p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="width:132px;"><p align="center"><strong>魚總公斤數</strong></p>
+			</td>
+			<td style="width:83px;"><p align="center"><strong>魚數量</strong></p>
+			</td>
+			<td style="width:120px;"><p align="center"><strong>魚總公斤數</strong></p>
+			</td>
+			<td style="width:123px;"><p align="center"><strong>魚數量</strong></p>
+			</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="width:101px;height:67px;"><p align="center"><strong>系統養殖</strong><br />
+			每尾 0.6 kg</p>
+			</td>
+			<td style="width:67px;height:67px;"><p align="center">增氧機</p>
+			</td>
+			<td style="width:67px;height:67px;"><p align="center">15 kg</p>
+
+			<p align="center">｜</p>
+
+			<p align="center">20 kg</p>
+			</td>
+			<td style="width:83px;height:67px;"><p align="center">25尾</p>
+
+			<p align="center">｜</p>
+
+			<p align="center">33尾</p>
+			</td>
+			<td style="width:120px;height:67px;"><p align="center">22000 kg</p>
+
+			<p align="center">｜</p>
+
+			<p align="center">30000 kg</p>
+			</td>
+			<td style="width:123px;height:67px;"><p align="center">35000尾</p>
+
+			<p align="center">｜</p>
+
+			<p align="center">48000尾</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:67px;"><p align="center">氧氣錐</p>
+			</td>
+			<td style="width:67px;"><p align="center">30 kg</p>
+			</td>
+			<td style="width:83px;"><p align="center">50尾</p>
+			</td>
+			<td style="width:120px;"><p align="center">43000 kg</p>
+			</td>
+			<td style="width:123px;"><p align="center">72000尾</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:101px;"><p align="center"><strong>土池養殖</strong><br />
+			每尾 0.6 kg</p>
+			</td>
+			<td colspan="2" style="width:132px;"><p align="center">1.8公斤</p>
+			</td>
+			<td style="width:83px;"><p align="center">3尾</p>
+			</td>
+			<td style="width:120px;"><p align="center">2600 kg</p>
+			</td>
+			<td style="width:123px;"><p align="center">4300尾</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:101px;height:67px;"><p align="center"><strong>系統繁殖</strong><br />
+			每尾 1.5 kg <BR/ >公:母＝1:3</p>
+			</td>
+			<td style="width:67px;height:67px;"><p align="center">增氧機</p>
+			</td>
+			<td style="width:67px;height:67px;"><p align="center">3 kg</p>
+
+			<p align="center">｜</p>
+
+			<p align="center">5 kg</p>
+			</td>
+			<td style="width:83px;height:67px;"><p align="center">2尾</p>
+
+			<p align="center">｜</p>
+
+			<p align="center">3尾</p>
+			</td>
+			<td style="width:120px;height:67px;"><p align="center">4300 kg</p>
+
+			<p align="center">｜</p>
+
+			<p align="center">7200 kg</p>
+			</td>
+			<td style="width:123px;height:67px;"><p align="center">2900尾</p>
+
+			<p align="center">｜</p>
+
+			<p align="center">4800尾</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+	<!-- END OF TABLE-->
+	<br/>
+<br/>
+
+	
+	<!--
+長<input type="text" name="C2_LENGTH" size="10" value="15" onChange="
+    C2_NORMAL_FISH.value = (this.value*C2_WIDTH.value*C2_HEIGHT.value*50).toFixed(0);
+	C2_SD_FISH.value = (this.value*C2_WIDTH.value*C2_HEIGHT.value*50/3).toFixed(0);">
+　寬<input type="text" name="C2_WIDTH" size="10" value="15" onChange="
+   C2_NORMAL_FISH.value = (C2_LENGTH.value*this.value*C2_HEIGHT.value*50).toFixed(0);
+	C2_SD_FISH.value = (C2_RADIUS.value*C2_RADIUS.value*3.14*this.value*50/3).toFixed(0);">
+　高<input type="text" name="C2_HEIGHT" size="10" value="1.7" onChange="
+	C2_NORMAL_FISH.value = (C2_RADIUS.value*C2_RADIUS.value*3.14*this.value*50).toFixed(0);
+	C2_SD_FISH.value = (C2_RADIUS.value*C2_RADIUS.value*3.14*this.value*50/3).toFixed(0);">
+	一般養殖<input type="text" name="C2_NORMAL_FISH" value="60053" size="10">
+	種魚養殖<input type="text" name="C2_SD_FISH" value="20018" size="10"> 公:母=1:2
+	-->
+<!--<input type="Reset" value="重新計算面積">-->
+</form>
+
+
+</body>
+</html>
