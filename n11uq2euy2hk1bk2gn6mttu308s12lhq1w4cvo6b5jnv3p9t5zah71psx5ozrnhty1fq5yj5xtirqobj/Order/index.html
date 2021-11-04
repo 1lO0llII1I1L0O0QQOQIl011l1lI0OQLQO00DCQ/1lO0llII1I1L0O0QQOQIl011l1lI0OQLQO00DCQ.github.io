@@ -1,0 +1,302 @@
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	 <!-- icon -->
+	 <link rel="shortcut icon" href="image/32x32.ico">
+	 <link rel="icon" type="image/png" href="image/192x192.png" sizes="192x192">
+	 <link rel="apple-touch-icon" sizes="120x120" href="image/120x120.png">
+	 <link rel="apple-touch-icon" sizes="152x152" href="image/152x152.png">
+	 <link rel="apple-touch-icon" sizes="180x180" href="image/180x180.png">
+	
+    <!-- Bootstrap CSS -->
+	
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css" rel="stylesheet" >
+	
+	<!-- 製作漸層背景 https://uigradients.com/#RedSunset -->
+	<style> 
+		body 
+		{
+			background: #50C9C3;  /* fallback for old browsers */
+			background: -webkit-linear-gradient(to right, #96DEDA, #50C9C3);  /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to right, #96DEDA, #50C9C3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		}
+	</style>
+    <title>訂單 - 聖鯛水產科技</title>
+	<script>
+	var x = [];
+	$.getJSON
+	('https://sheets.googleapis.com/v4/spreadsheets/1eLw8Nsh2y5mUEtoHILevLOC_4ncrdfWy_ZOu1MLZx3U/values/1?alt=json&key=AIzaSyD1nv9DyD6XvqVI3MUg1j2l_yKUNl8FjUY', 
+	function(data) {
+		for (i = 0; i < data.values.length; i++)
+		{
+			var item = data.values[i][0];
+			x.push(item);
+         }
+		 search_cust_name();
+	});
+
+
+	
+	function formSubmit()
+	{
+			$('#button1').attr('disabled', 'disabled');
+			var order_item = document.querySelector('input[name="item_group"]:checked').value;
+			var order_count = document.getElementById("count").value;
+			var order_price = document.getElementById("price").value;
+			var order_delivery =  document.querySelector('input[name="delivery_group"]:checked').value;
+			var order_date = document.getElementById("date").value;
+			var order_name = document.getElementById("cust_name").value;
+			var order_description =  document.getElementById("description").value;
+			
+			if (order_date=="")
+			{
+				alert("請選擇日期");
+				$('#button1').removeAttr('disabled');
+				return false;
+			}
+			
+			if (order_item=="提醒")
+			{
+				order_delivery="";
+			}
+			
+			$.ajax({
+				type: "post",
+				url: "https://script.google.com/macros/s/AKfycbwFxB9haHhWx6t-uthhg9hQpNXYWguakhoIGmi8JfoFR2hP40JGQPCzY6qhpD1YTlph7w/exec",
+				data: {
+						"order_item": order_item,
+						"order_count": order_count ,
+						"order_price": order_price,
+						"order_delivery": order_delivery,
+						"order_date": order_date,
+						"order_name": order_name,
+						"order_description": order_description
+				},
+				success: function(response) {
+				  if(response == "成功")
+				  {
+					 document.location.href= "sucess.html";
+					 $('#button1').removeAttr('disabled');
+					 return;
+				   }
+				 },
+				error: function(){
+					alert("失敗！ 客戶：" + order_name);
+					$('#button1').removeAttr('disabled');
+					return;
+					
+				}
+			});
+	}
+	function	dropItem(cust_name)
+	{
+		document.getElementById('cust_name').value = cust_name;
+		$("#cust_drop_down").hide();
+	}
+		
+	function search_cust_name() {
+		var input = document.getElementById('cust_name').value;
+		if (input=="")
+		{
+			$("#cust_drop_down").hide();
+			return;
+		}
+		input = input.toLowerCase();
+
+		$("#cust_drop_down").empty();
+		var  findFlag = false;
+		for (i = 0; i < x.length; i++) { 
+			if (x[i].toLowerCase().includes(input)) 
+			{
+				findFlag = true;
+				$("#cust_drop_down").append("<li><a href='#' onclick=javascript:dropItem('" + x[i]+"')> "+ x[i] + "</a></li>");
+			}
+		}
+		if (findFlag)
+		{
+			$("#cust_drop_down").show();
+		}
+		else
+		{
+			$("#cust_drop_down").hide();
+		}
+	}	
+	function	disable_count_price_delivery()
+	{
+		var order_item = document.querySelector('input[name="item_group"]:checked').value;
+		
+		if  (order_item=="提醒")
+		{
+			let x = document.body.querySelectorAll('input[name="delivery_group"]');
+			let index = 0;
+			for( index=0; index < x.length; index++ ) 
+			{
+					  x[index].disabled="disabled";
+			}
+			 document.getElementById("count").disabled="disabled";
+			 document.getElementById("price").disabled="disabled";
+		}
+		else
+		{
+			let x = document.body.querySelectorAll('input[name="delivery_group"]');
+			let index = 0;
+			for( index=0; index < x.length; index++ ) 
+			{
+					  x[index].disabled="";
+			}
+			
+			 document.getElementById("count").disabled="";
+			 document.getElementById("price").disabled="";
+		}
+		
+	}
+	</script>
+</head>
+<body>
+<div  style="background-color:#dff9fb">
+		<p style="margin:12px;">
+			<font color="#535c68" style="font-size:19pt"><CENTER>訂單登錄系統 - 聖鯛水產科技</CENTER></font>
+		</p>
+		<p style="margin:12px;"></p>
+</div>
+
+<div class="container">
+    <form class="well form-horizontal" action="javascript:formSubmit()" id="order_form">
+		<fieldset>
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="col-md-4 control-label"   style="font-size:14pt; line-height: 20px" >客戶姓名：</label> 
+			<div class="col-md-4 inputGroupContainer">
+				<div class="input-group">
+				  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							<input autocomplete="off" data-toggle="dropdown" id="cust_name" type="text"  style="font-size:14pt"  placeholder="客戶姓名" class="form-control" oninput="search_cust_name()" value="" >
+							<ul class="dropdown-menu" id="cust_drop_down" style="font-size:14pt;margin-left:38px" >
+							</ul>
+				</div>
+		  </div>
+		<!--
+			<div id="cust_name_dropdown" class="dropdown-menu" >
+			  <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-4/">Bootstrap 4</a>
+			  <a class="dropdown-item" href="https://www.jquery-az.com/jquery-tips/">jQuery</a>
+			  <a class="dropdown-item" href="https://www.jquery-az.com/html-tutorials/">HTML</a>
+			  <a class="dropdown-item" href="https://www.jquery-az.com/css-tutorials/">CSS</a>
+			</div>
+			-->
+		</div>
+		<p style="margin:22px;"></p>
+		 <!-- radio checks -->
+		 <div class="form-group">
+			<label class="col-md-4 control-label"  style="font-size:14pt;line-height: 20px" >品名：</label>
+			<div class="col-md-4">
+				<div class="radio" style="font-size:14pt" >
+					<label>
+						<input type="radio" name="item_group" value="B1" onchange="disable_count_price_delivery()"  checked />B1
+					</label>
+					<label>
+					　<input type="radio" name="item_group" value="B1-2W"  onchange="disable_count_price_delivery()" />B1-2W
+					</label>
+					<label>
+					　<input type="radio" name="item_group" value="B2"   onchange="disable_count_price_delivery()" />B2
+					</label>
+				</div>
+				<div class="radio" style="font-size:14pt" >
+					<label >
+					<input type="radio" name="item_group" value="R2" onchange="disable_count_price_delivery()"  /> <font color="#FF5733">R2</font>
+					</label>
+					<label >
+					　<input type="radio" name="item_group" value="提醒"  onchange="disable_count_price_delivery()"  />提醒
+					</label>
+					
+				</div>
+			</div>
+		</div>
+		<p style="margin:22px;"></p>
+		
+		<div class="form-group">
+		  <label class="col-md-4 control-label"  style="font-size:14pt;line-height: 20px"  >數量：</label> 
+			<div class="col-md-4 inputGroupContainer">
+			<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+		  <input id="count" type="text" placeholder="數量" class="form-control"   style="font-size:14pt"  >
+			</div>
+		  </div>
+		</div>
+		<p style="margin:22px;"></p>
+		
+		<div class="form-group">
+		  <label class="col-md-4 control-label"   style="font-size:14pt;line-height: 20px" >單價：</label> 
+			<div class="col-md-4 inputGroupContainer">
+			<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+		  <input id="price" type="text" placeholder="單價" class="form-control"    style="font-size:14pt" >
+			</div>
+		  </div>
+		</div>
+		<p style="margin:22px;"></p>
+		
+		<div class="form-group">
+		  <label class="col-md-4 control-label"  style="font-size:14pt;line-height: 20px">收貨日期：</label> 
+			<div class="col-md-4 inputGroupContainer">
+			<div class="input-group">
+		  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+		  <input id="date" type="date" class="form-control"  style="font-size:14pt" >
+			</div>
+		  </div>
+		</div>
+		<p style="margin:22px;"></p>
+
+		<!-- radio checks -->
+		 <div class="form-group">
+			<label class="col-md-4 control-label"  style="font-size:14pt;line-height: 20px" >收貨方式：</label>
+			<div class="col-md-4">
+				<div class="radio"  style="font-size:14pt">
+					<label>
+						<input type="radio" name="delivery_group" value="自取" />自取
+					</label>
+					<label>
+					　<input type="radio" name="delivery_group" value="宅配" />宅配
+					</label>
+					<label>
+					　<input type="radio" name="delivery_group" value="送貨" checked />送貨
+					</label>
+				</div>
+			</div>
+		</div>
+		<p style="margin:22px;"></p>
+		
+		<!-- Text area -->
+		<div class="form-group">
+		  <label class="col-md-4 control-label"  style="font-size:14pt;line-height: 20px">備註：</label>
+			<div class="col-md-4 inputGroupContainer">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<input id="description" type="text" placeholder="備註" class="form-control"   style="font-size:14pt" >
+		  </div>
+		  </div>
+		</div>
+		<p style="margin:22px;"></p>
+
+		<!-- Button -->
+		<div class="form-group">
+		  <label class="col-md-4 control-label"></label>
+		  <div class="col-md-4">
+			<button type="submit" class="btn btn-primary" id="button1"  style="font-size:14pt">
+			送出 <span class="glyphicon glyphicon-send"></span></button>
+		  </div>
+		</div>
+		
+		</fieldset>
+		</form>
+		</div>
+    </div><!-- /.container -->
+	
+</div>
+</body>
+</html>

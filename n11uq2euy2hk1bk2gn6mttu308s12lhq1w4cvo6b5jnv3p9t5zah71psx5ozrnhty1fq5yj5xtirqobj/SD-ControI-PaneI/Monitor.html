@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>聖鯛水產科技－監測管理系統</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css?v=5" />
+	</head>
+	<!--
+		找IP的網址 http://dlinkrouter.local/
+		=============
+		在DLINK中有保留IP給以下設備
+		=============
+		LAB_ROUTER(小米) 192.168.100.123
+		工廠監視器(可以看的) 192.168.100.157
+		SD監視器(可以看的) 192.168.100.161
+		X_SD環視監視器(不能用網頁看) 192.168.100.130
+		X_工廠環視監視器(不能用網頁看) 192.168.100.199
+	-->
+	
+	 <script>
+		function myFunc0() { // 首頁
+		parent.frames['mainframe'].location='index.html';
+      }
+       function myFunc1() { // 水質監控
+         parent.frames['mainframe'].location='https://www.qiotk.com/#/page/login';
+      }
+     </script>
+	<body class="homepage is-preload">
+	
+		<div id="page-wrapper">
+			<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li class="current"> <a href="javascript:myFunc0()" id="logo">聖鯛水產科技</a></li>
+						<!--<li><a onClick="parent.frames['mainframe'].location='http://cloud.deneng.com.tw/sd/'">水質監控</a></li>-->
+						<li><a href="javascript:myFunc1()">水質監控</a></li>
+						<!--<li><a onClick="parent.frames['mainframe'].location='https://sdat01.000webhostapp.com/web_e824kjs895s23984kljweorislfkx1827389743j4hsfshdfxv/index.php?v=2'">水位預警</a></li>-->
+						<li><a href="SD-H-Monitor.html" target="_blank">SD監控</a></li>
+						<li><a href="Factory-H-Monitor.html"  target="_blank">工廠監控</a></li>
+						<li><a href="JK-A-Monitor.html"  target="_blank" >A場監控</a></li>
+						<li><a href="http://118.232.168.85:80"  target="_blank"   >B場監控</a></li><!--IP不可另開視窗-->
+						<li><a href="http://192.168.100.130/doc/page/config.asp"  target="_blank"  >SD環視</a></li><!--IP不可另開視窗-->
+						
+				        <!--<li><a onClick="window.open('SD-D-Monitor.html')" >SD環視</a></li>-->
+						<!--<li><a onClick="window.open('http://118.232.194.211/#Live')"><s>竹仔腳監控</s></a></li>-->
+					</ul>
+				</nav>
+
+			<!-- Main -->
+				<iframe src="index.html" name="mainframe" width="100%" height="650" > <!--style="position: relative;top:-8px;"-->
+				</iframe>
+
+		</div>
+	</body>
+	<!--
+	<script>
+		$(function(){
+		$('html, body').scrollTop(200);
+		});
+		
+	</script>
+	-->
+	
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+</html>
