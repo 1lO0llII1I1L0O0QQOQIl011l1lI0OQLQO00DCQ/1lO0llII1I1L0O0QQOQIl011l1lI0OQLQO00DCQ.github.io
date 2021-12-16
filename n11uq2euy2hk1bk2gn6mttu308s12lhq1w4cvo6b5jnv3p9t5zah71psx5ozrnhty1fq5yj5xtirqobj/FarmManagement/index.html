@@ -23,13 +23,22 @@
 	<style> 
 		body 
 		{
-			background: #50C9C3;  /* fallback for old browsers */
-			background: -webkit-linear-gradient(to right, #96DEDA, #50C9C3);  /* Chrome 10-25, Safari 5.1-6 */
-			background: linear-gradient(to right, #96DEDA, #50C9C3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			background: #43C6AC;  /* fallback for old browsers */
+			background: -webkit-linear-gradient(to right, #F8FFAE, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
+			background: linear-gradient(to right, #F8FFAE, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			  height: 100%;
+			  margin: 0;
+			  padding: 0;
+		}
+		#map {
+		  height: 60%;
+		  width: 90%;
+		  margin: 0 auto; 
 		}
 	</style>
-    <title>訂單 - 聖鯛水產科技</title>
+    <title>種魚管理 - 聖鯛水產科技</title>
 	<script>
+	  
 	var x = [];
 	$.getJSON
 	('https://sheets.googleapis.com/v4/spreadsheets/1eLw8Nsh2y5mUEtoHILevLOC_4ncrdfWy_ZOu1MLZx3U/values/1?alt=json&key=AIzaSyD1nv9DyD6XvqVI3MUg1j2l_yKUNl8FjUY', 
@@ -157,16 +166,117 @@
 		}
 		
 	}
+	
+	  let map;
+
+		function initMap() {
+		  map = new google.maps.Map(document.getElementById("map"), {
+			center: { lat: 22.48778297236972, lng: 120.58017652798212 },
+			zoom: 20,
+			mapTypeId:'satellite',
+			mapTypeControl:false,
+		  });
+		  
+		  // 畫多邊形 https://www.oxxostudio.tw/articles/201802/google-maps-11-polygon.html
+		  var points_factory_big_2 = [
+			{lat: 22.48762192417299 , lng:  120.57988195071215},
+			{lat: 22.48784443543263, lng: 120.57976111367753},
+			{lat: 22.487978099268084 , lng:  120.57999598002226},
+			{lat: 22.487783107278204, lng:  120.58015085565673}
+		  ];
+
+		  var path_factory_big_2 = new google.maps.Polygon({
+			paths: points_factory_big_2,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 10,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#f00',
+			fillOpacity: 0.35,
+			label: '工廠大池2',
+			map:map
+		  });   
+		  
+		  var rectangle_marker_factory_big_2 = new google.maps.Marker({
+			position:  { lat:  22.487801380549737, lng: 120.5799506545972 },
+			map: map,
+			label: '大池2',
+		  });
+		  //點進去可以看!!! 圖標資訊的 https://www.letswrite.tw/google-map-api-marker-custom/
+		  // info window
+            let infowindow_factory_big_2 = new google.maps.InfoWindow({
+              content: '<h6>工廠大池2的種魚</h6>' // 支援html
+            });
+
+            // 監聽 marker click 事件
+            rectangle_marker_factory_big_2.addListener('click', e => {
+              infowindow_factory_big_2.open(this.map, rectangle_marker_factory_big_2);
+            });
+		  
+		  
+		  // 畫圓形 https://www.oxxostudio.tw/articles/201802/google-maps-12-rect-circle.html
+		  var position = [{ 
+			  lat: 22.4877468588973,
+			  lng: 120.58021082886438
+			}, {
+			  lat: 22.487717119805087,
+			  lng: 120.58023765095376
+			}
+			];
+
+			var num = [1, 2, 3];
+			var circle = [];
+			var marker = [];
+			
+			 position.forEach(function(e, i) {
+				circle[i] = new google.maps.Circle({
+				  center: e,
+				  radius: 2,
+				  strokeOpacity: 0,
+				  fillColor: '#f00',
+				  fillOpacity: 0.35,
+				  map: map
+				});
+				marker[i] = new google.maps.Marker({
+				  position: e,
+				  map: map,
+				  label: num[i].toString()
+				});
+			  });
+		  
+		  map.setCenter({ lat: 22.487148410199673, lng: 120.5782556936967 }); // SD定位
+		  map.setZoom(19);  // SD定位縮放
+		  
+		  map.setCenter({ lat: 22.48614812396597, lng:  120.57868885718257 }); // SD家裡定位
+		  map.setZoom(19);  // SD家裡定位縮放
+		  
+		  map.setCenter({ lat: 22.47870410125927, lng:  120.56927710840841 }); // A區定位
+		  map.setZoom(19);  // A區定位定位縮放
+		  
+		  map.setCenter({ lat: 22.476415032228022, lng: 120.56906024870474 }); // B區定位
+		  map.setZoom(19);  // B區定位定位縮放
+		  
+		  map.setCenter({ lat: 22.48778297236972, lng: 120.58017652798212 }); // 工廠定位
+		  map.setZoom(20);  // 工廠定位定位縮放
+		  
+		}
 	</script>
 </head>
 <body>
+
+
 <div style="background-color:#ffffff; opacity: 0.5">
 		<p style="margin:12px;">
-			<font color="#000000" style="font-size:19pt"><CENTER>訂單登錄系統 - 聖鯛水產科技</CENTER></font>
+			<font color="#000000" style="font-size:19pt"><CENTER>aaa種魚管理系統 - 聖鯛水產科技</CENTER></font>
 		</p>
 		<p style="margin:12px;"></p>
 </div>
-
+<div id="map"></div>
+<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhI-bEG0jYoMtM4O15cuoaHk8cKIdTPlE&callback=initMap&v=weekly"
+      async
+    ></script>
 <div class="container">
     <form class="well form-horizontal" action="javascript:formSubmit()" id="order_form">
 		<fieldset>
