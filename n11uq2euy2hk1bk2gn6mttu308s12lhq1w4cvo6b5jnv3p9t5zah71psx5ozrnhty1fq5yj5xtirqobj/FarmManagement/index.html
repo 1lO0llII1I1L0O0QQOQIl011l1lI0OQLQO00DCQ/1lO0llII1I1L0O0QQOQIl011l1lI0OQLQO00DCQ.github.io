@@ -33,7 +33,7 @@
 			  padding: 0;
 		}
 		#map {
-		  height: 50%;
+		  height: 55%;
 		  width: 100%;
 		  <!--margin: 0 auto; -->
 		}
@@ -60,13 +60,31 @@
 			});
 
 			// 畫多邊形 https://www.oxxostudio.tw/articles/201802/google-maps-11-polygon.html
+
+			var pointsFactoryOutsideFRP1 = [
+			{lat: 22.4879573635874 , lng:  120.58036833313733},
+			{lat: 22.487920189777686, lng: 120.58038375583894},
+			{lat: 22.487935059302767 , lng:  120.58042667118248},
+			{lat: 22.48797409179851, lng:  120.58040923682417}
+			];
+			var pointsFactoryOutsideFRP2 = [
+			{lat: 22.48800816777786 , lng:  120.58034620491331},
+			{lat: 22.487968515728372, lng: 120.58036363927164},
+			{lat: 22.487985243938134 , lng:  120.58040789571967},
+			{lat: 22.48802427641972, lng:  120.58038979080911}
+			];
+			var pointsFactoryOutsideFRP3 = [
+			{lat: 22.48802737423526 , lng:  120.58039850798828},
+			{lat: 22.4879889613178, lng: 120.58041594234659},
+			{lat: 22.48800506996191 , lng:  120.58045684603341},
+			{lat: 22.488043482874886, lng:  120.58044008222733}
+			];
 			var pointsFactoryOutsideBig1 = [
 			{lat: 22.487617786919536 , lng:  120.5798839400063},
 			{lat: 22.48777844272328, lng: 120.58015199268027},
 			{lat: 22.487580613021013 , lng:  120.58034393884053},
 			{lat: 22.487363765064153, lng:  120.58012064494778}
 			];
-
 			var pointsFactoryOutsideBig2 = [
 			{lat: 22.48762192417299 , lng:  120.57988195071215},
 			{lat: 22.48784443543263, lng: 120.57976111367753},
@@ -74,18 +92,52 @@
 			{lat: 22.487783107278204, lng:  120.58015085565673}
 			];
 			var pointsFactoryOutsideBig3 = [
-			{lat: 22.487994942694968 , lng:  120.58001188595296},
+			{lat: 22.487991332617835 , lng:  120.58001491035199},
 			{lat: 22.488128768293212, lng: 120.58027809518772},
-			{lat: 22.48790386686773 , lng:  120.58038404243933},
+			{lat: 22.487901331223778 , lng:  120.58037692436582},
 			{lat: 22.487792964929323, lng:  120.58017147738398}
 			];
+			
+			var pathFactoryOutsideFRP1 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideFRP1,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FFD306',
+			fillOpacity: 0.5,
+			label: '工廠FRP-1',
+			map:map
+			});   
+			var pathFactoryOutsideFRP2 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideFRP2,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FFD306',
+			fillOpacity: 0.5,
+			label: '工廠FRP-2',
+			map:map
+			});   
+			var pathFactoryOutsideFRP2 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideFRP3,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FFD306',
+			fillOpacity: 0.5,
+			label: '工廠FRP-3',
+			map:map
+			});   			
 			var pathFactoryOutsideBig1 = new google.maps.Polygon({
 			paths: pointsFactoryOutsideBig1,
 			strokeColor: '#ffffff',
 			strokeOpacity: .5,
 			strokeWeight: 3,
 			strokePosition: google.maps.StrokePosition.CENTER,
-			fillColor: '#f00',
+			fillColor: '#FF8000',
 			fillOpacity: 0.35,
 			label: '工廠大池1',
 			map:map
@@ -96,23 +148,47 @@
 			strokeOpacity: .5,
 			strokeWeight: 3,
 			strokePosition: google.maps.StrokePosition.CENTER,
-			fillColor: '#f00',
+			fillColor: '#FF8000',
 			fillOpacity: 0.35,
 			label: '工廠大池2',
 			map:map
 			});   
-
 			var pathFactoryOutsideBig2 = new google.maps.Polygon({
 			paths: pointsFactoryOutsideBig3,
 			strokeColor: '#ffffff',
 			strokeOpacity: .5,
 			strokeWeight: 3,
 			strokePosition: google.maps.StrokePosition.CENTER,
-			fillColor: '#f00',
+			fillColor: '#FF8000',
 			fillOpacity: 0.35,
 			label: '工廠大池3',
 			map:map
 			});   
+			
+			var FRPIcon = {
+				url: "", // url image/circle_icon.svg
+				scaledSize: new google.maps.Size(22, 22), // scaled size
+				anchor: new google.maps.Point(11, 11),
+			};
+			var markerFactoryOutsideFRP1 = new google.maps.Marker({
+			position:  { lat:  22.487946831008987, lng: 120.58039783743602 },
+			map: map,
+			icon: FRPIcon,
+			label: '1',
+			});
+			var markerFactoryOutsideFRP2 = new google.maps.Marker({
+			position:  { lat:  22.487996396076856, lng: 120.58037906197323 },
+			map: map,
+			icon: FRPIcon,
+			label: '2',
+			});
+			var markerFactoryOutsideFRP3 = new google.maps.Marker({
+			position:  { lat:  22.488015602535885, lng: 120.58043136504817 },
+			map: map,
+			icon: FRPIcon,
+			label: '3',
+			});
+			
 			var markerFactoryOutsideBig1 = new google.maps.Marker({
 			position:  { lat:  22.487681171106185, lng: 120.58013656998223 },
 			map: map,
@@ -129,6 +205,26 @@
 			label: '3',
 			});
 			 // info window  https://www.letswrite.tw/google-map-api-marker-custom/
+			 
+			let infowindowFactoryOutsideFRP1 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>工廠FRP-1種魚</h6>" // 支援html
+			});
+			markerFactoryOutsideFRP1.addListener('click', e => {
+			  infowindowFactoryOutsideFRP1.open(this.map, markerFactoryOutsideFRP1);
+			});
+			let infowindowFactoryOutsideFRP2 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>工廠FRP-2的種魚</h6>" // 支援html
+			});
+			markerFactoryOutsideFRP2.addListener('click', e => {
+			  infowindowFactoryOutsideFRP2.open(this.map, markerFactoryOutsideFRP2);
+			});
+			let infowindowFactoryOutsideFRP3 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>工廠FRP-3的種魚</h6>" // 支援html
+			});
+			markerFactoryOutsideFRP3.addListener('click', e => {
+			  infowindowFactoryOutsideFRP3.open(this.map, markerFactoryOutsideFRP3);
+			});
+			
 			let infowindowFactoryOutsideBig1 = new google.maps.InfoWindow({
 			  content: "<div id='divInfowindow'><h6>工廠大池1種魚</h6>" // 支援html
 			});
@@ -252,8 +348,8 @@
 				  center: e,
 				  radius: 1.1,
 				  strokeOpacity: 0,
-				  fillColor: '#f00',
-				  fillOpacity: 0.35,
+				  fillColor: '#009393',
+				  fillOpacity: 0.5,
 				  map: map
 				});
 				factoryCircleMarker[i] = new google.maps.Marker({
@@ -276,8 +372,8 @@
 				  center: e,
 				  radius: 0.9,
 				  strokeOpacity: 0,
-				  fillColor: '#006',
-				  fillOpacity: 0.35,
+				  fillColor: '#005AB5',
+				  fillOpacity: 0.5,
 				  map: map
 				});
 				factoryCircleMarker[i] = new google.maps.Marker({
