@@ -15,12 +15,17 @@
 	
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="3.2.0/css/bootstrap.min.css?v=3" rel="stylesheet" >
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet" >
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css" rel="stylesheet" >
 	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	
+	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+
+  <!-- Include the JavaScript file for Bootstrap table -->
+  <script src=
+"https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js">
+  </script>
 	<!-- 製作漸層背景 https://uigradients.com/#RedSunset -->
 	<style> 
 		body 
@@ -410,30 +415,213 @@
 		}
 		function changePositionFactory()
 		{
-		  map.setCenter({  lat: 22.487805495806526, lng: 120.5802124740907  }); // 工廠定位
-		  map.setZoom(20);  // 工廠定位定位縮放
+			map.setCenter({  lat: 22.487805495806526, lng: 120.5802124740907  }); // 工廠定位
+			map.setZoom(20);  // 工廠定位定位縮放
+			document.getElementById("factoryButton").className="btn btn-info active";
+			document.getElementById("SDButton").className="btn btn-info ";
+			document.getElementById("JKAButton").className="btn btn-info ";
+			document.getElementById("JKBButton").className="btn btn-info ";
 		}
 		function changePositionSD()
 		{
-		  map.setCenter({ lat: 22.48665096487434, lng: 120.57834633097687 }); 
-		  map.setZoom(18);  // SD定位縮放
-		  /*
-		  map.setCenter({ lat: 22.48614812396597, lng:  120.57868885718257 }); // SD家裡定位
-		  map.setZoom(19);  // SD家裡定位縮放
-		  */
+			map.setCenter({ lat: 22.48665096487434, lng: 120.57834633097687 }); 
+			map.setZoom(18);  // SD定位縮放
+			document.getElementById("factoryButton").className="btn btn-info ";
+			document.getElementById("SDButton").className="btn btn-info active";
+			document.getElementById("JKAButton").className="btn btn-info ";
+			document.getElementById("JKBButton").className="btn btn-info ";
 		}
 		function changePositionJKA()
 		{
-		  map.setCenter({ lat: 22.47870410125927, lng:  120.56927710840841 }); // A區定位
-		  map.setZoom(18);  // A區定位定位縮放
+			map.setCenter({ lat: 22.47870410125927, lng:  120.56927710840841 }); // A區定位
+			map.setZoom(18);  // A區定位定位縮放
+			document.getElementById("factoryButton").className="btn btn-info ";
+			document.getElementById("SDButton").className="btn btn-info ";
+			document.getElementById("JKAButton").className="btn btn-info active";
+			document.getElementById("JKBButton").className="btn btn-info ";
 		}
 		function changePositionJKB()
 		{
-		  map.setCenter({ lat: 22.476415032228022, lng: 120.56906024870474 }); // B區定位
-		  map.setZoom(17);  // B區定位定位縮放
+			map.setCenter({ lat: 22.476415032228022, lng: 120.56906024870474 }); // B區定位
+			map.setZoom(17);  // B區定位定位縮放
+			document.getElementById("factoryButton").className="btn btn-info ";
+			document.getElementById("SDButton").className="btn btn-info ";
+			document.getElementById("JKAButton").className="btn btn-info ";
+			document.getElementById("JKBButton").className="btn btn-info active";
 		}
 		
+		// Specify the JSON data to be displayed
+		var mydata =
+		  [
+			{
+			  "id": "工廠大池1",
+			  "name": "Mark Smith",
+			  "date": "25/5/2020"
+			},{
+			  "id": "工廠大池2",
+			  "name": "Mark Smith",
+			  "date": "25/5/2020"
+			},{
+			  "id": "工廠大池3",
+			  "name": "Mark Smith",
+			  "date": "25/5/2020"
+			},
+			{
+			  "id": "工廠FRP-1",
+			  "name": "Mark Smith",
+			  "date": "25/5/2020"
+			},{
+			  "id": "工廠FRP-2",
+			  "name": "Mark Smith",
+			  "date": "25/5/2020"
+			},{
+			  "id": "工廠FRP-3",
+			  "name": "Mark Smith",
+			  "date": "25/5/2020"
+			},
+			{
+			  "id": "工廠大桶1",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶2",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶3",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶4",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶5",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶6",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶7",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶8",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶9",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶10",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶11",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶12",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶13",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶14",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶15",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶16",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶17",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶18",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶19",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠大桶20",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠小桶S1",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠小桶S2",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠小桶S3",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠小桶S4",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠小桶S5",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			},
+			{
+			  "id": "工廠小桶S6",
+			  "name": "Caitlin MacDonald",
+			  "date": "17/5/2020"
+			}
+		  ];
 		
+		$(document).ready(function () {
+		  $('table').bootstrapTable({
+			data: mydata
+		  });
+		});
+	  
+		// Parse the imported data as JSON
+		// and store it
+		var mydata = JSON.parse(da);
+		
+
 	</script>
 </head>
 <body>
@@ -455,16 +643,34 @@
       async
     ></script></div>
 	 
-	<div class="dropdown show" >
-	  <a style="font-size:12pt; background-color:#8E8E8E" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		切換位置
-	  </a>
-	  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="font-size:10pt">
-		<a class="dropdown-item" href="#" onclick="changePositionFactory()">工廠</a>
-		<a class="dropdown-item" href="#" onclick="changePositionSD()">SD</a>
-		<a class="dropdown-item" href="#" onclick="changePositionJKA()">A區</a>
-		<a class="dropdown-item" href="#" onclick="changePositionJKB()">B區</a>
-	  </div>
+	 <div class="btn-group btn-group-lg" role="group" >
+	  <button type="button" id="factoryButton" class="btn btn-info"  style="font-size:12pt;" onclick="changePositionFactory()">工廠</button>
+	  <button type="button" id="SDButton"  class="btn btn-info"  style="font-size:12pt;"  onclick="changePositionSD()">SD</button>
+	  <button type="button" id="JKAButton"  class="btn btn-info"  style="font-size:12pt;" onclick="changePositionJKA()">A區</button>
+	  <button type="button" id="JKBButton"  class="btn btn-info"  style="font-size:12pt;" onclick="changePositionJKB()">B區</button>
+	</div>
+	  <table class="table-striped border-success">
+        <thead>
+          <tr>
+            <th data-field="id">
+              <span class="text-success">
+                魚池編號
+              </span>
+            </th>
+            <th data-field="name">
+              <span class="text-success">
+                種魚
+              </span>
+            </th>
+            <th data-field="date">
+              <span class="text-success">
+                更新日期
+              </span>
+            </th>
+          </tr>
+        </thead>
+      </table>
+	  
 	</div>
 	
 </div><!-- /.container -->
