@@ -111,7 +111,7 @@
 			strokePosition: google.maps.StrokePosition.CENTER,
 			fillColor: '#FFD306',
 			fillOpacity: 0.5,
-			label: '工廠FRP-1',
+			label: 'C4',
 			map:map
 			});   
 			var pathFactoryOutsideFRP2 = new google.maps.Polygon({
@@ -122,7 +122,7 @@
 			strokePosition: google.maps.StrokePosition.CENTER,
 			fillColor: '#FFD306',
 			fillOpacity: 0.5,
-			label: '工廠FRP-2',
+			label: 'C5',
 			map:map
 			});   
 			var pathFactoryOutsideFRP2 = new google.maps.Polygon({
@@ -133,7 +133,7 @@
 			strokePosition: google.maps.StrokePosition.CENTER,
 			fillColor: '#FFD306',
 			fillOpacity: 0.5,
-			label: '工廠FRP-3',
+			label: 'C6',
 			map:map
 			});   			
 			var pathFactoryOutsideBig1 = new google.maps.Polygon({
@@ -144,7 +144,7 @@
 			strokePosition: google.maps.StrokePosition.CENTER,
 			fillColor: '#FF8000',
 			fillOpacity: 0.35,
-			label: '工廠大池1',
+			label: 'C1',
 			map:map
 			});   
 			var pathFactoryOutsideBig2 = new google.maps.Polygon({
@@ -155,7 +155,7 @@
 			strokePosition: google.maps.StrokePosition.CENTER,
 			fillColor: '#FF8000',
 			fillOpacity: 0.35,
-			label: '工廠大池2',
+			label: 'C2',
 			map:map
 			});   
 			var pathFactoryOutsideBig2 = new google.maps.Polygon({
@@ -166,7 +166,7 @@
 			strokePosition: google.maps.StrokePosition.CENTER,
 			fillColor: '#FF8000',
 			fillOpacity: 0.35,
-			label: '工廠大池3',
+			label: 'C3',
 			map:map
 			});   
 			
@@ -179,35 +179,35 @@
 			position:  { lat:  22.487946831008987, lng: 120.58039783743602 },
 			map: map,
 			icon: FRPIcon,
-			label: '1',
+			label: 'C4',
 			});
 			var markerFactoryOutsideFRP2 = new google.maps.Marker({
 			position:  { lat:  22.487996396076856, lng: 120.58037906197323 },
 			map: map,
 			icon: FRPIcon,
-			label: '2',
+			label: 'C5',
 			});
 			var markerFactoryOutsideFRP3 = new google.maps.Marker({
 			position:  { lat:  22.488015602535885, lng: 120.58043136504817 },
 			map: map,
 			icon: FRPIcon,
-			label: '3',
+			label: 'C6',
 			});
 			
 			var markerFactoryOutsideBig1 = new google.maps.Marker({
 			position:  { lat:  22.487681171106185, lng: 120.58013656998223 },
 			map: map,
-			label: '1',
+			label: 'C1',
 			});
 			var markerFactoryOutsideBig2 = new google.maps.Marker({
 			position:  { lat:  22.48779764921287, lng: 120.58004001046538 },
 			map: map,
-			label: '2',
+			label: 'C2',
 			});
 			var markerFactoryOutsideBig3 = new google.maps.Marker({
 			position:  { lat:  22.48788996423699, lng: 120.58018484974588 },
 			map: map,
-			label: '3',
+			label: 'C3',
 			});
 			 // info window  https://www.letswrite.tw/google-map-api-marker-custom/
 			 
@@ -332,7 +332,7 @@
 			} 
 			];
 
-			var factoryCircleNum = [20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 6, 5, 4, 3, 2, 1];
+			var factoryCircleNum = ['F20', 'F19', 'F18', 'F17', 'F16', 'F15', 'F14', 'F13', 'F12', 'F11', 'F10', 'F9', 'F8', 'F7', 'F6', 'F5', 'F4', 'F3', 'F2', 'F1', 'S6', 'S5', 'S4', 'S3', 'S2', 'S1'];
 			var factoryCircle = [];
 			var factoryCircleMarker = [];
 			var factoryCircleInfowindow = [];
@@ -434,7 +434,7 @@
 		function changePositionJKA()
 		{
 			map.setCenter({ lat: 22.47870410125927, lng:  120.56927710840841 }); // A區定位
-			map.setZoom(18);  // A區定位定位縮放
+			map.setZoom(18.5);  // A區定位定位縮放
 			document.getElementById("factoryButton").className="btn btn-info ";
 			document.getElementById("SDButton").className="btn btn-info ";
 			document.getElementById("JKAButton").className="btn btn-info active";
@@ -443,7 +443,7 @@
 		function changePositionJKB()
 		{
 			map.setCenter({ lat: 22.476415032228022, lng: 120.56906024870474 }); // B區定位
-			map.setZoom(17);  // B區定位定位縮放
+			map.setZoom(17.8);  // B區定位定位縮放
 			document.getElementById("factoryButton").className="btn btn-info ";
 			document.getElementById("SDButton").className="btn btn-info ";
 			document.getElementById("JKAButton").className="btn btn-info ";
@@ -454,159 +454,159 @@
 		var mydata =
 		  [
 			{
-			  "id": "工廠大池1",
-			  "name": "Mark Smith",
+			  "id": "工廠C1",
+			  "name": "YY♀(4) + YY♂ (2)",
+			  "date": "2021/12/20"
+			},{
+			  "id": "工廠C2",
+			  "name": "純♀♂ + R.B♂ + B  + RR.F4 + C♀",
 			  "date": "25/5/2020"
 			},{
-			  "id": "工廠大池2",
-			  "name": "Mark Smith",
+			  "id": "工廠C3",
+			  "name": "工廠大池3",
+			  "date": "25/5/2020"
+			},
+			{
+			  "id": "工廠C4",
+			  "name": "",
 			  "date": "25/5/2020"
 			},{
-			  "id": "工廠大池3",
-			  "name": "Mark Smith",
-			  "date": "25/5/2020"
-			},
-			{
-			  "id": "工廠FRP-1",
-			  "name": "Mark Smith",
+			  "id": "工廠C5",
+			  "name": "",
 			  "date": "25/5/2020"
 			},{
-			  "id": "工廠FRP-2",
-			  "name": "Mark Smith",
-			  "date": "25/5/2020"
-			},{
-			  "id": "工廠FRP-3",
-			  "name": "Mark Smith",
+			  "id": "工廠C6",
+			  "name": "",
 			  "date": "25/5/2020"
 			},
 			{
-			  "id": "工廠大桶1",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F1",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶2",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F2",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶3",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F3",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶4",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F4",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶5",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F5",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶6",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F6",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶7",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F7",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶8",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F8",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶9",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F9",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶10",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F10",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶11",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F11",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶12",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F12",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶13",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F13",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶14",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F14",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶15",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F15",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶16",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F16",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶17",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F17",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶18",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F18",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶19",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F19",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠大桶20",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠F20",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠小桶S1",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠S1",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠小桶S2",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠S2",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠小桶S3",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠S3",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠小桶S4",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠S4",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠小桶S5",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠S5",
+			  "name": "",
 			  "date": "17/5/2020"
 			},
 			{
-			  "id": "工廠小桶S6",
-			  "name": "Caitlin MacDonald",
+			  "id": "工廠S6",
+			  "name": "",
 			  "date": "17/5/2020"
 			}
 		  ];
@@ -629,7 +629,7 @@
 
 <div style="background-color:#ffffff; opacity: 0.5">
 		<p style="margin:12px;">
-			<font color="#000000" style="font-size:19pt"><CENTER>種魚管理系統 - 聖鯛水產科技</CENTER></font>
+			<font color="#000000" style="font-size:15pt"><CENTER>種魚管理系統 - 聖鯛水產科技</CENTER></font>
 		</p>
 		<p style="margin:12px;"></p>
 </div>
@@ -642,19 +642,30 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhI-bEG0jYoMtM4O15cuoaHk8cKIdTPlE&callback=initMap&v=weekly"
       async
     ></script></div>
-	 
-	 <div class="btn-group btn-group-lg" role="group" >
-	  <button type="button" id="factoryButton" class="btn btn-info"  style="font-size:12pt;" onclick="changePositionFactory()">工廠</button>
-	  <button type="button" id="SDButton"  class="btn btn-info"  style="font-size:12pt;"  onclick="changePositionSD()">SD</button>
-	  <button type="button" id="JKAButton"  class="btn btn-info"  style="font-size:12pt;" onclick="changePositionJKA()">A區</button>
-	  <button type="button" id="JKBButton"  class="btn btn-info"  style="font-size:12pt;" onclick="changePositionJKB()">B區</button>
-	</div>
-	  <table class="table-striped border-success">
+	 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-top:5px" >
+		<div class="btn-group btn-group-lg" role="group">
+		  <button type="button" id="factoryButton" class="btn btn-info"  style="font-size:12pt;" onclick="changePositionFactory()">工廠</button>
+		  <button type="button" id="SDButton"  class="btn btn-info"  style="font-size:12pt;"  onclick="changePositionSD()">SD</button>
+		  <button type="button" id="JKAButton"  class="btn btn-info"  style="font-size:12pt;" onclick="changePositionJKA()">A區</button>
+		  <button type="button" id="JKBButton"  class="btn btn-info"  style="font-size:12pt;" onclick="changePositionJKB()">B區</button>
+		</div>
+	  <div class="input-group input-group-lg">
+			<div class="input-group-prepend">
+			<span class="input-group-text" id="" style="font-size:12pt;" >工廠C1</span>
+			</div>
+			<input type="text" class="form-control" style="font-size:12pt;" size="10">
+			<div class="input-group-append">
+			<button class="btn btn-secondary" type="button" style="font-size:12pt;" >修改</button>
+			</div>
+		</div>
+  </div>
+	<div style="height:30%;" >
+	  <table class="table-striped border-success" >
         <thead>
           <tr>
-            <th data-field="id">
+            <th data-field="id" width="20px">
               <span class="text-success">
-                魚池編號
+                編號
               </span>
             </th>
             <th data-field="name">
@@ -670,7 +681,7 @@
           </tr>
         </thead>
       </table>
-	  
+	  </div>
 	</div>
 	
 </div><!-- /.container -->
