@@ -33,7 +33,7 @@
 			  padding: 0;
 		}
 		#map {
-		  height: 60%;
+		  height: 50%;
 		  width: 100%;
 		  <!--margin: 0 auto; -->
 		}
@@ -79,7 +79,7 @@
 		  var rectangle_marker_factory_big_2 = new google.maps.Marker({
 			position:  { lat:  22.487801380549737, lng: 120.5799506545972 },
 			map: map,
-			label: '大池2',
+			label: '大2',
 		  });
 		  //點進去可以看!!! 圖標資訊的 https://www.letswrite.tw/google-map-api-marker-custom/
 		  // info window
@@ -95,38 +95,152 @@
 		  
 		  // 畫圓形 https://www.oxxostudio.tw/articles/201802/google-maps-12-rect-circle.html
 		  var position = [{ 
-			  lat: 22.4877468588973,
-			  lng: 120.58021082886438
+			  lat: 22.4877558202967, //20
+			  lng: 120.5802069585460
 			}, {
-			  lat: 22.487717119805087,
-			  lng: 120.58023765095376
-			}
+			  lat: 22.4877405971288, //19
+			  lng: 120.5802210535970
+			}, {
+			  lat: 22.4877253739610, //18
+			  lng: 120.5802351486480
+			}, {
+			  lat: 22.4877101507931, //17
+			  lng: 120.5802492436990
+			}, {
+			  lat: 22.4876949276253, //16
+			  lng: 120.5802633387500
+			}, {
+			  lat: 22.4876797044574, //15
+			  lng: 120.5802774338020
+			}, {
+			  lat: 22.4876644812896, //14
+			  lng: 120.5802915288530
+			}, {
+			  lat: 22.4876492581217, //13
+			  lng: 120.5803056239040
+			}, {
+			  lat: 22.4876340349538, //12
+			  lng: 120.5803197189550
+			}, {
+			  lat: 22.4876188117860, //11
+			  lng: 120.5803338140060
+			} , {
+			  lat: 22.48764938473219, //10
+			  lng: 120.58035064435704
+			} , {
+			  lat: 22.487636373870973, //9 
+			  lng: 120.58036472595373
+			} , {
+			  lat: 22.4876524825561, //8
+			  lng: 120.5803915480420
+			} , {
+			  lat: 22.4876677061419, //7
+			  lng: 120.5803782327910
+			} , {
+			  lat: 22.4876829297277, //6
+			  lng: 120.5803649175390
+			} , {
+			  lat: 22.4876981533135, //5
+			  lng: 120.5803516022880
+			} , {
+			  lat: 22.4877133768993, //4
+			  lng: 120.5803382870370
+			} , {
+			  lat: 22.4877286004851, //3
+			  lng: 120.5803249717860
+			} , {
+			  lat: 22.4877438240709, //2
+			  lng: 120.5803116565340
+			} , {
+			  lat: 22.4877590476567, //1
+			  lng: 120.5802983412830
+			}  , {
+			  lat: 22.4877342650824, //S6
+			  lng: 120.5802708486420
+			} , {
+			  lat: 22.4877207585750, //S5
+			  lng: 120.5802830526920
+			} , {
+			  lat: 22.4877072520675, //S4
+			  lng: 120.5802952567430
+			} , {
+			  lat: 22.4876937455601, //S3
+			  lng: 120.5803074607930
+			} , {
+			  lat: 22.4876802390526, //S2
+			  lng: 120.5803196648440
+			} , {
+			  lat: 22.4876667325452, //S1
+			  lng: 120.5803318688940
+			} 
 			];
-
-			var factoryCircleNum = [1, 2, 3];
+			
+			var factoryCircleNum = [20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 6, 5, 4, 3, 2, 1];
 			var factoryCircle = [];
 			var factoryCircleMarker = [];
 			var factoryCircleInfowindow = [];
-		  
+			var circleIconS = {
+					url: "", // url image/circle_icon.svg
+					scaledSize: new google.maps.Size(18, 18), // scaled size
+					anchor: new google.maps.Point(9, 9),
+			};
+			var circleIconL = {
+					url: "", // url image/circle_icon.svg
+					scaledSize: new google.maps.Size(22, 22), // scaled size
+					anchor: new google.maps.Point(11, 11),
+			};
 			 position.forEach(function(e, i) {
-				factoryCircle[i] = new google.maps.Circle({
-				  center: e,
-				  radius: 1.1,
-				  strokeOpacity: 0,
-				  fillColor: '#f00',
-				  fillOpacity: 0.35,
-				  map: map
-				});
-				factoryCircleMarker[i] = new google.maps.Marker({
-				  position: e,
-				  map: map,
-				  label: factoryCircleNum[i].toString()
-				});
+				 if  (i<=19)
+				 {
+					factoryCircle[i] = new google.maps.Circle({
+					  center: e,
+					  radius: 1.1,
+					  strokeOpacity: 0,
+					  fillColor: '#f00',
+					  fillOpacity: 0.35,
+					  map: map
+					});
+					factoryCircleMarker[i] = new google.maps.Marker({
+					  position: e,
+					  map: map,
+					  icon: circleIconL,
+					  label: {
+						fontSize: "9pt",
+						text: factoryCircleNum[i].toString()
+					  } 
+					});
+					factoryCircleInfowindow[i] = new google.maps.InfoWindow({
+					  content: "<div id='divInfowindow'><h7> "
+					  + factoryCircleNum[i] + "</h7></div>" // 支援html
+					});
+				 }
+				 else
+				 {
+					factoryCircle[i] = new google.maps.Circle({
+					  center: e,
+					  radius: 0.9,
+					  strokeOpacity: 0,
+					  fillColor: '#006',
+					  fillOpacity: 0.35,
+					  map: map
+					});
+					factoryCircleMarker[i] = new google.maps.Marker({
+					  position: e,
+					  map: map,
+					  icon: circleIconS,
+					  label: {
+						fontSize: "9pt",
+						text: factoryCircleNum[i].toString()
+					  }
+					});
+					factoryCircleInfowindow[i] = new google.maps.InfoWindow({
+				  content: "<div id='divInfowindow'><h7> "
+				  + factoryCircleNum[i] + "</h7></div>" // 支援html
+					});
+				}
 				
-				factoryCircleInfowindow[i] = new google.maps.InfoWindow({
-				  content: "<div id='divInfowindow'><h6> "
-				  + factoryCircleNum[i] + "</h6></div>" // 支援html
-				});
+				
+				
 				  factoryCircleMarker[i].addListener('click', e => {
 					factoryCircleInfowindow[i].open(this.map, factoryCircleMarker[i]);
 				});
@@ -150,7 +264,7 @@
 		function changePositionSD()
 		{
 		  map.setCenter({ lat: 22.487148410199673, lng: 120.5782556936967 }); // SD定位
-		  map.setZoom(19);  // SD定位縮放
+		  map.setZoom(20);  // SD定位縮放
 		  /*
 		  map.setCenter({ lat: 22.48614812396597, lng:  120.57868885718257 }); // SD家裡定位
 		  map.setZoom(19);  // SD家裡定位縮放
@@ -159,12 +273,12 @@
 		function changePositionJKA()
 		{
 		  map.setCenter({ lat: 22.47870410125927, lng:  120.56927710840841 }); // A區定位
-		  map.setZoom(19);  // A區定位定位縮放
+		  map.setZoom(20);  // A區定位定位縮放
 		}
 		function changePositionJKB()
 		{
 		  map.setCenter({ lat: 22.476415032228022, lng: 120.56906024870474 }); // B區定位
-		  map.setZoom(19);  // B區定位定位縮放
+		  map.setZoom(20);  // B區定位定位縮放
 		}
 		
 		
@@ -181,18 +295,6 @@
 </div>
 
 <div class="container">
-    
-	<div class="dropdown show">
-	  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		切換位置
-	  </a>
-	  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		<a class="dropdown-item" href="#" onclick="changePositionFactory()">工廠</a>
-		<a class="dropdown-item" href="#" onclick="changePositionSD()">SD</a>
-		<a class="dropdown-item" href="#" onclick="changePositionJKA()">A區</a>
-		<a class="dropdown-item" href="#" onclick="changePositionJKB()">B區</a>
-	  </div>
-	</div>
 
 	<div id="map">
 	<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
@@ -200,6 +302,19 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhI-bEG0jYoMtM4O15cuoaHk8cKIdTPlE&callback=initMap&v=weekly"
       async
     ></script></div>
+	 
+	<div class="dropdown show" >
+	  <a style="font-size:12pt; background-color:#8E8E8E" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		切換位置
+	  </a>
+	  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="font-size:10pt">
+		<a class="dropdown-item" href="#" onclick="changePositionFactory()">工廠</a>
+		<a class="dropdown-item" href="#" onclick="changePositionSD()">SD</a>
+		<a class="dropdown-item" href="#" onclick="changePositionJKA()">A區</a>
+		<a class="dropdown-item" href="#" onclick="changePositionJKB()">B區</a>
+	  </div>
+	</div>
+	
 </div><!-- /.container -->
 	
 </div>
