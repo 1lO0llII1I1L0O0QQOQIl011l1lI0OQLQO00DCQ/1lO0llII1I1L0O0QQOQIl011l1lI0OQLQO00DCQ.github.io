@@ -63,7 +63,15 @@
 			streetViewControl: false,
 			zoomControl: false
 			});
-
+			
+			
+			var circleIcon = {
+				url: "", // url image/circle_icon.svg
+				scaledSize: new google.maps.Size(22, 22), // scaled size
+				anchor: new google.maps.Point(11, 11),
+			};
+			
+			changePositionJKA();
 			// 畫多邊形 https://www.oxxostudio.tw/articles/201802/google-maps-11-polygon.html
 
 			// SD
@@ -92,6 +100,19 @@
 			{lat: 22.487378141458084 , lng:  120.57866435148551}, //右下
 			{lat: 22.487927315748305, lng:  120.57833684207627} //右上
 			];
+			var pointsSD8 = [
+			{lat: 22.4865189797307  , lng:  120.578602071532},// 左上
+			{lat: 22.4862860212708, lng: 120.578819330452},    // 左下
+			{lat: 22.4864025003537 , lng:  120.578982945194}, //右下
+			{lat: 22.4866354588136, lng:  120.578765686274} //右上
+			];
+			var pointsSD11 = [
+			{lat: 22.485914278230016  , lng:  120.57834726167658},// 左上
+			{lat: 22.485678840458025, lng: 120.5782641132014},    // 左下
+			{lat: 22.485614404787466 , lng:  120.57856452059565}, //右下
+			{lat: 22.485854799251744, lng:  120.57859402489333} //右上
+			];
+			
 			
 			var pathSD1 = new google.maps.Polygon({
 			paths: pointsSD1,
@@ -99,7 +120,7 @@
 			strokeOpacity: .5,
 			strokeWeight: 3,
 			strokePosition: google.maps.StrokePosition.CENTER,
-			fillColor: '#FFD306',
+			fillColor: '#006030',
 			fillOpacity: 0.5,
 			label: 'D1',
 			map:map
@@ -110,7 +131,7 @@
 			strokeOpacity: .5,
 			strokeWeight: 3,
 			strokePosition: google.maps.StrokePosition.CENTER,
-			fillColor: '#FFD306',
+			fillColor: '#006030',
 			fillOpacity: 0.5,
 			label: 'D2',
 			map:map
@@ -121,7 +142,7 @@
 			strokeOpacity: .5,
 			strokeWeight: 3,
 			strokePosition: google.maps.StrokePosition.CENTER,
-			fillColor: '#FFD306',
+			fillColor: '#006030',
 			fillOpacity: 0.5,
 			label: 'D3',
 			map:map
@@ -132,14 +153,36 @@
 			strokeOpacity: .5,
 			strokeWeight: 3,
 			strokePosition: google.maps.StrokePosition.CENTER,
-			fillColor: '#FFD306',
+			fillColor: '#006030',
 			fillOpacity: 0.5,
 			label: 'D4',
 			map:map
 			});   
+			var pathSD8 = new google.maps.Polygon({
+			paths: pointsSD8,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#613030',
+			fillOpacity: 0.5,
+			label: 'D8',
+			map:map
+			});   
+			var pathSD11 = new google.maps.Polygon({
+			paths: pointsSD11,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#613030',
+			fillOpacity: 0.5,
+			label: 'D11',
+			map:map
+			});   
 			
 			var markerSD1 = new google.maps.Marker({
-			position:  { lat:  22.486637757876423, lng: 120.57813487660087 }, 
+			position:  { lat:  22.48670690526174, lng: 120.57810758870731 },
 			map: map,
 			label: 'D1',
 			});
@@ -149,14 +192,24 @@
 			label: 'D2',
 			});
 			var markerSD3 = new google.maps.Marker({
-			position:  { lat:  22.486954977004242, lng: 120.57856671223016 },
+			position:  { lat:  22.486879406755364, lng: 120.5784713986229 },
 			map: map,
 			label: 'D3',
 			});
 			var markerSD4 = new google.maps.Marker({
-			position:  { lat:  22.487321760714476, lng: 120.57839773307087 },
+			position:  { lat:  22.48728107329031, lng: 120.57836788824318 },
 			map: map,
 			label: 'D4',
+			});
+			var markerSD9 = new google.maps.Marker({
+			position:  { lat:  22.486326912940388, lng: 120.578804578307 },
+			map: map,
+			label: 'D9',
+			});
+			var markerSD11 = new google.maps.Marker({
+			position:  { lat:  22.485645383481213, lng: 120.57847198439455 },
+			map: map,
+			label: 'D11',
 			});
 			
 			let infowindowSD1 = new google.maps.InfoWindow({
@@ -184,8 +237,326 @@
 			  content: "<div id='divInfowindow'><h6>SD4</h6>" // 支援html
 			});
 			markerSD4.addListener('click', e => {
-			  infowindowSD4open(this.map, markerSD4);
+			  infowindowSD4.open(this.map, markerSD4);
 			});
+			
+			let infowindowSD9 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>SD9</h6>" // 支援html
+			});
+			markerSD9.addListener('click', e => {
+			  infowindowSD9.open(this.map, markerSD9);
+			});
+			
+			let infowindowSD11 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>SD11</h6>" // 支援html
+			});
+			markerSD11.addListener('click', e => {
+			  infowindowSD11.open(this.map, markerSD11);
+			});
+			
+			// SD圓池
+			var positionCircleSD = [{ 
+				lat: 22.4866627198558, //D10
+				lng: 120.57865839790638
+				}, {
+				lat: 22.486424805075764, //D8
+				lng: 120.57856988501342
+				},{ 
+				lat: 22.4863479783407, //D7
+				lng: 120.57865571569751
+				}, {
+				lat: 22.485973757182737, //D6
+				lng: 120.57842772794291
+				}, {
+				lat: 22.485936582840285, //D5
+				lng: 120.5785376985069
+				}
+			];
+			
+			var SDCircleNum = ['D10', 'D8', 'D7', 'D6', 'D5'];
+			var SDCircle = [];
+			var SDCircleMarker = [];
+			var SDCircleInfowindow = [];
+			positionCircleSD.forEach(function(e, i) {
+				SDCircle[i] = new google.maps.Circle({
+					center: e,
+					radius: 6,
+					strokeOpacity: 0,
+					fillColor: '#00FFFF',
+					fillOpacity: 0.5,
+					map: map
+				});
+			SDCircleMarker[i] = new google.maps.Marker({
+			  position: e,
+			  map: map,
+			  icon: circleIcon,
+			  label: {
+				fontSize: "9pt",
+				text: SDCircleNum[i].toString()
+			  }
+			});
+			SDCircleInfowindow[i] = new google.maps.InfoWindow({
+		  content: "<div id='divInfowindow'><h7> "
+		  + SDCircleNum[i] + "</h7></div>" // 支援html
+			});
+			  SDCircleMarker[i].addListener('click', e => {
+				SDCircleInfowindow[i].open(this.map, SDCircleMarker[i]);
+			});
+			SDCircleMarker[i].addListener('closeclick', ()=>{
+			  SDCircleInfowindow[i].close();
+			});
+
+			});
+
+			// A區戶外圓池
+			var positionCircleJKA = [{ 
+
+				lat: 22.478821285507284, //1
+				lng: 120.5686193362054
+				}, {
+				lat: 22.4788055579031, //2
+				lng: 120.5687799532860
+				},{ 
+				lat: 22.47879050988144, //3
+				lng: 120.56892636151325
+				}, {
+				lat: 22.4787757849128, //4
+				lng: 120.5690844428330
+				}, {
+				lat: 22.4789588887119, //5
+				lng: 120.5686687904360
+				}, {
+				lat: 22.4789462352040, //6
+				lng: 120.5688186186260
+				}, {
+				lat: 22.4789335816960, //7
+				lng: 120.5689684468150
+				}, {
+				lat: 22.4789209281881, //8
+				lng: 120.5691182750050
+				}, {
+				lat: 22.478864680767234, //922., 120.22., 120.
+				lng: 120.56940020630009
+				}, {
+				lat: 22.478865300371346, //10
+				lng: 120.5697039664661
+				}
+
+			];
+			
+			var JKACircleNum = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10'];
+			var JKACircle = [];
+			var JKACircleMarker = [];
+			var JKACircleInfowindow = [];
+			positionCircleJKA.forEach(function(e, i) {
+			if(i<8)
+			{
+				JKACircle[i] = new google.maps.Circle({
+					center: e,
+					radius: 7.5,
+					strokeOpacity: 0,
+					fillColor: '#00E3E3',
+					fillOpacity: 0.6,
+					map: map
+				});
+			}
+			else
+			{
+				JKACircle[i] = new google.maps.Circle({
+						center: e,
+						radius: 15,
+						strokeOpacity: 0,
+						fillColor: '#00E3E3',
+						fillOpacity: 0.6,
+						map: map
+					});
+			}
+			JKACircleMarker[i] = new google.maps.Marker({
+			  position: e,
+			  map: map,
+			  icon: circleIcon,
+			  label: {
+				fontSize: "9pt",
+				text: JKACircleNum[i].toString()
+			  }
+			});
+			JKACircleInfowindow[i] = new google.maps.InfoWindow({
+		  content: "<div id='divInfowindow'><h7> "
+		  + JKACircleNum[i] + "</h7></div>" // 支援html
+			});
+			  JKACircleMarker[i].addListener('click', e => {
+				JKACircleInfowindow[i].open(this.map, JKACircleMarker[i]);
+			});
+			JKACircleMarker[i].addListener('closeclick', ()=>{
+			  JKACircleInfowindow[i].close();
+			});
+
+			});
+			
+			// A區戶外大池
+			var pointsJKA11 = [
+			{lat: 22.478690485704032 , lng:  120.56847570492755},// 左上22., 120.
+			{lat: 22.478539274806703, lng: 120.56841808372751},    // 左下 22., 120.
+			{lat: 22.478472188228956 , lng:  120.56884217575993},   //右下22., 120.
+			{lat: 22.478662799214042, lng:  120.56885946211993} //右上 22., 120.
+			];
+			var pointsJKA12 = [
+			{lat: 22.478662799214042 , lng:  120.56885946211993},// 左上22., 120.
+			{lat: 22.478472188228956, lng: 120.56884217575993},    // 左下22., 120.
+			{lat: 22.478423204355714 , lng:  120.56925935325923},   //右下 22., 120.
+			{lat: 22.478635112716233, lng:  120.56926857265123} //右上22., 120.
+			];
+			var pointsJKA13 = [
+			{lat: 22.478635112716233 , lng:  120.56926857265123},// 左上22., 120.
+			{lat: 22.478423204355714, lng: 120.56925935325923},    // 左下22., 120.
+			{lat: 22.478365701529054 , lng:  120.57007411703493},   //右下22., 120.
+			{lat: 22.478694745161715, lng:  120.57004415401092} //右上 22., 120.
+			];
+			
+			var pathJKA11 = new google.maps.Polygon({
+			paths: pointsJKA11,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#006030',
+			fillOpacity: 0.5,
+			label: 'A11',
+			map:map
+			});   
+			var pathJKA12 = new google.maps.Polygon({
+			paths: pointsJKA12,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#006030',
+			fillOpacity: 0.5,
+			label: 'A12',
+			map:map
+			});   
+			var pathJKA13 = new google.maps.Polygon({
+			paths: pointsJKA13,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#006030',
+			fillOpacity: 0.5,
+			label: 'A13',
+			map:map
+			});   
+			
+			
+			
+			var markerJKA11 = new google.maps.Marker({
+			position:  { lat:  22.478541665945322, lng: 120.5686352200864 },
+			map: map,
+			label: 'A11',
+			});
+			var markerJKA12 = new google.maps.Marker({
+			position:  { lat:  22.47850120102999, lng: 120.56904778786436 }, 
+			map: map,
+			label: 'A12',
+			});
+			var markerJKA13 = new google.maps.Marker({
+			position:  { lat:  22.478475644235285, lng: 120.56966548710734 },
+			map: map,
+			label: 'A13',
+			});
+		
+			let infowindowJKA11 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>A11</h6>" // 支援html
+			});
+			markerJKA11.addListener('click', e => {
+			  infowindowJKA11.open(this.map, markerJKA11);
+			});
+			
+			let infowindowJKA12 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>A12</h6>" // 支援html
+			});
+			markerJKA12.addListener('click', e => {
+			  infowindowJKA12.open(this.map, markerJKA12);
+			});
+			
+			let infowindowJKA13 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>A13</h6>" // 支援html
+			});
+			markerJKA13.addListener('click', e => {
+			  infowindowJKA13.open(this.map, markerJKA13);
+			});
+			
+			// A區_G_室內溫室
+			var positionCircleJKA_G_ = [{
+				lat: 22.4789704188038, //10
+				lng: 120.5699656616480
+				}, {
+				lat: 22.4789155838385, //9
+				lng: 120.5699641529050
+				}, {
+				lat: 22.4788607488731, //8
+				lng: 120.5699626441630
+				}, {
+				lat: 22.4788059139078, //7
+				lng: 120.5699611354200
+				}, {
+				lat: 22.4787510789425, //6
+				lng: 120.5699596266780
+				}, { 
+				lat: 22.4789716580110, //5
+				lng: 120.5698838542740
+				}, {
+				lat: 22.4789169779477, //4
+				lng: 120.5698818426170
+				},{ 
+				lat: 22.4788622978843, //3
+				lng: 120.5698798309610
+				}, {
+				lat: 22.4788076178210, //2
+				lng: 120.5698778193040
+				}, {
+				lat: 22.4787529377576, //1
+				lng: 120.5698758076470
+				}, 
+
+			];
+			
+			var JKA_G_CircleNum = ['G10', 'G9', 'G8', 'G7', 'G6', 'G5', 'G4', 'G3', 'G2', 'G1', ];
+			var JKA_G_Circle = [];
+			var JKA_G_CircleMarker = [];
+			var JKA_G_CircleInfowindow = [];
+			positionCircleJKA_G_.forEach(function(e, i) {
+				JKA_G_Circle[i] = new google.maps.Circle({
+					center: e,
+					radius: 3,
+					strokeOpacity: 0,
+					fillColor: '#28FF28',
+					fillOpacity: 0.6,
+					map: map
+				});
+			
+			JKA_G_CircleMarker[i] = new google.maps.Marker({
+			  position: e,
+			  map: map,
+			  icon: circleIcon,
+			  label: {
+				fontSize: "9pt",
+				text: JKA_G_CircleNum[i].toString()
+			  }
+			});
+			JKA_G_CircleInfowindow[i] = new google.maps.InfoWindow({
+		  content: "<div id='divInfowindow'><h7> "
+		  + JKA_G_CircleNum[i] + "</h7></div>" // 支援html
+			});
+			  JKA_G_CircleMarker[i].addListener('click', e => {
+				JKA_G_CircleInfowindow[i].open(this.map, JKA_G_CircleMarker[i]);
+			});
+			JKA_G_CircleMarker[i].addListener('closeclick', ()=>{
+			  JKA_G_CircleInfowindow[i].close();
+			});
+
+			});
+			
 			
 			// 工廠
 			
@@ -374,7 +745,7 @@
 			  
 		  
 			// 畫工廠圓池 https://www.oxxostudio.tw/articles/201802/google-maps-12-rect-circle.html
-			var position = [{ 
+			var positionCircleFactory = [{ 
 			lat: 22.4877558202967, //20
 			lng: 120.5802069585460
 			}, {
@@ -459,17 +830,12 @@
 			var factoryCircle = [];
 			var factoryCircleMarker = [];
 			var factoryCircleInfowindow = [];
-			var circleIconS = {
+			var circleIcon = {
 				url: "", // url image/circle_icon.svg
 				scaledSize: new google.maps.Size(18, 18), // scaled size
 				anchor: new google.maps.Point(9, 9),
 			};
-			var circleIconL = {
-				url: "", // url image/circle_icon.svg
-				scaledSize: new google.maps.Size(22, 22), // scaled size
-				anchor: new google.maps.Point(11, 11),
-			};
-			position.forEach(function(e, i) {
+			positionCircleFactory.forEach(function(e, i) {
 			 if  (i<=19)
 			 {
 				factoryCircle[i] = new google.maps.Circle({
@@ -496,7 +862,7 @@
 			factoryCircleMarker[i] = new google.maps.Marker({
 			  position: e,
 			  map: map,
-			  icon: circleIconS,
+			  icon: circleIcon,
 			  label: {
 				fontSize: "9pt",
 				text: factoryCircleNum[i].toString()
@@ -535,8 +901,8 @@
 		}
 		function changePositionSD()
 		{
-			map.setCenter({ lat: 22.48665096487434, lng: 120.57834633097687 }); 
-			map.setZoom(18);  // SD定位縮放
+			map.setCenter({ lat: 22.48654928828763, lng: 120.57834320176198 }); 
+			map.setZoom(17.8);  // SD定位縮放
 			document.getElementById("factoryButton").className="btn btn-info ";
 			document.getElementById("SDButton").className="btn btn-info active";
 			document.getElementById("JKAButton").className="btn btn-info ";
@@ -760,11 +1126,11 @@
 		  <button type="button" id="JKAButton"  class="btn btn-info"  style="font-size:12pt;" onclick="changePositionJKA()">A區</button>
 		  <button type="button" id="JKBButton"  class="btn btn-info"  style="font-size:12pt;" onclick="changePositionJKB()">B區</button>
 		</div>
-	  <div class="input-group input-group-lg">
+	  <div style="margin-left:10px;" class="input-group input-group-lg">
 			<div class="input-group-prepend">
 			<span class="input-group-text" id="" style="font-size:12pt;" >工廠C1</span>
 			</div>
-			<input type="text" class="form-control" style="font-size:12pt;" size="10">
+			<input type="text" class="form-control" style="font-size:12pt;" size="7">
 			<div class="input-group-append">
 			<button class="btn btn-secondary" type="button" style="font-size:12pt;" >修改</button>
 			</div>
