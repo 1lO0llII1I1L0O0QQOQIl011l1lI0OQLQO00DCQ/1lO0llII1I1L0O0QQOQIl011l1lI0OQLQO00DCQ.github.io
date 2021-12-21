@@ -47,6 +47,9 @@
 			width: 100px;
 			margin: 0 auto; 
 		}
+		table tbody tr.highlight td {
+		  background-color: #ff0000;
+		}
 	</style>
     <title>種魚管理 - 聖鯛水產科技</title>
 	<script>
@@ -966,11 +969,24 @@
 			});
 
 			});
+			
+		var table = document.getElementById("tableID");
+		
+		if (table != null) {
+		   for (var i = 0; i < table.rows.length; i++) {
+			  for (var j = 0; j < table.rows[i].cells.length; j++)
+				 table.rows[i].cells[0].onclick = function() {
+					//tableText(this);
+					document.getElementById("modifyID").innerHTML=this.innerHTML;
+				 };
+		   }
+		}
+/*
+		function tableText(tableCell) {
+		   alert(tableCell.innerHTML);
+		}
 
-		  
-		  
-		  
-		  
+		  */
 		  
 		}
 		function changePositionFactory()
@@ -1181,7 +1197,6 @@
 		// and store it
 		var mydata = JSON.parse(da);
 		
-
 	</script>
 </head>
 <body>
@@ -1212,7 +1227,7 @@
 		</div>
 	  <div style="margin-left:10px;" class="input-group input-group-sm input-group">
 			<div class="input-group-prepend">
-			<span class="input-group-text" id="" style="font-size:10pt;" >工廠C1</span>
+			<span class="input-group-text" id="modifyID" style="font-size:10pt;" >工廠C1</span>
 			</div>
 			<input type="text" class="form-control" style="font-size:10pt;" size="7">
 			<div class="input-group-append">
@@ -1221,21 +1236,21 @@
 		</div>
   </div>
 	<div style="height:30%;" >
-	  <table class="table-striped border-success" style="font-size:10pt" >
-        <thead>
-          <tr>
+	  <table class="table table-hover table-light" style="font-size:10pt" id="tableID">
+        <thead class="thead-dark">
+          <tr >
             <th data-field="id" width="20px">
-              <span class="text-success">
+              <span >
                 編號
               </span>
             </th>
             <th data-field="name">
-              <span class="text-success">
+              <span>
                 種魚資料
               </span>
             </th>
             <th data-field="date">
-              <span class="text-success">
+              <span>
                 更新日期
               </span>
             </th>
