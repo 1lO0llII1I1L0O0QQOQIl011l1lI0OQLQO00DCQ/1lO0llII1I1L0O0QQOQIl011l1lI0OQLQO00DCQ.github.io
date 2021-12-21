@@ -815,6 +815,7 @@
 			});
 			markerFactoryOutsideBig1.addListener('click', e => {
 			  infowindowFactoryOutsideBig1.open(this.map, markerFactoryOutsideBig1);
+			  
 			});
 			let infowindowFactoryOutsideBig2 = new google.maps.InfoWindow({
 			  content: "<div id='divInfowindow'><h6>工廠大池2的種魚</h6>" // 支援html
@@ -973,7 +974,7 @@
 		var table = document.getElementById("tableID");
 		
 		if (table != null) {
-		   for (var i = 0; i < table.rows.length; i++) {
+		   for (var i = 1; i < table.rows.length; i++) {
 			  for (var j = 0; j < table.rows[i].cells.length; j++)
 				 table.rows[i].cells[0].onclick = function() {
 					//tableText(this);
@@ -1227,9 +1228,9 @@
 		</div>
 	  <div style="margin-left:10px;" class="input-group input-group-sm input-group">
 			<div class="input-group-prepend">
-			<span class="input-group-text" id="modifyID" style="font-size:11pt;width:68px;”text-align: center; display:block;" >編號</span>
+			<span class="input-group-text" id="modifyID" style="font-size:11pt;width:67px;”text-align: center; display:block;" >工廠M20</span>
 			</div>
-			<input type="text" class="form-control" style="font-size:11pt;" size="8">
+			<input type="text" class="form-control" style="font-size:11pt;" size="7">
 			<div class="input-group-append">
 			<button class="btn btn-secondary" type="button" style="font-size:11pt;" >修改</button>
 			</div>
@@ -1241,7 +1242,7 @@
           <tr >
             <th data-field="id">
               <span >
-                編號
+                魚池編號
               </span>
             </th>
             <th data-field="name">
