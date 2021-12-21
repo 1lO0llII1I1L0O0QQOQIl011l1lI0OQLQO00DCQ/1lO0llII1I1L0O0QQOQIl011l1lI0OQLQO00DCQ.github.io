@@ -67,6 +67,35 @@
 			zoomControl: false
 			});
 			
+			var prev_infowindow =false; 
+			
+			//SD
+			var fishDataSD1 = "AABB";
+			var fishDataSD2 = "純♀♂+ R.B♂ ";
+			var fishDataSD3 = "D3";
+			var fishDataSD4 = "D4";
+			var fishDataSD6 = "D6";
+			var fishDataSD11 = "D11";
+			var fishDataSDCircle = ['D5', 'D7', 'D8', 'D9', 'D10']; // ['D5', 'D7', 'D8', 'D9', 'D10']
+			
+			//JKA
+			var fishDataJKA11 = "A11";
+			var fishDataJKA12 = "A12";
+			var fishDataJKA13 = "A13";
+			var fishDataJKACircle = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10'];  //['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10']
+			var fishDataJKA_G_Circle = ['G10', 'G9', 'G8', 'G7', 'G6', 'G5', 'G4', 'G3', 'G2', 'G1', ]; //['G10', 'G9', 'G8', 'G7', 'G6', 'G5', 'G4', 'G3', 'G2', 'G1', ];
+			
+			//JKB
+			var fishDataJKBCircle = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'];
+			
+			//工廠
+			var fishDataC1 = "C1";
+			var fishDataC2 = "C2";
+			var fishDataC3 = "C3";
+			var fishDataC4 = "C4";
+			var fishDataC5 = "C5";
+			var fishDataC6 = "C6";
+			var fishDatafactoryCircle = ['M20', 'M19', 'M18', 'M17', 'M16', 'M15', 'M14', 'M13', 'M12', 'M11', 'M10', 'M9', 'M8', 'M7', 'M6', 'M5', 'M4', 'M3', 'M2', 'M1', 'S6', 'S5', 'S4', 'S3', 'S2', 'S1'];
 			
 			var circleIcon = {
 				url: "", // url image/circle_icon.svg
@@ -215,44 +244,68 @@
 			});
 			
 			let infowindowSD1 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>SD1</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataSD1+ "</h6></div>" // 支援html
 			});
 			markerSD1.addListener('click', e => {
-			  infowindowSD1.open(this.map, markerSD1);
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowSD1;
+				infowindowSD1.open(this.map, markerSD1);
 			});
 			
 			let infowindowSD2 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>SD2</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataSD2+ "</h6></div>" // 支援html
 			});
 			markerSD2.addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowSD2;
 			  infowindowSD2.open(this.map, markerSD2);
 			});
 			
 			let infowindowSD3 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>SD3</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataSD3+ "</h6></div>" // 支援html
 			});
 			markerSD3.addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowSD3;
 			  infowindowSD3.open(this.map, markerSD3);
 			});
 			
 			let infowindowSD4 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>SD4</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataSD4+ "</h6></div>" // 支援html
 			});
 			markerSD4.addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowSD4;
 			  infowindowSD4.open(this.map, markerSD4);
 			});
 			
 			let infowindowSD6 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>SD6</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataSD6+ "</h6></div>" // 支援html
 			});
 			markerSD6.addListener('click', e => {
+			if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowSD6;
 			  infowindowSD6.open(this.map, markerSD6);
 			});
 			
 			let infowindowSD11 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>SD11</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataSD11+ "</h6></div>" // 支援html
 			});
 			markerSD11.addListener('click', e => {
+			if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowSD11;
 			  infowindowSD11.open(this.map, markerSD11);
 			});
 			
@@ -298,10 +351,13 @@
 			  }
 			});
 			SDCircleInfowindow[i] = new google.maps.InfoWindow({
-		  content: "<div id='divInfowindow'><h7> "
-		  + SDCircleNum[i] + "</h7></div>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataSDCircle[i]+ "</h6></div>" // 支援html
 			});
 			  SDCircleMarker[i].addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = SDCircleInfowindow[i];
 				SDCircleInfowindow[i].open(this.map, SDCircleMarker[i]);
 			});
 			SDCircleMarker[i].addListener('closeclick', ()=>{
@@ -383,10 +439,13 @@
 			  }
 			});
 			JKACircleInfowindow[i] = new google.maps.InfoWindow({
-		  content: "<div id='divInfowindow'><h7> "
-		  + JKACircleNum[i] + "</h7></div>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataJKACircle[i]+ "</h6></div>" // 支援html
 			});
 			  JKACircleMarker[i].addListener('click', e => {
+			  if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = JKACircleInfowindow[i];
 				JKACircleInfowindow[i].open(this.map, JKACircleMarker[i]);
 			});
 			JKACircleMarker[i].addListener('closeclick', ()=>{
@@ -468,23 +527,35 @@
 			});
 		
 			let infowindowJKA11 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>A11</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataJKA11+ "</h6></div>" // 支援html
 			});
 			markerJKA11.addListener('click', e => {
+			  if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowJKA11;
 			  infowindowJKA11.open(this.map, markerJKA11);
 			});
 			
 			let infowindowJKA12 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>A12</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataJKA12+ "</h6></div>" // 支援html
 			});
 			markerJKA12.addListener('click', e => {
+			  if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowJKA12;
 			  infowindowJKA12.open(this.map, markerJKA12);
 			});
 			
 			let infowindowJKA13 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>A13</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataJKA13+ "</h6></div>" // 支援html
 			});
 			markerJKA13.addListener('click', e => {
+			  if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowJKA13;
 			  infowindowJKA13.open(this.map, markerJKA13);
 			});
 			
@@ -547,10 +618,13 @@
 			  }
 			});
 			JKA_G_CircleInfowindow[i] = new google.maps.InfoWindow({
-		  content: "<div id='divInfowindow'><h7> "
-		  + JKA_G_CircleNum[i] + "</h7></div>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataJKA_G_Circle[i]+ "</h6></div>" // 支援html
 			});
 			  JKA_G_CircleMarker[i].addListener('click', e => {
+			  if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = JKA_G_CircleInfowindow[i];
 				JKA_G_CircleInfowindow[i].open(this.map, JKA_G_CircleMarker[i]);
 			});
 			JKA_G_CircleMarker[i].addListener('closeclick', ()=>{
@@ -631,10 +705,13 @@
 			  }
 			});
 			JKBCircleInfowindow[i] = new google.maps.InfoWindow({
-		  content: "<div id='divInfowindow'><h7> "
-		  + JKBCircleNum[i] + "</h7></div>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataJKBCircle[i]+ "</h6></div>" // 支援html
 			});
 			  JKBCircleMarker[i].addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = JKBCircleInfowindow[i];
 				JKBCircleInfowindow[i].open(this.map, JKBCircleMarker[i]);
 			});
 			JKBCircleMarker[i].addListener('closeclick', ()=>{
@@ -645,6 +722,25 @@
 			
 			
 			// 工廠
+			
+			var pointsFactoryOutsideBig1 = [
+			{lat: 22.487617786919536 , lng:  120.5798839400063},
+			{lat: 22.48777844272328, lng: 120.58015199268027},
+			{lat: 22.487580613021013 , lng:  120.58034393884053},
+			{lat: 22.487363765064153, lng:  120.58012064494778}
+			];
+			var pointsFactoryOutsideBig2 = [
+			{lat: 22.48762192417299 , lng:  120.57988195071215},
+			{lat: 22.48784443543263, lng: 120.57976111367753},
+			{lat: 22.487978099268084 , lng:  120.57999598002226},
+			{lat: 22.487783107278204, lng:  120.58015085565673}
+			];
+			var pointsFactoryOutsideBig3 = [
+			{lat: 22.487991332617835 , lng:  120.58001491035199},
+			{lat: 22.488128768293212, lng: 120.58027809518772},
+			{lat: 22.487901331223778 , lng:  120.58037692436582},
+			{lat: 22.487792964929323, lng:  120.58017147738398}
+			];
 			
 			var pointsFactoryOutsideFRP1 = [
 			{lat: 22.4879573635874 , lng:  120.58036833313733},
@@ -664,24 +760,40 @@
 			{lat: 22.48800506996191 , lng:  120.58045684603341},
 			{lat: 22.488043482874886, lng:  120.58044008222733}
 			];
-			var pointsFactoryOutsideBig1 = [
-			{lat: 22.487617786919536 , lng:  120.5798839400063},
-			{lat: 22.48777844272328, lng: 120.58015199268027},
-			{lat: 22.487580613021013 , lng:  120.58034393884053},
-			{lat: 22.487363765064153, lng:  120.58012064494778}
-			];
-			var pointsFactoryOutsideBig2 = [
-			{lat: 22.48762192417299 , lng:  120.57988195071215},
-			{lat: 22.48784443543263, lng: 120.57976111367753},
-			{lat: 22.487978099268084 , lng:  120.57999598002226},
-			{lat: 22.487783107278204, lng:  120.58015085565673}
-			];
-			var pointsFactoryOutsideBig3 = [
-			{lat: 22.487991332617835 , lng:  120.58001491035199},
-			{lat: 22.488128768293212, lng: 120.58027809518772},
-			{lat: 22.487901331223778 , lng:  120.58037692436582},
-			{lat: 22.487792964929323, lng:  120.58017147738398}
-			];
+			
+			var pathFactoryOutsideBig1 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideBig1,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF8000',
+			fillOpacity: 0.35,
+			label: 'C1',
+			map:map
+			});   
+			var pathFactoryOutsideBig2 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideBig2,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF8000',
+			fillOpacity: 0.35,
+			label: 'C2',
+			map:map
+			});   
+			var pathFactoryOutsideBig3 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideBig3,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF8000',
+			fillOpacity: 0.35,
+			label: 'C3',
+			map:map
+			});   
 			
 			var pathFactoryOutsideFRP1 = new google.maps.Polygon({
 			paths: pointsFactoryOutsideFRP1,
@@ -705,7 +817,7 @@
 			label: 'C5',
 			map:map
 			});   
-			var pathFactoryOutsideFRP2 = new google.maps.Polygon({
+			var pathFactoryOutsideFRP3 = new google.maps.Polygon({
 			paths: pointsFactoryOutsideFRP3,
 			strokeColor: '#ffffff',
 			strokeOpacity: .5,
@@ -715,84 +827,7 @@
 			fillOpacity: 0.5,
 			label: 'C6',
 			map:map
-			});   			
-			var pathFactoryOutsideBig1 = new google.maps.Polygon({
-			paths: pointsFactoryOutsideBig1,
-			strokeColor: '#ffffff',
-			strokeOpacity: .5,
-			strokeWeight: 3,
-			strokePosition: google.maps.StrokePosition.CENTER,
-			fillColor: '#FF8000',
-			fillOpacity: 0.35,
-			label: 'C1',
-			map:map
-			});   
-			var pathFactoryOutsideBig2 = new google.maps.Polygon({
-			paths: pointsFactoryOutsideBig2,
-			strokeColor: '#ffffff',
-			strokeOpacity: .5,
-			strokeWeight: 3,
-			strokePosition: google.maps.StrokePosition.CENTER,
-			fillColor: '#FF8000',
-			fillOpacity: 0.35,
-			label: 'C2',
-			map:map
-			});   
-			var pathFactoryOutsideBig2 = new google.maps.Polygon({
-			paths: pointsFactoryOutsideBig3,
-			strokeColor: '#ffffff',
-			strokeOpacity: .5,
-			strokeWeight: 3,
-			strokePosition: google.maps.StrokePosition.CENTER,
-			fillColor: '#FF8000',
-			fillOpacity: 0.35,
-			label: 'C3',
-			map:map
-			});   
-			
-			var FRPIcon = {
-				url: "", // url image/circle_icon.svg
-				scaledSize: new google.maps.Size(22, 22), // scaled size
-				anchor: new google.maps.Point(11, 11),
-			};
-			var markerFactoryOutsideFRP1 = new google.maps.Marker({
-			position:  { lat:  22.487946831008987, lng: 120.58039783743602 },
-			map: map,
-			icon: FRPIcon,
-			label: 'C4',
-			});
-			var markerFactoryOutsideFRP2 = new google.maps.Marker({
-			position:  { lat:  22.487996396076856, lng: 120.58037906197323 },
-			map: map,
-			icon: FRPIcon,
-			label: 'C5',
-			});
-			var markerFactoryOutsideFRP3 = new google.maps.Marker({
-			position:  { lat:  22.488015602535885, lng: 120.58043136504817 },
-			map: map,
-			icon: FRPIcon,
-			label: 'C6',
-			});
-			 // info window  https://www.letswrite.tw/google-map-api-marker-custom/
-			 
-			let infowindowFactoryOutsideFRP1 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>工廠FRP-1種魚</h6>" // 支援html
-			});
-			markerFactoryOutsideFRP1.addListener('click', e => {
-			  infowindowFactoryOutsideFRP1.open(this.map, markerFactoryOutsideFRP1);
-			});
-			let infowindowFactoryOutsideFRP2 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>工廠FRP-2的種魚</h6>" // 支援html
-			});
-			markerFactoryOutsideFRP2.addListener('click', e => {
-			  infowindowFactoryOutsideFRP2.open(this.map, markerFactoryOutsideFRP2);
-			});
-			let infowindowFactoryOutsideFRP3 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>工廠FRP-3的種魚</h6>" // 支援html
-			});
-			markerFactoryOutsideFRP3.addListener('click', e => {
-			  infowindowFactoryOutsideFRP3.open(this.map, markerFactoryOutsideFRP3);
-			});
+			});   	
 			
 			var markerFactoryOutsideBig1 = new google.maps.Marker({
 			position:  { lat:  22.487681171106185, lng: 120.58013656998223 },
@@ -809,26 +844,89 @@
 			map: map,
 			label: 'C3',
 			});
-			
+			var markerFactoryOutsideFRP1 = new google.maps.Marker({
+			position:  { lat:  22.487946831008987, lng: 120.58039783743602 },
+			map: map,
+			icon: circleIcon,
+			label: 'C4',
+			});
+			var markerFactoryOutsideFRP2 = new google.maps.Marker({
+			position:  { lat:  22.487996396076856, lng: 120.58037906197323 },
+			map: map,
+			icon: circleIcon,
+			label: 'C5',
+			});
+			var markerFactoryOutsideFRP3 = new google.maps.Marker({
+			position:  { lat:  22.488015602535885, lng: 120.58043136504817 },
+			map: map,
+			icon: circleIcon,
+			label: 'C6',
+			});
+			 // info window  https://www.letswrite.tw/google-map-api-marker-custom/
+			 
 			let infowindowFactoryOutsideBig1 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>工廠大池1種魚</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataC1+ "</h6></div>" // 支援html
 			});
 			markerFactoryOutsideBig1.addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowFactoryOutsideBig1;
 			  infowindowFactoryOutsideBig1.open(this.map, markerFactoryOutsideBig1);
 			  
 			});
 			let infowindowFactoryOutsideBig2 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>工廠大池2的種魚</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataC2+ "</h6></div>" // 支援html
 			});
 			markerFactoryOutsideBig2.addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowFactoryOutsideBig2;
 			  infowindowFactoryOutsideBig2.open(this.map, markerFactoryOutsideBig2);
 			});
 			let infowindowFactoryOutsideBig3 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>工廠大池3的種魚</h6>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDataC3+ "</h6></div>" // 支援html
 			});
 			markerFactoryOutsideBig3.addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowFactoryOutsideBig3;
 			  infowindowFactoryOutsideBig3.open(this.map, markerFactoryOutsideBig3);
 			});
+			let infowindowFactoryOutsideFRP1 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>" + fishDataC4+ "</h6></div>" // 支援html
+			});
+			markerFactoryOutsideFRP1.addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowFactoryOutsideFRP1;
+			  infowindowFactoryOutsideFRP1.open(this.map, markerFactoryOutsideFRP1);
+			});
+			let infowindowFactoryOutsideFRP2 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>" + fishDataC5+ "</h6></div>" // 支援html
+			});
+			markerFactoryOutsideFRP2.addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowFactoryOutsideFRP2;
+			  infowindowFactoryOutsideFRP2.open(this.map, markerFactoryOutsideFRP2);
+			});
+			let infowindowFactoryOutsideFRP3 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>" + fishDataC6+ "</h6></div>" // 支援html
+			});
+			markerFactoryOutsideFRP3.addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = infowindowFactoryOutsideFRP3;
+			  infowindowFactoryOutsideFRP3.open(this.map, markerFactoryOutsideFRP3);
+			});
+			
+			
 			  
 		  
 			// 畫工廠圓池 https://www.oxxostudio.tw/articles/201802/google-maps-12-rect-circle.html
@@ -956,13 +1054,16 @@
 			  }
 			});
 			factoryCircleInfowindow[i] = new google.maps.InfoWindow({
-		  content: "<div id='divInfowindow'><h7> "
-		  + factoryCircleNum[i] + "</h7></div>" // 支援html
+			  content: "<div id='divInfowindow'><h6>" + fishDatafactoryCircle[i]+ "</h6></div>" // 支援html
 			});
 
 
 
 			  factoryCircleMarker[i].addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = factoryCircleInfowindow[i];
 				factoryCircleInfowindow[i].open(this.map, factoryCircleMarker[i]);
 			});
 			factoryCircleMarker[i].addListener('closeclick', ()=>{
@@ -1230,7 +1331,7 @@
 			<div class="input-group-prepend">
 			<span class="input-group-text" id="modifyID" style="font-size:11pt;width:67px;”text-align: center; display:block;" >工廠M20</span>
 			</div>
-			<input type="text" class="form-control" style="font-size:11pt;" size="7">
+			<input type="text" class="form-control" style="font-size:11pt;" size="6">
 			<div class="input-group-append">
 			<button class="btn btn-secondary" type="button" style="font-size:11pt;" >修改</button>
 			</div>
