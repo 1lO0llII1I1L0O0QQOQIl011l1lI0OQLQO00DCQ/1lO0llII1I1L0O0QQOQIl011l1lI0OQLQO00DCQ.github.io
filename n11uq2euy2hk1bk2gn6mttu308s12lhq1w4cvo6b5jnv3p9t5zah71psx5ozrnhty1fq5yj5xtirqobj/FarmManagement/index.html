@@ -66,6 +66,129 @@
 
 			// 畫多邊形 https://www.oxxostudio.tw/articles/201802/google-maps-11-polygon.html
 
+			// SD
+			var pointsSD1 = [
+			{lat: 22.48696625931048 , lng:  120.57782738299524},// 左上
+			{lat: 22.486613216486916, lng: 120.57780009054511},    // 左中 
+			{lat: 22.486321815388724, lng: 120.57785770794118},    // 左下 
+			{lat: 22.486694472452996 , lng:  120.5784369143964},   //右下
+			{lat: 22.48711476118105, lng:  120.5782367697573} //右上 
+			];
+			var pointsSD2 = [
+			{lat: 22.487442585492754 , lng:  120.57782738299524},// 左上
+			{lat: 22.48696625931048, lng: 120.57783951297336},    // 左下
+			{lat: 22.48711476118105 , lng:  120.5782367697573},   //右下 
+			{lat: 22.487591086852277, lng:  120.57805482008548} //右上
+			];
+			var pointsSD3 = [
+			{lat: 22.48711476118105 , lng:  120.5782367697573},// 左上
+			{lat: 22.486694472452996, lng: 120.5784369143964},    // 左下
+			{lat: 22.48705311890575 , lng:  120.57881900870717},   //右下
+			{lat: 22.487378141458084, lng:  120.57866435148551} //右上 
+			];
+			var pointsSD4 = [
+			{lat: 22.487591086852277 , lng:  120.57805482008548},// 左上
+			{lat: 22.48711476118105, lng: 120.5782367697573},    // 左下
+			{lat: 22.487378141458084 , lng:  120.57866435148551}, //右下
+			{lat: 22.487927315748305, lng:  120.57833684207627} //右上
+			];
+			
+			var pathSD1 = new google.maps.Polygon({
+			paths: pointsSD1,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FFD306',
+			fillOpacity: 0.5,
+			label: 'D1',
+			map:map
+			});   
+			var pathSD2 = new google.maps.Polygon({
+			paths: pointsSD2,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FFD306',
+			fillOpacity: 0.5,
+			label: 'D2',
+			map:map
+			});   
+			var pathSD3 = new google.maps.Polygon({
+			paths: pointsSD3,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FFD306',
+			fillOpacity: 0.5,
+			label: 'D3',
+			map:map
+			});   
+			var pathSD4 = new google.maps.Polygon({
+			paths: pointsSD4,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FFD306',
+			fillOpacity: 0.5,
+			label: 'D4',
+			map:map
+			});   
+			
+			var markerSD1 = new google.maps.Marker({
+			position:  { lat:  22.486637757876423, lng: 120.57813487660087 }, 
+			map: map,
+			label: 'D1',
+			});
+			var markerSD2 = new google.maps.Marker({
+			position:  { lat:  22.48714580378559, lng: 120.57804099929017 }, 
+			map: map,
+			label: 'D2',
+			});
+			var markerSD3 = new google.maps.Marker({
+			position:  { lat:  22.486954977004242, lng: 120.57856671223016 },
+			map: map,
+			label: 'D3',
+			});
+			var markerSD4 = new google.maps.Marker({
+			position:  { lat:  22.487321760714476, lng: 120.57839773307087 },
+			map: map,
+			label: 'D4',
+			});
+			
+			let infowindowSD1 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>SD1</h6>" // 支援html
+			});
+			markerSD1.addListener('click', e => {
+			  infowindowSD1.open(this.map, markerSD1);
+			});
+			
+			let infowindowSD2 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>SD2</h6>" // 支援html
+			});
+			markerSD2.addListener('click', e => {
+			  infowindowSD2.open(this.map, markerSD2);
+			});
+			
+			let infowindowSD3 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>SD3</h6>" // 支援html
+			});
+			markerSD3.addListener('click', e => {
+			  infowindowSD3.open(this.map, markerSD3);
+			});
+			
+			let infowindowSD4 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>SD4</h6>" // 支援html
+			});
+			markerSD4.addListener('click', e => {
+			  infowindowSD4open(this.map, markerSD4);
+			});
+			
+			// 工廠
+			
 			var pointsFactoryOutsideFRP1 = [
 			{lat: 22.4879573635874 , lng:  120.58036833313733},
 			{lat: 22.487920189777686, lng: 120.58038375583894},
@@ -193,22 +316,6 @@
 			icon: FRPIcon,
 			label: 'C6',
 			});
-			
-			var markerFactoryOutsideBig1 = new google.maps.Marker({
-			position:  { lat:  22.487681171106185, lng: 120.58013656998223 },
-			map: map,
-			label: 'C1',
-			});
-			var markerFactoryOutsideBig2 = new google.maps.Marker({
-			position:  { lat:  22.48779764921287, lng: 120.58004001046538 },
-			map: map,
-			label: 'C2',
-			});
-			var markerFactoryOutsideBig3 = new google.maps.Marker({
-			position:  { lat:  22.48788996423699, lng: 120.58018484974588 },
-			map: map,
-			label: 'C3',
-			});
 			 // info window  https://www.letswrite.tw/google-map-api-marker-custom/
 			 
 			let infowindowFactoryOutsideFRP1 = new google.maps.InfoWindow({
@@ -228,6 +335,22 @@
 			});
 			markerFactoryOutsideFRP3.addListener('click', e => {
 			  infowindowFactoryOutsideFRP3.open(this.map, markerFactoryOutsideFRP3);
+			});
+			
+			var markerFactoryOutsideBig1 = new google.maps.Marker({
+			position:  { lat:  22.487681171106185, lng: 120.58013656998223 },
+			map: map,
+			label: 'C1',
+			});
+			var markerFactoryOutsideBig2 = new google.maps.Marker({
+			position:  { lat:  22.48779764921287, lng: 120.58004001046538 },
+			map: map,
+			label: 'C2',
+			});
+			var markerFactoryOutsideBig3 = new google.maps.Marker({
+			position:  { lat:  22.48788996423699, lng: 120.58018484974588 },
+			map: map,
+			label: 'C3',
 			});
 			
 			let infowindowFactoryOutsideBig1 = new google.maps.InfoWindow({
@@ -332,7 +455,7 @@
 			} 
 			];
 
-			var factoryCircleNum = ['F20', 'F19', 'F18', 'F17', 'F16', 'F15', 'F14', 'F13', 'F12', 'F11', 'F10', 'F9', 'F8', 'F7', 'F6', 'F5', 'F4', 'F3', 'F2', 'F1', 'S6', 'S5', 'S4', 'S3', 'S2', 'S1'];
+			var factoryCircleNum = ['M20', 'M19', 'M18', 'M17', 'M16', 'M15', 'M14', 'M13', 'M12', 'M11', 'M10', 'M9', 'M8', 'M7', 'M6', 'M5', 'M4', 'M3', 'M2', 'M1', 'S6', 'S5', 'S4', 'S3', 'S2', 'S1'];
 			var factoryCircle = [];
 			var factoryCircleMarker = [];
 			var factoryCircleInfowindow = [];
@@ -357,19 +480,6 @@
 				  fillOpacity: 0.5,
 				  map: map
 				});
-				factoryCircleMarker[i] = new google.maps.Marker({
-				  position: e,
-				  map: map,
-				  icon: circleIconL,
-				  label: {
-					fontSize: "9pt",
-					text: factoryCircleNum[i].toString()
-				  } 
-				});
-				factoryCircleInfowindow[i] = new google.maps.InfoWindow({
-				  content: "<div id='divInfowindow'><h7> "
-				  + factoryCircleNum[i] + "</h7></div>" // 支援html
-				});
 			 }
 			 else
 			 {
@@ -381,20 +491,21 @@
 				  fillOpacity: 0.5,
 				  map: map
 				});
-				factoryCircleMarker[i] = new google.maps.Marker({
-				  position: e,
-				  map: map,
-				  icon: circleIconS,
-				  label: {
-					fontSize: "9pt",
-					text: factoryCircleNum[i].toString()
-				  }
-				});
-				factoryCircleInfowindow[i] = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h7> "
-			  + factoryCircleNum[i] + "</h7></div>" // 支援html
-				});
 			}
+			
+			factoryCircleMarker[i] = new google.maps.Marker({
+			  position: e,
+			  map: map,
+			  icon: circleIconS,
+			  label: {
+				fontSize: "9pt",
+				text: factoryCircleNum[i].toString()
+			  }
+			});
+			factoryCircleInfowindow[i] = new google.maps.InfoWindow({
+		  content: "<div id='divInfowindow'><h7> "
+		  + factoryCircleNum[i] + "</h7></div>" // 支援html
+			});
 
 
 
