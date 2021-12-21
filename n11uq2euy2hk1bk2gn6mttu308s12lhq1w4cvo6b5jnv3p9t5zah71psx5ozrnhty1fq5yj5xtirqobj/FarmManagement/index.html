@@ -56,6 +56,46 @@
 	  
 	  let map;
 
+		// Specify the JSON data to be displayed
+		var mydata =
+		  [
+			{
+			  "id": "工廠C1",
+			  "name": "YY♀(4) + YY♂ (2)",
+			  "date": "2021/12/20"
+			},{
+			  "id": "工廠C2",
+			  "name": "純♀♂ + R.B♂ + B  + RR.F4 + C♀",
+			  "date": "25/5/2020"
+			}
+		  ];
+		var xdata = [];
+		$.getJSON //https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}?key={apiKey}
+		('https://sheets.googleapis.com/v4/spreadsheets/1FvCtikKepDxRIMGmcaANmRB2y7gdwcrdKWnMrcWzfUU/values/form?alt=json&key=AIzaSyD1nv9DyD6XvqVI3MUg1j2l_yKUNl8FjUY', 
+		function(data) {
+			let tableRef = document.getElementById("tableID");
+			let tableLength = tableRef.length;
+			for (i = 0; i < data.values.length ; i++) 
+			{
+				var row = tableRef.insertRow(tableLength);
+				var cell1 = row.insertCell(0);
+				var cell2 = row.insertCell(1);
+				var cell3 = row.insertCell(2);
+				cell1.innerHTML= data.values[i][0];
+				cell2.innerHTML= data.values[i][1];
+				cell3.innerHTML= data.values[i][2];
+				cell1.onclick = function() {
+					document.getElementById("modifyID").innerHTML=this.innerHTML;
+				 };
+			 }
+		});
+		/*
+		$(document).ready(function () {
+		  $('table').bootstrapTable({
+			data: mydata
+		  });
+		});
+	  */
 		function initMap() {
 			map = new google.maps.Map(document.getElementById("map"), {
 			center: { lat: 22.487805495806526, lng: 120.5802124740907 },
@@ -1071,18 +1111,6 @@
 			});
 
 			});
-			
-		var table = document.getElementById("tableID");
-		
-		if (table != null) {
-		   for (var i = 1; i < table.rows.length; i++) {
-			  for (var j = 0; j < table.rows[i].cells.length; j++)
-				 table.rows[i].cells[0].onclick = function() {
-					//tableText(this);
-					document.getElementById("modifyID").innerHTML=this.innerHTML;
-				 };
-		   }
-		}
 /*
 		function tableText(tableCell) {
 		   alert(tableCell.innerHTML);
@@ -1128,177 +1156,6 @@
 			document.getElementById("JKBButton").className="btn btn-info active";
 		}
 		
-		// Specify the JSON data to be displayed
-		var mydata =
-		  [
-			{
-			  "id": "工廠C1",
-			  "name": "YY♀(4) + YY♂ (2)",
-			  "date": "2021/12/20"
-			},{
-			  "id": "工廠C2",
-			  "name": "純♀♂ + R.B♂ + B  + RR.F4 + C♀",
-			  "date": "25/5/2020"
-			},{
-			  "id": "工廠C3",
-			  "name": "工廠大池3",
-			  "date": "25/5/2020"
-			},
-			{
-			  "id": "工廠C4",
-			  "name": "",
-			  "date": "25/5/2020"
-			},{
-			  "id": "工廠C5",
-			  "name": "",
-			  "date": "25/5/2020"
-			},{
-			  "id": "工廠C6",
-			  "name": "",
-			  "date": "25/5/2020"
-			},
-			{
-			  "id": "工廠F1",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F2",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F3",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F4",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F5",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F6",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F7",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F8",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F9",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F10",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F11",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F12",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F13",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F14",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F15",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F16",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F17",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F18",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F19",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠F20",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠S1",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠S2",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠S3",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠S4",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠S5",
-			  "name": "",
-			  "date": "17/5/2020"
-			},
-			{
-			  "id": "工廠S6",
-			  "name": "",
-			  "date": "17/5/2020"
-			}
-		  ];
-		
-		$(document).ready(function () {
-		  $('table').bootstrapTable({
-			data: mydata
-		  });
-		});
-	  
-		// Parse the imported data as JSON
-		// and store it
-		var mydata = JSON.parse(da);
-		
 	</script>
 </head>
 <body>
@@ -1329,7 +1186,7 @@
 		</div>
 	  <div style="margin-left:10px;" class="input-group input-group-sm input-group">
 			<div class="input-group-prepend">
-			<span class="input-group-text" id="modifyID" style="font-size:11pt;width:67px;”text-align: center; display:block;" >工廠M20</span>
+			<span class="input-group-text" id="modifyID" style="font-size:11pt;width:67px;”text-align: center; display:block;" >魚池編號</span>
 			</div>
 			<input type="text" class="form-control" style="font-size:11pt;" size="6">
 			<div class="input-group-append">
@@ -1337,8 +1194,8 @@
 			</div>
 		</div>
   </div>
-	<div style="height:30%;" >
-	  <table class="table table-hover table-light" style="font-size:10pt" id="tableID">
+	<div style="height:205px;  position:relative; overflow:auto;" >
+	  <table class="table table-hover table-light" style="font-size:10pt;" id="tableID">
         <thead class="thead-dark">
           <tr >
             <th data-field="id">
@@ -1359,6 +1216,7 @@
           </tr>
         </thead>
       </table>
+	  </div>
 	  </div>
 	</div>
 	
