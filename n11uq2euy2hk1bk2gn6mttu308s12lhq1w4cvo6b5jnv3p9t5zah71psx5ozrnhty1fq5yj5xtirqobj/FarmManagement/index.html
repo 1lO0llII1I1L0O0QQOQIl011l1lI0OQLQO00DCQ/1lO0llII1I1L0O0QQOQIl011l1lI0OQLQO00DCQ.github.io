@@ -201,10 +201,10 @@
 			map: map,
 			label: 'D4',
 			});
-			var markerSD9 = new google.maps.Marker({
+			var markerSD6 = new google.maps.Marker({
 			position:  { lat:  22.486326912940388, lng: 120.578804578307 },
 			map: map,
-			label: 'D9',
+			label: 'D6',
 			});
 			var markerSD11 = new google.maps.Marker({
 			position:  { lat:  22.485645383481213, lng: 120.57847198439455 },
@@ -240,11 +240,11 @@
 			  infowindowSD4.open(this.map, markerSD4);
 			});
 			
-			let infowindowSD9 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>SD9</h6>" // 支援html
+			let infowindowSD6 = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h6>SD6</h6>" // 支援html
 			});
-			markerSD9.addListener('click', e => {
-			  infowindowSD9.open(this.map, markerSD9);
+			markerSD6.addListener('click', e => {
+			  infowindowSD6.open(this.map, markerSD6);
 			});
 			
 			let infowindowSD11 = new google.maps.InfoWindow({
@@ -256,24 +256,24 @@
 			
 			// SD圓池
 			var positionCircleSD = [{ 
-				lat: 22.4866627198558, //D10
+				lat: 22.4866627198558, //D5
 				lng: 120.57865839790638
 				}, {
-				lat: 22.486424805075764, //D8
+				lat: 22.486424805075764, //D7
 				lng: 120.57856988501342
 				},{ 
-				lat: 22.4863479783407, //D7
+				lat: 22.4863479783407, //D8
 				lng: 120.57865571569751
 				}, {
-				lat: 22.485973757182737, //D6
+				lat: 22.485973757182737, //D9
 				lng: 120.57842772794291
 				}, {
-				lat: 22.485936582840285, //D5
+				lat: 22.485936582840285, //D10
 				lng: 120.5785376985069
 				}
 			];
 			
-			var SDCircleNum = ['D10', 'D8', 'D7', 'D6', 'D5'];
+			var SDCircleNum = ['D5', 'D7', 'D8', 'D9', 'D10'];
 			var SDCircle = [];
 			var SDCircleMarker = [];
 			var SDCircleInfowindow = [];
@@ -553,6 +553,90 @@
 			});
 			JKA_G_CircleMarker[i].addListener('closeclick', ()=>{
 			  JKA_G_CircleInfowindow[i].close();
+			});
+
+			});
+			
+			// B區戶外圓池
+			var positionCircleJKB = [{ 
+
+				lat: 22.476537336151434, //1
+				lng: 120.56787257056592
+				}, {
+				lat: 22.476467181366868, //2
+				lng: 120.56828254989881
+				},{ 
+				lat: 22.476422537394548, //3
+				lng: 120.56880158097339
+				}, {
+				lat: 22.476386822205825, //4
+				lng: 120.56932475329069
+				}, {
+				lat: 22.476366413522406, //5
+				lng: 120.56982169794462
+				}, {
+				lat: 22.476416159682678, // 6 
+				lng: 120.57022063406974
+				}
+
+			];
+			
+			var JKBCircleNum = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'];
+			var JKBCircle = [];
+			var JKBCircleMarker = [];
+			var JKBCircleInfowindow = [];
+			positionCircleJKB.forEach(function(e, i) {
+			if(i==0 || i==5)
+			{
+				JKBCircle[i] = new google.maps.Circle({
+					center: e,
+					radius: 15,
+					strokeOpacity: 0,
+					fillColor: '#FFFFAA',
+					fillOpacity: 0.6,
+					map: map
+				});
+			}
+			else if  (i==4)
+			{
+				JKBCircle[i] = new google.maps.Circle({
+						center: e,
+						radius: 24,
+						strokeOpacity: 0,
+						fillColor: '#FFFFAA',
+						fillOpacity: 0.6,
+						map: map
+					});
+			}
+			else
+			{
+				JKBCircle[i] = new google.maps.Circle({
+						center: e,
+						radius: 25,
+						strokeOpacity: 0,
+						fillColor: '#FFFFAA',
+						fillOpacity: 0.6,
+						map: map
+					});
+			}
+			JKBCircleMarker[i] = new google.maps.Marker({
+			  position: e,
+			  map: map,
+			  icon: circleIcon,
+			  label: {
+				fontSize: "9pt",
+				text: JKBCircleNum[i].toString()
+			  }
+			});
+			JKBCircleInfowindow[i] = new google.maps.InfoWindow({
+		  content: "<div id='divInfowindow'><h7> "
+		  + JKBCircleNum[i] + "</h7></div>" // 支援html
+			});
+			  JKBCircleMarker[i].addListener('click', e => {
+				JKBCircleInfowindow[i].open(this.map, JKBCircleMarker[i]);
+			});
+			JKBCircleMarker[i].addListener('closeclick', ()=>{
+			  JKBCircleInfowindow[i].close();
 			});
 
 			});
@@ -1119,6 +1203,7 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhI-bEG0jYoMtM4O15cuoaHk8cKIdTPlE&callback=initMap&v=weekly"
       async
     ></script></div>
+	
 	 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-top:5px" >
 		<div class="btn-group btn-group-lg" role="group">
 		  <button type="button" id="factoryButton" class="btn btn-info"  style="font-size:11pt;" onclick="changePositionFactory()">工廠</button>
@@ -1126,7 +1211,7 @@
 		  <button type="button" id="JKAButton"  class="btn btn-info"  style="font-size:11pt;" onclick="changePositionJKA()">A區</button>
 		  <button type="button" id="JKBButton"  class="btn btn-info"  style="font-size:11pt;" onclick="changePositionJKB()">B區</button>
 		</div>
-	  <div style="margin-left:10px;" class="input-group input-group-lg">
+	  <div style="margin-left:10px;" class="input-group input-group-lg input-group">
 			<div class="input-group-prepend">
 			<span class="input-group-text" id="" style="font-size:11pt;" >工廠C1</span>
 			</div>
@@ -1137,7 +1222,7 @@
 		</div>
   </div>
 	<div style="height:30%;" >
-	  <table class="table-striped border-success" >
+	  <table class="table-striped border-success" style="font-size:11pt" >
         <thead>
           <tr>
             <th data-field="id" width="20px">
