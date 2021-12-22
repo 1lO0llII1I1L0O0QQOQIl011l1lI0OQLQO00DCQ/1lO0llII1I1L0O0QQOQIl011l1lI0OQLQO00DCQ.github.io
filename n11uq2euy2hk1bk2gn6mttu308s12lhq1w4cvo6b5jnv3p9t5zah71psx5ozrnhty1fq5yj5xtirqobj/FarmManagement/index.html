@@ -47,9 +47,6 @@
 			width: 100px;
 			margin: 0 auto; 
 		}
-		table tbody tr.highlight td {
-		  background-color: #ff0000;
-		}
 	</style>
     <title>種魚管理 - 聖鯛水產科技</title>
 	<script>
@@ -86,6 +83,7 @@
 				cell3.innerHTML= data.values[i][2];
 				cell1.onclick = function() {
 					document.getElementById("modifyID").innerHTML=this.innerHTML;
+					document.getElementById("modifyFishData").value=cell2.innerHTML;
 				 };
 			 }
 		});
@@ -1177,25 +1175,17 @@
       async
     ></script></div>
 	
-	 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-top:5px" >
-		<div class="btn-group btn-group-sm" role="group">
+	 <!--<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-top:-30px" >-->
+		<div class="btn-group btn-group-lg" role="group" style="margin-top:-34px" >
 		  <button type="button" id="factoryButton" class="btn btn-info active"  style="font-size:11pt;" onclick="changePositionFactory()">工廠</button>
 		  <button type="button" id="SDButton"  class="btn btn-info"  style="font-size:11pt;"  onclick="changePositionSD()">ＳＤ</button>
 		  <button type="button" id="JKAButton"  class="btn btn-info"  style="font-size:11pt;" onclick="changePositionJKA()">Ａ區</button>
 		  <button type="button" id="JKBButton"  class="btn btn-info"  style="font-size:11pt;" onclick="changePositionJKB()">Ｂ區</button>
 		</div>
-	  <div style="margin-left:10px;" class="input-group input-group-sm input-group">
-			<div class="input-group-prepend">
-			<span class="input-group-text" id="modifyID" style="font-size:11pt;width:67px;”text-align: center; display:block;" >魚池編號</span>
-			</div>
-			<input type="text" class="form-control" style="font-size:11pt;" size="6">
-			<div class="input-group-append">
-			<button class="btn btn-secondary" type="button" style="font-size:11pt;" >修改</button>
-			</div>
-		</div>
-  </div>
-	<div style="height:205px;  position:relative; overflow:auto;" >
-	  <table class="table table-hover table-light" style="font-size:10pt;" id="tableID">
+	  
+  <!--</div>-->
+	<div style="height:210px;  position:relative; overflow:auto;margin-top:6px" >
+	  <table class="table table-hover table-light" style="font-size:10pt;-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none;" id="tableID">
         <thead class="thead-dark">
           <tr >
             <th data-field="id">
@@ -1217,7 +1207,18 @@
         </thead>
       </table>
 	  </div>
+	  <div  style="margin-top:6px" class="input-group input-group-sm input-group">
+			<div class="input-group-prepend">
+			<span class="input-group-text" id="modifyID" style="font-size:11pt;width:80px;”text-align: center; display:block;-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none;" >魚池編號</span>
+			</div>
+			<input type="text" class="form-control" style="font-size:11pt;"  id="modifyFishData">
+			<div class="input-group-append">
+			<button class="btn btn-secondary" type="button" style="font-size:11pt;" >修改</button>
+			</div>
+		</div>
 	  </div>
+	  
+	  
 	</div>
 	
 </div><!-- /.container -->
