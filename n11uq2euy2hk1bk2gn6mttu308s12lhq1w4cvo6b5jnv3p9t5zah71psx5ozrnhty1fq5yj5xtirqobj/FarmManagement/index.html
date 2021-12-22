@@ -1482,7 +1482,12 @@
 				$('#button1').removeAttr('disabled');
 				return false;
 			}
-			$.ajax({
+			else
+			{
+				var confirmWindow = confirm('確定要修改【' + modifyItemId + '】' + "" + modifyItemFishData + "嗎？");
+				if (confirmWindow) 
+				{
+					$.ajax({
 				type: "post",
 				url: "https://script.google.com/macros/s/AKfycbwEXxd_cpjLB5a5GfOoRlFHVG1U9Ab6M3W_Z20XhCIS2RQa0FZTwwTtSwqFlMlB7dP53Q/exec",
 				data: {
@@ -1492,7 +1497,7 @@
 				success: function(response) {
 				  if(response == "成功")
 				  {
-					alert("修改成功！ 魚池編號：" + modifyItemId + "，種魚資料：" + modifyItemFishData);
+					 document.location.href= "sucess.html";
 					 $('#button1').removeAttr('disabled');
 					 return;
 				   }
@@ -1504,6 +1509,14 @@
 					
 				}
 			});
+				} 
+				else 
+				{
+					$('#button1').removeAttr('disabled');
+					return false;
+				}
+			}
+			
 		}
 	</script>
 </head>
