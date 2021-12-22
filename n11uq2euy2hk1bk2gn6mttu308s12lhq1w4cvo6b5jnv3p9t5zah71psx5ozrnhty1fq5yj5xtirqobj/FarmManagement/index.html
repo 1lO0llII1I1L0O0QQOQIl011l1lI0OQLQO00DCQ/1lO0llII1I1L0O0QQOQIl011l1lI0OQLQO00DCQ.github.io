@@ -47,53 +47,377 @@
 			width: 100px;
 			margin: 0 auto; 
 		}
+		.highlight
+		{
+			background-color:#ff0000;
+		}
 	</style>
     <title>種魚管理 - 聖鯛水產科技</title>
 	<script>
 	  
-	  let map;
-
-		// Specify the JSON data to be displayed
-		var mydata =
-		  [
-			{
-			  "id": "工廠C1",
-			  "name": "YY♀(4) + YY♂ (2)",
-			  "date": "2021/12/20"
-			},{
-			  "id": "工廠C2",
-			  "name": "純♀♂ + R.B♂ + B  + RR.F4 + C♀",
-			  "date": "25/5/2020"
-			}
-		  ];
-		var xdata = [];
+		let map;
+		let sheetJsonData;
+		
+		//SD
+		var fishDataSD1 = "D1";
+		var fishDataSD2 = "D2 ";
+		var fishDataSD3 = "D3";
+		var fishDataSD4 = "D4";
+		var fishDataSD6 = "D6";
+		var fishDataSD11 = "D11";
+		var fishDataSDCircle = ['D5', 'D7', 'D8', 'D9', 'D10']; // ['D5', 'D7', 'D8', 'D9', 'D10']
+		
+		//JKA
+		var fishDataJKA11 = "A11";
+		var fishDataJKA12 = "A12";
+		var fishDataJKA13 = "A13";
+		var fishDataJKACircle = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10'];  //['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10']
+		var fishDataJKA_G_Circle = ['G10', 'G9', 'G8', 'G7', 'G6', 'G5', 'G4', 'G3', 'G2', 'G1', ]; //['G10', 'G9', 'G8', 'G7', 'G6', 'G5', 'G4', 'G3', 'G2', 'G1', ];
+		
+		//JKB
+		var fishDataJKBCircle = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'];
+		
+		//工廠
+		var fishDataC1 = "C1";
+		var fishDataC2 = "C2";
+		var fishDataC3 = "C3";
+		var fishDataC4 = "C4";
+		var fishDataC5 = "C5";
+		var fishDataC6 = "C6";
+		var fishDatafactoryCircle = ['M20', 'M19', 'M18', 'M17', 'M16', 'M15', 'M14', 'M13', 'M12', 'M11', 'M10', 'M9', 'M8', 'M7', 'M6', 'M5', 'M4', 'M3', 'M2', 'M1', 'S6', 'S5', 'S4', 'S3', 'S2', 'S1'];
+		
 		$.getJSON //https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}?key={apiKey}
-		('https://sheets.googleapis.com/v4/spreadsheets/1FvCtikKepDxRIMGmcaANmRB2y7gdwcrdKWnMrcWzfUU/values/form?alt=json&key=AIzaSyD1nv9DyD6XvqVI3MUg1j2l_yKUNl8FjUY', 
-		function(data) {
-			let tableRef = document.getElementById("tableID");
-			let tableLength = tableRef.length;
-			for (i = 0; i < data.values.length ; i++) 
-			{
-				var row = tableRef.insertRow(tableLength);
-				var cell1 = row.insertCell(0);
-				var cell2 = row.insertCell(1);
-				var cell3 = row.insertCell(2);
-				cell1.innerHTML= data.values[i][0];
-				cell2.innerHTML= data.values[i][1];
-				cell3.innerHTML= data.values[i][2];
-				cell1.onclick = function() {
-					document.getElementById("modifyID").innerHTML=this.innerHTML;
-					document.getElementById("modifyFishData").value=cell2.innerHTML;
-				 };
-			 }
-		});
-		/*
-		$(document).ready(function () {
-		  $('table').bootstrapTable({
-			data: mydata
-		  });
-		});
-	  */
+			('https://sheets.googleapis.com/v4/spreadsheets/1FvCtikKepDxRIMGmcaANmRB2y7gdwcrdKWnMrcWzfUU/values/form?alt=json&key=AIzaSyD1nv9DyD6XvqVI3MUg1j2l_yKUNl8FjUY', 
+			function(data) {
+				sheetJsonData = data;
+				let tableRef = document.getElementById("tableID");
+				
+				 let tableLength = tableRef.rows.length;
+				for (var i=1; i<tableLength; i++) {
+					tableRef.deleteRow(1);
+				}
+				
+				for (i = 0; i < sheetJsonData.values.length ; i++) 
+				{
+					var  itemId = sheetJsonData.values[i][0];
+					var  itemFishData =  sheetJsonData.values[i][1];
+					var  itemDate=  sheetJsonData.values[i][2];
+					var row = tableRef.insertRow();
+					var cell1 = row.insertCell(0);
+					var cell2 = row.insertCell(1);
+					var cell3 = row.insertCell(2);
+					cell1.innerHTML= itemId;
+					cell2.innerHTML= itemFishData;
+					cell3.innerHTML= itemDate;
+					row.onclick = function() {
+						document.getElementById("modifyID").innerHTML= this.cells[0].innerHTML;
+						document.getElementById("modifyFishData").value= this.cells[1].innerHTML;
+					 };
+					 
+					 
+					mapSheetData(itemId, itemFishData);
+				 }
+				 initMap();
+			});
+		
+		function mapSheetData(itemId, itemFishData)
+		{
+			switch (itemId) {
+				case 'SD1':
+					fishDataSD1 = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case 'SD2':
+					fishDataSD2 = "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case 'SD3':
+					fishDataSD3= "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case 'SD4':
+					fishDataSD4 = "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case 'SD6':
+					fishDataSD6 = "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case 'SD11':
+					fishDataSD11 = "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case 'SD5':
+					fishDataSDCircle[0] = "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case 'SD7':
+					fishDataSDCircle[1]  = "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case 'SD8':
+					fishDataSDCircle[2]  = "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case 'SD9':
+					fishDataSDCircle[3]  = "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case 'SD10':
+					fishDataSDCircle[4]  = "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case '建功A1':
+					fishDataJKACircle[0] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A2':
+					fishDataJKACircle[1] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A3':
+					fishDataJKACircle[2] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A4':
+					fishDataJKACircle[3] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A5':
+					fishDataJKACircle[4] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A6':
+					fishDataJKACircle[5] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A7':
+					fishDataJKACircle[6] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A8':
+					fishDataJKACircle[7] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A9':
+					fishDataJKACircle[8] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A10':
+					fishDataJKACircle[9] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A11':
+					fishDataJKA11 = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功A12':
+					fishDataJKA12 = "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case '建功A13':
+					fishDataJKA13= "<p><B>@" + itemId + "</B></p>" +  itemFishData;
+					break;
+				case '溫室G1':
+					fishDataJKA_G_Circle[9] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '溫室G2':
+					fishDataJKA_G_Circle[8] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '溫室G3':
+					fishDataJKA_G_Circle[7] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '溫室G4':
+					fishDataJKA_G_Circle[6] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '溫室G5':
+					fishDataJKA_G_Circle[5] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '溫室G6':
+					fishDataJKA_G_Circle[4] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '溫室G7':
+					fishDataJKA_G_Circle[3] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '溫室G8':
+					fishDataJKA_G_Circle[2] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '溫室G9':
+					fishDataJKA_G_Circle[1] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '溫室G10':
+					fishDataJKA_G_Circle[0] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功B1':
+					fishDataJKBCircle[0] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功B2':
+					fishDataJKBCircle[1] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功B3':
+					fishDataJKBCircle[2] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功B4':
+					fishDataJKBCircle[3] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '建功B5':
+					fishDataJKBCircle[4] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+					
+				case '工廠C1':
+					fishDataC1 = "<p><B>@" + itemId + "</B></p>"+ itemFishData;
+					break;
+				case '工廠C2':
+					fishDataC2 = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠C3':
+					fishDataC3 = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠C4':
+					fishDataC4 = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠C5':
+					fishDataC5 = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠C6':
+					fishDataC6 = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+					
+				case '工廠M20':
+					fishDatafactoryCircle[0] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M19':
+					fishDatafactoryCircle[1] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M18':
+					fishDatafactoryCircle[2] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M17':
+					fishDatafactoryCircle[3] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M16':
+					fishDatafactoryCircle[4] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M15':
+					fishDatafactoryCircle[5] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M14':
+					fishDatafactoryCircle[6] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M13':
+					fishDatafactoryCircle[7] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M12':
+					fishDatafactoryCircle[8] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M11':
+					fishDatafactoryCircle[9] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M10':
+					fishDatafactoryCircle[10] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M9':
+					fishDatafactoryCircle[11] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M8':
+					fishDatafactoryCircle[12] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M7':
+					fishDatafactoryCircle[13] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M6':
+					fishDatafactoryCircle[14] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M5':
+					fishDatafactoryCircle[15] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M4':
+					fishDatafactoryCircle[16] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M3':
+					fishDatafactoryCircle[17] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M2':
+					fishDatafactoryCircle[18] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠M1':
+					fishDatafactoryCircle[19] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠S6':
+					fishDatafactoryCircle[20] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠S5':
+					fishDatafactoryCircle[21] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠S4':
+					fishDatafactoryCircle[22] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠S3':
+					fishDatafactoryCircle[23] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠S2':
+					fishDatafactoryCircle[24] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠S1':
+					fishDatafactoryCircle[25] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+					/*
+			//工廠
+			var fishDatafactoryCircle = ['M20', 'M19', 'M18', 'M17', 'M16', 'M15', 'M14', 'M13', 'M12', 'M11', 'M10', 'M9', 'M8', 'M7', 'M6', 'M5', 'M4', 'M3', 'M2', 'M1', 'S6', 'S5', 'S4', 'S3', 'S2', 'S1'];
+					*/
+			}
+		}
+		function getSheetData(locationStr)
+		{
+				$.getJSON //https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}?key={apiKey}
+			('https://sheets.googleapis.com/v4/spreadsheets/1FvCtikKepDxRIMGmcaANmRB2y7gdwcrdKWnMrcWzfUU/values/form?alt=json&key=AIzaSyD1nv9DyD6XvqVI3MUg1j2l_yKUNl8FjUY', 
+			function(data) {
+				sheetJsonData = data;
+				let tableRef = document.getElementById("tableID");
+				
+				 let tableLength = tableRef.rows.length;
+				for (var i=1; i<tableLength; i++) {
+					tableRef.deleteRow(1);
+				}
+				
+				for (i = 0; i < sheetJsonData.values.length ; i++) 
+				{
+					var  itemId = sheetJsonData.values[i][0];
+					var  itemFishData =  sheetJsonData.values[i][1];
+					var  itemDate=  sheetJsonData.values[i][2];
+					if (itemId.indexOf(locationStr) >= 0) {
+						var row = tableRef.insertRow();
+						var cell1 = row.insertCell(0);
+						var cell2 = row.insertCell(1);
+						var cell3 = row.insertCell(2);
+						cell1.innerHTML= itemId;
+						cell2.innerHTML= itemFishData;
+						cell3.innerHTML= itemDate;
+						row.onclick = function() {
+							document.getElementById("modifyID").innerHTML= this.cells[0].innerHTML;
+							document.getElementById("modifyFishData").value= this.cells[1].innerHTML;
+						 };
+						//mapSheetData(itemId, itemFishData);
+					}
+				 }
+			});
+			initMap();
+		}
+		
+		function getSheetData(locationStr1, locationStr2)
+		{
+			$.getJSON //https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}?key={apiKey}
+			('https://sheets.googleapis.com/v4/spreadsheets/1FvCtikKepDxRIMGmcaANmRB2y7gdwcrdKWnMrcWzfUU/values/form?alt=json&key=AIzaSyD1nv9DyD6XvqVI3MUg1j2l_yKUNl8FjUY', 
+			function(data) {
+				sheetJsonData = data;
+				let tableRef = document.getElementById("tableID");
+				
+				 let tableLength = tableRef.rows.length;
+				for (var i=1; i<tableLength; i++) {
+					tableRef.deleteRow(1);
+				}
+				
+				for (i = 0; i < sheetJsonData.values.length ; i++) 
+				{
+					var  itemId = sheetJsonData.values[i][0];
+					var  itemFishData =  sheetJsonData.values[i][1];
+					var  itemDate=  sheetJsonData.values[i][2];
+					if (itemId.indexOf(locationStr1) >=0 || itemId.indexOf(locationStr2) >= 0) {
+						var row = tableRef.insertRow();
+						var cell1 = row.insertCell(0);
+						var cell2 = row.insertCell(1);
+						var cell3 = row.insertCell(2);
+						cell1.innerHTML= itemId;
+						cell2.innerHTML= itemFishData;
+						cell3.innerHTML= itemDate;
+						row.onclick = function() {
+							document.getElementById("modifyID").innerHTML= this.cells[0].innerHTML;
+							document.getElementById("modifyFishData").value= this.cells[1].innerHTML;
+						 };
+						//mapSheetData(itemId, itemFishData);
+					}
+				 }
+			});
+			initMap();
+		}
+		
 		function initMap() {
 			map = new google.maps.Map(document.getElementById("map"), {
 			center: { lat: 22.487805495806526, lng: 120.5802124740907 },
@@ -107,33 +431,6 @@
 			
 			var prev_infowindow =false; 
 			
-			//SD
-			var fishDataSD1 = "AABB";
-			var fishDataSD2 = "純♀♂+ R.B♂ ";
-			var fishDataSD3 = "D3";
-			var fishDataSD4 = "D4";
-			var fishDataSD6 = "D6";
-			var fishDataSD11 = "D11";
-			var fishDataSDCircle = ['D5', 'D7', 'D8', 'D9', 'D10']; // ['D5', 'D7', 'D8', 'D9', 'D10']
-			
-			//JKA
-			var fishDataJKA11 = "A11";
-			var fishDataJKA12 = "A12";
-			var fishDataJKA13 = "A13";
-			var fishDataJKACircle = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10'];  //['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10']
-			var fishDataJKA_G_Circle = ['G10', 'G9', 'G8', 'G7', 'G6', 'G5', 'G4', 'G3', 'G2', 'G1', ]; //['G10', 'G9', 'G8', 'G7', 'G6', 'G5', 'G4', 'G3', 'G2', 'G1', ];
-			
-			//JKB
-			var fishDataJKBCircle = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6'];
-			
-			//工廠
-			var fishDataC1 = "C1";
-			var fishDataC2 = "C2";
-			var fishDataC3 = "C3";
-			var fishDataC4 = "C4";
-			var fishDataC5 = "C5";
-			var fishDataC6 = "C6";
-			var fishDatafactoryCircle = ['M20', 'M19', 'M18', 'M17', 'M16', 'M15', 'M14', 'M13', 'M12', 'M11', 'M10', 'M9', 'M8', 'M7', 'M6', 'M5', 'M4', 'M3', 'M2', 'M1', 'S6', 'S5', 'S4', 'S3', 'S2', 'S1'];
 			
 			var circleIcon = {
 				url: "", // url image/circle_icon.svg
@@ -282,7 +579,7 @@
 			});
 			
 			let infowindowSD1 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataSD1+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataSD1+ "</h5></div>" // 支援html
 			});
 			markerSD1.addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -293,7 +590,7 @@
 			});
 			
 			let infowindowSD2 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataSD2+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataSD2+ "</h5></div>" // 支援html
 			});
 			markerSD2.addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -304,7 +601,7 @@
 			});
 			
 			let infowindowSD3 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataSD3+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataSD3+ "</h5></div>" // 支援html
 			});
 			markerSD3.addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -315,7 +612,7 @@
 			});
 			
 			let infowindowSD4 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataSD4+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataSD4+ "</h5></div>" // 支援html
 			});
 			markerSD4.addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -326,7 +623,7 @@
 			});
 			
 			let infowindowSD6 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataSD6+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataSD6+ "</h5></div>" // 支援html
 			});
 			markerSD6.addListener('click', e => {
 			if ( prev_infowindow ) {
@@ -337,7 +634,7 @@
 			});
 			
 			let infowindowSD11 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataSD11+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataSD11+ "</h5></div>" // 支援html
 			});
 			markerSD11.addListener('click', e => {
 			if ( prev_infowindow ) {
@@ -389,7 +686,7 @@
 			  }
 			});
 			SDCircleInfowindow[i] = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataSDCircle[i]+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataSDCircle[i]+ "</h5></div>" // 支援html
 			});
 			  SDCircleMarker[i].addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -477,7 +774,7 @@
 			  }
 			});
 			JKACircleInfowindow[i] = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataJKACircle[i]+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataJKACircle[i]+ "</h5></div>" // 支援html
 			});
 			  JKACircleMarker[i].addListener('click', e => {
 			  if ( prev_infowindow ) {
@@ -565,7 +862,7 @@
 			});
 		
 			let infowindowJKA11 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataJKA11+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataJKA11+ "</h5></div>" // 支援html
 			});
 			markerJKA11.addListener('click', e => {
 			  if ( prev_infowindow ) {
@@ -576,7 +873,7 @@
 			});
 			
 			let infowindowJKA12 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataJKA12+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataJKA12+ "</h5></div>" // 支援html
 			});
 			markerJKA12.addListener('click', e => {
 			  if ( prev_infowindow ) {
@@ -587,7 +884,7 @@
 			});
 			
 			let infowindowJKA13 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataJKA13+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataJKA13+ "</h5></div>" // 支援html
 			});
 			markerJKA13.addListener('click', e => {
 			  if ( prev_infowindow ) {
@@ -656,7 +953,7 @@
 			  }
 			});
 			JKA_G_CircleInfowindow[i] = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataJKA_G_Circle[i]+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataJKA_G_Circle[i]+ "</h5></div>" // 支援html
 			});
 			  JKA_G_CircleMarker[i].addListener('click', e => {
 			  if ( prev_infowindow ) {
@@ -743,7 +1040,7 @@
 			  }
 			});
 			JKBCircleInfowindow[i] = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataJKBCircle[i]+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataJKBCircle[i]+ "</h5></div>" // 支援html
 			});
 			  JKBCircleMarker[i].addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -903,7 +1200,7 @@
 			 // info window  https://www.letswrite.tw/google-map-api-marker-custom/
 			 
 			let infowindowFactoryOutsideBig1 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataC1+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataC1+ "</h5></div>" // 支援html
 			});
 			markerFactoryOutsideBig1.addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -914,7 +1211,7 @@
 			  
 			});
 			let infowindowFactoryOutsideBig2 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataC2+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataC2+ "</h5></div>" // 支援html
 			});
 			markerFactoryOutsideBig2.addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -924,7 +1221,7 @@
 			  infowindowFactoryOutsideBig2.open(this.map, markerFactoryOutsideBig2);
 			});
 			let infowindowFactoryOutsideBig3 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataC3+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataC3+ "</h5></div>" // 支援html
 			});
 			markerFactoryOutsideBig3.addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -934,7 +1231,7 @@
 			  infowindowFactoryOutsideBig3.open(this.map, markerFactoryOutsideBig3);
 			});
 			let infowindowFactoryOutsideFRP1 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataC4+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataC4+ "</h5></div>" // 支援html
 			});
 			markerFactoryOutsideFRP1.addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -944,7 +1241,7 @@
 			  infowindowFactoryOutsideFRP1.open(this.map, markerFactoryOutsideFRP1);
 			});
 			let infowindowFactoryOutsideFRP2 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataC5+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataC5+ "</h5></div>" // 支援html
 			});
 			markerFactoryOutsideFRP2.addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -954,7 +1251,7 @@
 			  infowindowFactoryOutsideFRP2.open(this.map, markerFactoryOutsideFRP2);
 			});
 			let infowindowFactoryOutsideFRP3 = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDataC6+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDataC6+ "</h5></div>" // 支援html
 			});
 			markerFactoryOutsideFRP3.addListener('click', e => {
 				if ( prev_infowindow ) {
@@ -1092,7 +1389,7 @@
 			  }
 			});
 			factoryCircleInfowindow[i] = new google.maps.InfoWindow({
-			  content: "<div id='divInfowindow'><h6>" + fishDatafactoryCircle[i]+ "</h6></div>" // 支援html
+			  content: "<div id='divInfowindow'><h5>" + fishDatafactoryCircle[i]+ "</h5></div>" // 支援html
 			});
 
 
@@ -1103,9 +1400,6 @@
 				}
 				prev_infowindow = factoryCircleInfowindow[i];
 				factoryCircleInfowindow[i].open(this.map, factoryCircleMarker[i]);
-			});
-			factoryCircleMarker[i].addListener('closeclick', ()=>{
-			  factoryCircleInfowindow[i].close();
 			});
 
 			});
@@ -1119,41 +1413,98 @@
 		}
 		function changePositionFactory()
 		{
-			map.setCenter({  lat: 22.487805495806526, lng: 120.5802124740907  }); // 工廠定位
-			map.setZoom(20);  // 工廠定位定位縮放
+			
 			document.getElementById("factoryButton").className="btn btn-info active";
 			document.getElementById("SDButton").className="btn btn-info ";
 			document.getElementById("JKAButton").className="btn btn-info ";
 			document.getElementById("JKBButton").className="btn btn-info ";
+			
+			document.getElementById("modifyID").innerHTML= "魚池編號";
+			document.getElementById("modifyFishData").value= "";
+			
+			getSheetData("工廠");
+			map.setCenter({  lat: 22.487805495806526, lng: 120.5802124740907  }); // 工廠定位
+			map.setZoom(20);  // 工廠定位定位縮放
+			
 		}
 		function changePositionSD()
 		{
-			map.setCenter({ lat: 22.48654928828763, lng: 120.57834320176198 }); 
-			map.setZoom(17.8);  // SD定位縮放
 			document.getElementById("factoryButton").className="btn btn-info ";
 			document.getElementById("SDButton").className="btn btn-info active";
 			document.getElementById("JKAButton").className="btn btn-info ";
 			document.getElementById("JKBButton").className="btn btn-info ";
+			
+			document.getElementById("modifyID").innerHTML= "魚池編號";
+			document.getElementById("modifyFishData").value= "";
+			
+			getSheetData("SD");
+			map.setCenter({ lat: 22.48654928828763, lng: 120.57834320176198 }); 
+			map.setZoom(17.8);  // SD定位縮放
 		}
 		function changePositionJKA()
 		{
-			map.setCenter({ lat: 22.47870410125927, lng:  120.56927710840841 }); // A區定位
-			map.setZoom(18.5);  // A區定位定位縮放
 			document.getElementById("factoryButton").className="btn btn-info ";
 			document.getElementById("SDButton").className="btn btn-info ";
 			document.getElementById("JKAButton").className="btn btn-info active";
 			document.getElementById("JKBButton").className="btn btn-info ";
+			
+			document.getElementById("modifyID").innerHTML= "魚池編號";
+			document.getElementById("modifyFishData").value= "";
+			
+			getSheetData("建功A", "溫室"); 
+			map.setCenter({ lat: 22.47870410125927, lng:  120.56927710840841 }); // A區定位
+			map.setZoom(18.5);  // A區定位定位縮放
 		}
 		function changePositionJKB()
 		{
-			map.setCenter({ lat: 22.476415032228022, lng: 120.56906024870474 }); // B區定位
-			map.setZoom(17.6);  // B區定位定位縮放
 			document.getElementById("factoryButton").className="btn btn-info ";
 			document.getElementById("SDButton").className="btn btn-info ";
 			document.getElementById("JKAButton").className="btn btn-info ";
 			document.getElementById("JKBButton").className="btn btn-info active";
+			
+			document.getElementById("modifyID").innerHTML= "魚池編號";
+			document.getElementById("modifyFishData").value= "";
+			
+			getSheetData("建功B");
+			map.setCenter({ lat: 22.476415032228022, lng: 120.56906024870474 }); // B區定位
+			map.setZoom(17.6);  // B區定位定位縮放
 		}
 		
+		function modifySubmit()
+		{
+			$('#button1').attr('disabled', 'disabled');
+			var modifyItemId = document.getElementById("modifyID").innerHTML;
+			var modifyItemFishData = document.getElementById("modifyFishData").value;
+			
+			if (modifyItemId == "魚池編號")
+			{
+				alert("請選擇魚池編號");
+				$('#button1').removeAttr('disabled');
+				return false;
+			}
+			$.ajax({
+				type: "post",
+				url: "https://script.google.com/macros/s/AKfycbwcRUdrjZ_Rv4gw7eOLKfaluNAfarG6CjnPXjtsZheM7r4ek6qQU1GIAwfFKb0cQWxAEg/exec",
+				data: {
+						"modifyItemId": modifyItemId,
+						"modifyItemFishData": modifyItemFishData ,
+				},
+				success: function(response) {
+				  if(response == "成功")
+				  {
+					alert("修改成功！ 魚池編號：" + modifyItemId + "，種魚資料：" + modifyItemFishData);
+					 $('#button1').removeAttr('disabled');
+					 return;
+				   }
+				 },
+				error: function(){
+					alert("修改失敗！ 魚池編號：" + modifyItemId);
+					$('#button1').removeAttr('disabled');
+					return;
+					
+				}
+			});
+		}
 	</script>
 </head>
 <body>
@@ -1171,13 +1522,13 @@
 	<div id="map">
 	<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhI-bEG0jYoMtM4O15cuoaHk8cKIdTPlE&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhI-bEG0jYoMtM4O15cuoaHk8cKIdTPlE&v=weekly"
       async
-    ></script></div>
+    ></script></div><!-- //&callback=initMap-->
 	
 	 <!--<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-top:-30px" >-->
 		<div class="btn-group btn-group-lg" role="group" style="margin-top:-34px" >
-		  <button type="button" id="factoryButton" class="btn btn-info active"  style="font-size:11pt;" onclick="changePositionFactory()">工廠</button>
+		  <button type="button" id="factoryButton" class="btn btn-info"  style="font-size:11pt;" onclick="changePositionFactory()">工廠</button>
 		  <button type="button" id="SDButton"  class="btn btn-info"  style="font-size:11pt;"  onclick="changePositionSD()">ＳＤ</button>
 		  <button type="button" id="JKAButton"  class="btn btn-info"  style="font-size:11pt;" onclick="changePositionJKA()">Ａ區</button>
 		  <button type="button" id="JKBButton"  class="btn btn-info"  style="font-size:11pt;" onclick="changePositionJKB()">Ｂ區</button>
@@ -1213,7 +1564,7 @@
 			</div>
 			<input type="text" class="form-control" style="font-size:11pt;"  id="modifyFishData">
 			<div class="input-group-append">
-			<button class="btn btn-secondary" type="button" style="font-size:11pt;" >修改</button>
+			<button class="btn btn-secondary" type="button" style="font-size:11pt;" onclick="javascript:modifySubmit()" id="button1">修改</button>
 			</div>
 		</div>
 	  </div>
