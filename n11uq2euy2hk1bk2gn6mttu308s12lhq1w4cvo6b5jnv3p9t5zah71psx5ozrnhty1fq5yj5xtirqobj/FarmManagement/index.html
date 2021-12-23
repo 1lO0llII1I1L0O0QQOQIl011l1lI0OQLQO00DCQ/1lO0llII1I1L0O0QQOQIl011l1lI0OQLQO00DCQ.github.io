@@ -100,23 +100,25 @@
 				
 				for (i = 1; i < sheetJsonData.values.length ; i++) 
 				{
-					var  itemId = sheetJsonData.values[i][0];
-					var  itemFishData =  sheetJsonData.values[i][1];
-					var  itemDate=  sheetJsonData.values[i][2];
+					var  itemNum = sheetJsonData.values[i][0];
+					var  itemId = sheetJsonData.values[i][1];
+					var  itemFishData =  sheetJsonData.values[i][2];
+					var  itemDate=  sheetJsonData.values[i][3];
 					var row = tableRef.insertRow();
 					var cell1 = row.insertCell(0);
+					cell1.style.display = 'none';
 					var cell2 = row.insertCell(1);
 					var cell3 = row.insertCell(2);
-					cell1.innerHTML= itemId;
-					cell2.innerHTML= itemFishData;
-					cell3.innerHTML= itemDate;
+					var cell4	= row.insertCell(3);
+					cell1.innerHTML = itemNum;
+					cell2.innerHTML= itemId;
+					cell3.innerHTML= itemFishData;
+					cell4.innerHTML= itemDate;
 					row.onclick = function() {
-						document.getElementById("modifyID").innerHTML= this.cells[0].innerHTML;
-						document.getElementById("modifyFishData").value= this.cells[1].innerHTML;
+						document.getElementById("modifyID").innerHTML= this.cells[1].innerHTML;
+						document.getElementById("modifyFishData").value= this.cells[2].innerHTML;
 					 };
-					 
-					 
-					mapSheetData(itemId, itemFishData);
+					//mapSheetData(itemId, itemFishData);
 				 }
 				 initMap();
 				 hideSpinner();
@@ -242,6 +244,10 @@
 				case '建功B5':
 					fishDataJKBCircle[4] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
 					break;
+				case '建功B6':
+					fishDataJKBCircle[5] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+					
 					
 				case '工廠C1':
 					fishDataC1 = "<p><B>@" + itemId + "</B></p>"+ itemFishData;
@@ -346,6 +352,7 @@
 					*/
 			}
 		}
+		
 		function getSheetData(locationStr)
 		{
 				$.getJSON //https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}?key={apiKey}
@@ -361,23 +368,29 @@
 				
 				for (i = 1; i < sheetJsonData.values.length ; i++) 
 				{
-					var  itemId = sheetJsonData.values[i][0];
-					var  itemFishData =  sheetJsonData.values[i][1];
-					var  itemDate=  sheetJsonData.values[i][2];
+					var  itemNum = sheetJsonData.values[i][0];
+					var  itemId = sheetJsonData.values[i][1];
+					var  itemFishData =  sheetJsonData.values[i][2];
+					var  itemDate=  sheetJsonData.values[i][3];
 					if (itemId.indexOf(locationStr) >= 0) {
 						var row = tableRef.insertRow();
 						var cell1 = row.insertCell(0);
+						cell1.style.display = 'none';
 						var cell2 = row.insertCell(1);
 						var cell3 = row.insertCell(2);
-						cell1.innerHTML= itemId;
-						cell2.innerHTML= itemFishData;
-						cell3.innerHTML= itemDate;
+						var cell4	= row.insertCell(3);
+						cell1.innerHTML = itemNum;
+						cell2.innerHTML= itemId;
+						cell3.innerHTML= itemFishData;
+						cell4.innerHTML= itemDate;
 						row.onclick = function() {
-							document.getElementById("modifyID").innerHTML= this.cells[0].innerHTML;
-							document.getElementById("modifyFishData").value= this.cells[1].innerHTML;
+							document.getElementById("modifyID").innerHTML= this.cells[1].innerHTML;
+							document.getElementById("modifyFishData").value= this.cells[2].innerHTML;
 						 };
-						//mapSheetData(itemId, itemFishData);
-					}
+						 
+					//mapSheetData(itemId, itemFishData);
+					 }
+					 
 				 }
 			});
 			initMap();
@@ -398,23 +411,30 @@
 				
 				for (i = 1; i < sheetJsonData.values.length ; i++) 
 				{
-					var  itemId = sheetJsonData.values[i][0];
-					var  itemFishData =  sheetJsonData.values[i][1];
-					var  itemDate=  sheetJsonData.values[i][2];
-					if (itemId.indexOf(locationStr1) >=0 || itemId.indexOf(locationStr2) >= 0) {
+					var  itemNum = sheetJsonData.values[i][0];
+					var  itemId = sheetJsonData.values[i][1];
+					var  itemFishData =  sheetJsonData.values[i][2];
+					var  itemDate=  sheetJsonData.values[i][3];
+					if (itemId.indexOf(locationStr1) >=0 || itemId.indexOf(locationStr2) >= 0) 
+					{
 						var row = tableRef.insertRow();
 						var cell1 = row.insertCell(0);
+						cell1.style.display = 'none';
 						var cell2 = row.insertCell(1);
 						var cell3 = row.insertCell(2);
-						cell1.innerHTML= itemId;
-						cell2.innerHTML= itemFishData;
-						cell3.innerHTML= itemDate;
+						var cell4	= row.insertCell(3);
+						cell1.innerHTML = itemNum;
+						cell2.innerHTML= itemId;
+						cell3.innerHTML= itemFishData;
+						cell4.innerHTML= itemDate;
 						row.onclick = function() {
-							document.getElementById("modifyID").innerHTML= this.cells[0].innerHTML;
-							document.getElementById("modifyFishData").value= this.cells[1].innerHTML;
+							document.getElementById("modifyID").innerHTML= this.cells[1].innerHTML;
+							document.getElementById("modifyFishData").value= this.cells[2].innerHTML;
 						 };
-						//mapSheetData(itemId, itemFishData);
-					}
+						 
+					//mapSheetData(itemId, itemFishData);
+					 }
+					 
 				 }
 			});
 			initMap();
@@ -1568,6 +1588,11 @@
 	  <table class="table table-hover table-light" style="font-size:10pt;-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none;" id="tableID">
         <thead class="thead-dark">
           <tr id="header-row">
+				<th data-field="num" style="width:20px;position: sticky; top: 0;display:none" >
+              <span >
+                #
+              </span>
+            </th>
             <th data-field="id" style="width:80px;position: sticky; top: 0;">
               <span >
                 魚池編號
