@@ -119,6 +119,7 @@
 					mapSheetData(itemId, itemFishData);
 				 }
 				 initMap();
+				 hideSpinner();
 			});
 		
 		function mapSheetData(itemId, itemFishData)
@@ -1474,6 +1475,7 @@
 		function modifySubmit()
 		{
 			$('#button1').attr('disabled', 'disabled');
+			showSpinner();
 			var modifyItemId = document.getElementById("modifyID").innerHTML;
 			var modifyItemFishData = document.getElementById("modifyFishData").value;
 			
@@ -1481,6 +1483,7 @@
 			{
 				alert("請選擇魚池編號");
 				$('#button1').removeAttr('disabled');
+				hideSpinner();
 				return false;
 			}
 			else
@@ -1500,12 +1503,14 @@
 				  {
 					 document.location.href= "sucess.html";
 					 $('#button1').removeAttr('disabled');
+					hideSpinner();
 					 return;
 				   }
 				 },
 				error: function(){
 					alert("修改失敗！ 魚池編號：" + modifyItemId);
 					$('#button1').removeAttr('disabled');
+					hideSpinner();
 					return;
 					
 				}
@@ -1514,11 +1519,21 @@
 				else 
 				{
 					$('#button1').removeAttr('disabled');
+					hideSpinner();
 					return false;
 				}
 			}
 			
 		}
+		
+		// Function to hide the Spinner
+		function hideSpinner() {
+			document.getElementById('spinner').style.display = 'none';
+		} 
+		// Function to show the Spinner
+		function showSpinner() {
+			document.getElementById('spinner').style.display = '';
+		} 
 	</script>
 </head>
 <body>
@@ -1583,8 +1598,8 @@
 		</div>
 	  </div>
 	  
-		<div class="text-center">
-			<div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+		<div class="text-center" style="height:100%; width:100%; top: 0 ;position:absolute; background-color:#ffffff; opacity: 0.4;" id="spinner">
+			<div class="spinner-border" style="margin-top:50%; width: 5rem; height: 5rem;" role="status">
 			  <span class="visually-hidden"></span>
 			</div>
 		</div>
