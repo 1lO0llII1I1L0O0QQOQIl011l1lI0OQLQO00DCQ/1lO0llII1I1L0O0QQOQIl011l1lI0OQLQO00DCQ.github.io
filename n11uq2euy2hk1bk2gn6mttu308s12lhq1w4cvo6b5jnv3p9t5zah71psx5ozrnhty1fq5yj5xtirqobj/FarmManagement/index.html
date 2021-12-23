@@ -58,7 +58,7 @@
 	  
 		let map;
 		let sheetJsonData;
-		
+		var currentPage="工廠";
 		//SD
 		var fishDataSD1 = "D1";
 		var fishDataSD2 = "D2 ";
@@ -123,6 +123,8 @@
 				 }
 				 initMap();
 				 hideSpinner();
+				 currentPage = "工廠";
+				 changePositionFactory();
 			});
 		
 		function mapSheetData(itemId, itemFishData)
@@ -1438,7 +1440,7 @@
 		}
 		function changePositionFactory()
 		{
-			
+			currentPage = "工廠";
 			document.getElementById("factoryButton").className="btn btn-info active";
 			document.getElementById("SDButton").className="btn btn-info ";
 			document.getElementById("JKAButton").className="btn btn-info ";
@@ -1454,6 +1456,7 @@
 		}
 		function changePositionSD()
 		{
+			currentPage = "SD";
 			document.getElementById("factoryButton").className="btn btn-info ";
 			document.getElementById("SDButton").className="btn btn-info active";
 			document.getElementById("JKAButton").className="btn btn-info ";
@@ -1468,6 +1471,7 @@
 		}
 		function changePositionJKA()
 		{
+			currentPage = "A區";
 			document.getElementById("factoryButton").className="btn btn-info ";
 			document.getElementById("SDButton").className="btn btn-info ";
 			document.getElementById("JKAButton").className="btn btn-info active";
@@ -1482,6 +1486,8 @@
 		}
 		function changePositionJKB()
 		{
+		
+			currentPage = "B區";
 			document.getElementById("factoryButton").className="btn btn-info ";
 			document.getElementById("SDButton").className="btn btn-info ";
 			document.getElementById("JKAButton").className="btn btn-info ";
@@ -1525,7 +1531,25 @@
 				success: function(response) {
 				  if(response == "成功")
 				  {
-					 document.location.href= "sucess.html";
+					alert("修改成功。");
+					
+					if  (currentPage == "工廠")
+					{
+						changePositionFactory();
+					}
+					else if  (currentPage == "SD")
+					{
+						changePositionSD();
+					}
+					else if  (currentPage == "A區")
+					{
+						changePositionJKA();
+					}
+					else if  (currentPage == "B區")
+					{
+						changePositionJKB();
+					}
+					
 					 $('#button1').removeAttr('disabled');
 					hideSpinner();
 					 return;
