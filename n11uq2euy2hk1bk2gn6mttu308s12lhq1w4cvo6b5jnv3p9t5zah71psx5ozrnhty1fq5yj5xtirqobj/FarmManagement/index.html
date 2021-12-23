@@ -1454,7 +1454,7 @@
 			
 			getSheetData("建功A", "溫室"); 
 			map.setCenter({ lat: 22.47870410125927, lng:  120.56927710840841 }); // A區定位
-			map.setZoom(18.5);  // A區定位定位縮放
+			map.setZoom(18);  // A區定位定位縮放  18.5最好
 		}
 		function changePositionJKB()
 		{
@@ -1467,8 +1467,8 @@
 			document.getElementById("modifyFishData").value= "";
 			
 			getSheetData("建功B");
-			map.setCenter({ lat: 22.476415032228022, lng: 120.56906024870474 }); // B區定位
-			map.setZoom(17.6);  // B區定位定位縮放
+			map.setCenter({ lat: 22.476415881334077, lng: 120.5690490942485 }); // B區定位
+			map.setZoom(17.5);  // B區定位定位縮放  17.6最好
 		}
 		
 		function modifySubmit()
@@ -1583,6 +1583,11 @@
 		</div>
 	  </div>
 	  
+		<div class="text-center">
+			<div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+			  <span class="visually-hidden"></span>
+			</div>
+		</div>
 	  
 	</div>
 	
