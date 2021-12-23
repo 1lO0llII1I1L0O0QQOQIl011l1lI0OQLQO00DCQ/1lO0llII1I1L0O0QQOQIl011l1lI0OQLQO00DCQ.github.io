@@ -115,6 +115,7 @@
 					cell3.innerHTML= itemFishData;
 					cell4.innerHTML= itemDate;
 					row.onclick = function() {
+						document.getElementById("modifyNum").value= this.cells[0].innerHTML;
 						document.getElementById("modifyID").innerHTML= this.cells[1].innerHTML;
 						document.getElementById("modifyFishData").value= this.cells[2].innerHTML;
 					 };
@@ -384,6 +385,7 @@
 						cell3.innerHTML= itemFishData;
 						cell4.innerHTML= itemDate;
 						row.onclick = function() {
+							document.getElementById("modifyNum").value= this.cells[0].innerHTML;
 							document.getElementById("modifyID").innerHTML= this.cells[1].innerHTML;
 							document.getElementById("modifyFishData").value= this.cells[2].innerHTML;
 						 };
@@ -428,6 +430,7 @@
 						cell3.innerHTML= itemFishData;
 						cell4.innerHTML= itemDate;
 						row.onclick = function() {
+							document.getElementById("modifyNum").value= this.cells[0].innerHTML;
 							document.getElementById("modifyID").innerHTML= this.cells[1].innerHTML;
 							document.getElementById("modifyFishData").value= this.cells[2].innerHTML;
 						 };
@@ -1496,9 +1499,9 @@
 		{
 			$('#button1').attr('disabled', 'disabled');
 			showSpinner();
+			var modifyItemNum =  document.getElementById("modifyNum").value;
 			var modifyItemId = document.getElementById("modifyID").innerHTML;
 			var modifyItemFishData = document.getElementById("modifyFishData").value;
-			
 			if (modifyItemId == "魚池編號")
 			{
 				alert("請選擇魚池編號");
@@ -1513,8 +1516,9 @@
 				{
 					$.ajax({
 				type: "post",
-				url: "https://script.google.com/macros/s/AKfycbwEXxd_cpjLB5a5GfOoRlFHVG1U9Ab6M3W_Z20XhCIS2RQa0FZTwwTtSwqFlMlB7dP53Q/exec",
+				url: "https://script.google.com/macros/s/AKfycbxPZZ3AThllLVuJ6sGG4V9CMRF6ZVQi19R4gxjlciEKp0_k2dZUkHgOsCevxYBAsfYxKg/exec",
 				data: {
+						"modifyItemNum": modifyItemNum,
 						"modifyItemId": modifyItemId,
 						"modifyItemFishData": modifyItemFishData ,
 				},
@@ -1616,6 +1620,7 @@
 			<div class="input-group-prepend">
 			<span class="input-group-text" id="modifyID" style="font-size:11pt;width:80px;”text-align: center; display:block;-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none;" >魚池編號</span>
 			</div>
+			<input type="text" style="font-size:11pt;display:none"  id="modifyNum" >
 			<input type="text" class="form-control" style="font-size:11pt;"  id="modifyFishData">
 			<div class="input-group-append">
 			<button class="btn btn-secondary" type="button" style="font-size:11pt;" onclick="javascript:modifySubmit()" id="button1">修改</button>
@@ -1623,16 +1628,16 @@
 		</div>
 	  </div>
 	  
-		<div class="text-center" style="height:100%; width:100%; top: 0 ;position:absolute; background-color:#ffffff; opacity: 0.4;" id="spinner">
-			<div class="spinner-border" style="margin-top:50%; width: 5rem; height: 5rem;" role="status">
-			  <span class="visually-hidden"></span>
-			</div>
-		</div>
 	  
 	</div>
 	
 </div><!-- /.container -->
 	
+		<div class="text-center" style="height:100%; width:100%; top: 0 ;position:absolute; background-color:#ffffff; opacity: 0.4;" id="spinner">
+			<div class="spinner-border" style="position:absolute; top:50%; margin-top: 0 ; width: 5rem; height: 5rem;" role="status">
+			  <span class="visually-hidden"></span>
+			</div>
+		</div>
 </div>
 </body>
 </html>
