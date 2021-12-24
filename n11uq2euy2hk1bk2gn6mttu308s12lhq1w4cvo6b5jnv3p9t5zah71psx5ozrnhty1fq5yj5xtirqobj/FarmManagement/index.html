@@ -1768,8 +1768,8 @@ XX	22.4877829587822 	120.5802130490010
 				success: function(response) {
 				  if(response == "成功")
 				  {
-					alert("修改成功。");
-					/*會重新取得Table資料，但地圖不會變*/
+					/*alert("修改成功。");
+					// 會重新取得Table資料，但地圖不會變
 					if  (currentPage == "工廠")
 					{
 						changePositionFactory();
@@ -1786,11 +1786,13 @@ XX	22.4877829587822 	120.5802130490010
 					{
 						changePositionJKB();
 					}
+					*/
 					
+					// window.location.reload(); reload會找不到原本定位而且表格會跑掉
+					document.location.href= "sucess.html";
 					 $('#button1').removeAttr('disabled');
 					hideSpinner();
 					
-					// window.location.reload(); reload會找不到原本定位而且表格會跑掉
 					 return;
 				   }
 				 },
@@ -1851,26 +1853,30 @@ XX	22.4877829587822 	120.5802130490010
 		</div>
 	  
   <!--</div>-->
-	<div style="height:250px;  position:relative; overflow:auto;margin-top:3px" >
+	<div style="height:220px;  position:relative; overflow:auto;margin-top:3px" >
 	  <table class="table table-hover table-light" style="font-size:10pt;-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none;" id="tableID">
         <thead class="thead-dark">
           <tr id="header-row">
-				<th data-field="num" style="width:20px;position: sticky; top: 0;display:none" >
+				<th data-field="num" style="width:20px; position: sticky;position: -webkit-sticky;
+position: -moz-sticky; position: -o-sticky; position: -ms-sticky; position: sticky; top: 0;display:none" >
               <span >
                 #
               </span>
             </th>
-            <th data-field="id" style="width:80px;position: sticky; top: 0;">
+            <th data-field="id" style="width:80px; position: sticky;position: -webkit-sticky;
+position: -moz-sticky; position: -o-sticky; position: -ms-sticky; position: sticky; top: 0;">
               <span >
                 魚池編號
               </span>
             </th>
-            <th data-field="name" style="position: sticky;   top: 0;">
+            <th data-field="name" style="position: sticky;position: -webkit-sticky;
+position: -moz-sticky; position: -o-sticky; position: -ms-sticky; position: sticky;   top: 0;">
               <span>
                 種魚資料
               </span>
             </th>
-            <th data-field="date" style="width:140px;position: sticky;  top: 0;">
+            <th data-field="date" style="width:140px; position: sticky;position: -webkit-sticky;
+position: -moz-sticky; position: -o-sticky; position: -ms-sticky; position: sticky; top: 0;">
               <span>
                 更新日期
               </span>
