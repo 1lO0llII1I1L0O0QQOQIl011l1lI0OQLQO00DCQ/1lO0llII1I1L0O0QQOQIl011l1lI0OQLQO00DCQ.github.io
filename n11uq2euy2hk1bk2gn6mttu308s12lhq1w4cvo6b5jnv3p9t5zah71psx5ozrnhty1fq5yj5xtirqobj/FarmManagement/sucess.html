@@ -36,13 +36,22 @@
         margin: 0 auto;
       }
     </style>
+	<script>
+	function go()
+	{
+		var urlParams = new URLSearchParams(window.location.search);
+		var location = urlParams.get('location');
+		document.location.href="index.html?location=" + location;
+	}
+	</script>
+	
     <body>
       <div class="card">
       <div style="border-radius:400px; height:400px; width:400px; background: #F8FAF5; margin:0 auto;">
         <i class="checkmark">✓</i>
       </div>
         <h1>Success</h1> 
-        <p>種魚修改成功<br/> <br/> <a href="index.html">返回上一頁</a></p>
+        <p>種魚修改成功<br/> <br/> <a href="#" onclick="javascript:go()"">返回上一頁</a></p>
       </div>
     </body>
 </html>

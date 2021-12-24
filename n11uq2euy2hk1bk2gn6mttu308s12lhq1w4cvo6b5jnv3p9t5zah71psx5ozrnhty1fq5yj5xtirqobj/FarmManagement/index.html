@@ -124,8 +124,25 @@
 				 }
 				 initMap();
 				 hideSpinner();
-				 currentPage = "工廠";
-				 changePositionFactory();
+				 var urlParams = new URLSearchParams(window.location.search);
+				var location = urlParams.get('location');
+				 currentPage = location;
+				 if  (currentPage == "工廠")
+					{
+						changePositionFactory();
+					}
+					else if  (currentPage == "SD")
+					{
+						changePositionSD();
+					}
+					else if  (currentPage == "A區")
+					{
+						changePositionJKA();
+					}
+					else if  (currentPage == "B區")
+					{
+						changePositionJKB();
+					}
 			});
 		
 		function mapSheetData(itemId, itemFishData)
@@ -1789,7 +1806,7 @@ XX	22.4877829587822 	120.5802130490010
 					*/
 					
 					// window.location.reload(); reload會找不到原本定位而且表格會跑掉
-					document.location.href= "sucess.html";
+					document.location.href= "sucess.html?location=" + currentPage;
 					 $('#button1').removeAttr('disabled');
 					hideSpinner();
 					
