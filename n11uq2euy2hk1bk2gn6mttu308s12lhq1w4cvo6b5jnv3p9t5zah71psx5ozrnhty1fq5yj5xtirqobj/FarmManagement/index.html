@@ -86,6 +86,7 @@
 		var fishDataC5 = "C5";
 		var fishDataC6 = "C6";
 		var fishDatafactoryCircle = ['M20', 'M19', 'M18', 'M17', 'M16', 'M15', 'M14', 'M13', 'M12', 'M11', 'M10', 'M9', 'M8', 'M7', 'M6', 'M5', 'M4', 'M3', 'M2', 'M1', 'S6', 'S5', 'S4', 'S3', 'S2', 'S1'];
+		var fishDatafactoryOutsideUnderground = ['13', '12', '11', '10', '9', '8', '7'];
 		
 		$.getJSON //https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}?key={apiKey}
 			('https://sheets.googleapis.com/v4/spreadsheets/1FvCtikKepDxRIMGmcaANmRB2y7gdwcrdKWnMrcWzfUU/values/form?alt=json&key=AIzaSyD1nv9DyD6XvqVI3MUg1j2l_yKUNl8FjUY', 
@@ -271,6 +272,28 @@
 					fishDataC6 = "<p><B>@" + itemId + "</B></p>" + itemFishData;
 					break;
 					
+				case '工廠C7':
+					fishDatafactoryOutsideUnderground[6] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠C8':
+					fishDatafactoryOutsideUnderground[5] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠C9':
+					fishDatafactoryOutsideUnderground[4] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠C10':
+					fishDatafactoryOutsideUnderground[3] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠C11':
+					fishDatafactoryOutsideUnderground[2] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠C12':
+					fishDatafactoryOutsideUnderground[1] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+				case '工廠C13':
+					fishDatafactoryOutsideUnderground[0] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
+					break;
+					
 				case '工廠M20':
 					fishDatafactoryCircle[0] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
 					break;
@@ -349,6 +372,7 @@
 				case '工廠S1':
 					fishDatafactoryCircle[25] = "<p><B>@" + itemId + "</B></p>" + itemFishData;
 					break;
+				
 					/*
 			//工廠
 			var fishDatafactoryCircle = ['M20', 'M19', 'M18', 'M17', 'M16', 'M15', 'M14', 'M13', 'M12', 'M11', 'M10', 'M9', 'M8', 'M7', 'M6', 'M5', 'M4', 'M3', 'M2', 'M1', 'S6', 'S5', 'S4', 'S3', 'S2', 'S1'];
@@ -1123,6 +1147,79 @@
 			{lat: 22.488043482874886, lng:  120.58044008222733}
 			];
 			
+			//工廠斗池7池
+			
+/*
+右上-左上
+1-4	22.4878598037920 	120.5803217058930 
+1-1.2-4	22.4878515147398 	120.5803047081560 
+2-1.3-4	22.4878432256877 	120.5802877104190 
+3-1.4-4	22.4878349366355 	120.5802707126820 
+4-1.5-4	22.4878266475834 	120.5802537149450 
+5-1.6-4	22.4878183585312 	120.5802367172080 
+6-1.7-4	22.4878100694791 	120.5802197194710 
+XX	22.4878017804269 	120.5802027217340 
+7-1	22.4877934913748 	120.5801857239970 
+
+右下-左下
+1-3	22.4878393391139 	120.5803339160430 
+1-2.2-3	22.4878312847808 	120.5803166493230 
+2-2.3-3	22.4878232304477 	120.5802993826030 
+3-2.4-3	22.4878151761146 	120.5802821158820 
+4-2.5-3	22.4878071217815 	120.5802648491620 
+5-2.6-3	22.4877990674484 	120.5802475824420 
+6-2.7-3	22.4877910131153 	120.5802303157220 
+XX	22.4877829587822 	120.5802130490010 
+7-2	22.4877749044491 	120.5801957822810 
+
+
+ */
+
+			var pointsFactoryOutsideUnderground1 = [
+			{lat: 22.4878515147398 , lng:  120.5803047081560},
+			{lat: 22.4878312847808, lng: 120.5803166493230},
+			{lat: 22.4878393391139 , lng:  120.5803339160430},
+			{lat: 22.4878598037920, lng:  120.5803217058930}
+			];
+			var pointsFactoryOutsideUnderground2 = [
+			{lat: 22.4878432256877 , lng:  120.5802877104190},
+			{lat: 22.4878232304477, lng: 120.5802993826030},
+			{lat: 22.4878312847808 , lng:  120.5803166493230},
+			{lat: 22.4878515147398, lng:  120.5803047081560}
+			];
+			var pointsFactoryOutsideUnderground3 = [
+			{lat: 22.4878349366355 , lng:  120.5802707126820},
+			{lat: 22.4878151761146, lng: 120.5802821158820},
+			{lat: 22.4878232304477 , lng:  120.5802993826030},
+			{lat: 22.4878432256877, lng:  120.5802877104190}
+			];
+
+			var pointsFactoryOutsideUnderground4 = [
+			{lat: 22.4878266475834 , lng:  120.5802537149450},
+			{lat: 22.4878071217815, lng: 120.5802648491620},
+			{lat: 22.4878151761146 , lng:  120.5802821158820},
+			{lat: 22.4878349366355, lng:  120.5802707126820}
+			];
+			var pointsFactoryOutsideUnderground5 = [
+			{lat: 22.4878183585312 , lng:  120.5802367172080},
+			{lat: 22.4877990674484, lng: 120.5802475824420},
+			{lat: 22.4878071217815 , lng:  120.5802648491620},
+			{lat: 22.4878266475834, lng:  120.5802537149450}
+			];
+			
+			var pointsFactoryOutsideUnderground6 = [
+			{lat: 22.4878100694791 , lng:  120.5802197194710},
+			{lat: 22.4877910131153, lng: 120.5802303157220},
+			{lat: 22.4877990674484 , lng:  120.5802475824420},
+			{lat: 22.4878183585312, lng:  120.5802367172080}
+			];
+			
+			var pointsFactoryOutsideUnderground7 = [
+			{lat: 22.4877934913748 , lng:  120.5801857239970},
+			{lat: 22.4877749044491, lng: 120.5801957822810},
+			{lat: 22.4877910131153 , lng:  120.5802303157220},
+			{lat: 22.4878100694791, lng:  120.5802197194710}
+			];
 			var pathFactoryOutsideBig1 = new google.maps.Polygon({
 			paths: pointsFactoryOutsideBig1,
 			strokeColor: '#ffffff',
@@ -1191,6 +1288,84 @@
 			map:map
 			});   	
 			
+			var pathFactoryOutsideUnderground1 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideUnderground1,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 2,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF79BC',
+			fillOpacity: 0.8,
+			label: 'C7',
+			map:map
+			});   
+			var pathFactoryOutsideUnderground2 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideUnderground2,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 2,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF79BC',
+			fillOpacity: 0.8,
+			label: 'C8',
+			map:map
+			});   
+			var pathFactoryOutsideUnderground3 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideUnderground3,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 2,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF79BC',
+			fillOpacity: 0.8,
+			label: 'C9',
+			map:map
+			});   
+			var pathFactoryOutsideUnderground4 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideUnderground4,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 2,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF79BC',
+			fillOpacity: 0.8,
+			label: 'C10',
+			map:map
+			});   
+			var pathFactoryOutsideUnderground5 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideUnderground5,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 2,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF79BC',
+			fillOpacity: 0.8,
+			label: 'C11',
+			map:map
+			});   
+			var pathFactoryOutsideUnderground6 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideUnderground6,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 2,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF79BC',
+			fillOpacity: 0.8,
+			label: 'C12',
+			map:map
+			});   
+			var pathFactoryOutsideUnderground7 = new google.maps.Polygon({
+			paths: pointsFactoryOutsideUnderground7,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 2,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF79BC',
+			fillOpacity: 0.8,
+			label: 'C13',
+			map:map
+			});   
+			
 			var markerFactoryOutsideBig1 = new google.maps.Marker({
 			position:  { lat:  22.487681171106185, lng: 120.58013656998223 },
 			map: map,
@@ -1224,6 +1399,73 @@
 			icon: circleIcon,
 			label: 'C6',
 			});
+			
+			var markerFactoryOutsidePinkC = new google.maps.Marker({
+			position:  { lat:  22.487779113070825, lng: 120.58017845657014 },
+			map: map,
+			icon: circleIcon,
+			fillColor: "blue",
+			 label :{
+				text: "C",
+				color: "#FF95CA",
+				fontSize: "20px",},
+			});
+			
+			var positionOutsideUndergroundFactory = [
+			{
+			lat: 22.487791477047306, // 7  C13
+			lng: 120.5802054149006
+			} , {
+			lat: 22.48780358885068, //6  C12
+			lng: 120.58023342467172
+			} , {
+			lat: 22.487811023619674, //5  C11
+			lng: 120.58025220013452
+			} , {
+			lat: 22.4878196795127, //4  C1022., 120.
+			lng: 120.58026946326243
+			} , {
+			lat: 22.487828058634772, //3  C922., 120.22., 120.
+			lng: 120.58028641548124
+			} , {
+			lat: 22.487837045308055, //2  C8
+			lng: 120.58030383265724
+			} , {
+			lat: 22.48784448007525, //1  C7
+			lng: 120.58032059646331
+			}
+			];
+			
+			
+			var factoryOutsideUndergroundNum = ['13', '12', '11', '10', '9', '8', '7'];
+			var factoryOutsideUndergroundMarker = [];
+			var factoryOutsideUndergroundInfowindow = [];
+
+			positionOutsideUndergroundFactory.forEach(function(e, i) {
+				
+			  factoryOutsideUndergroundMarker[i] = new google.maps.Marker({
+			  position: e,
+			  map: map,
+			  icon: circleIcon,
+			  label: {
+				fontSize: "9pt",
+				text: factoryOutsideUndergroundNum[i].toString()
+			  }
+			});
+			factoryOutsideUndergroundInfowindow[i] = new google.maps.InfoWindow({
+			  content: "<div id='divInfowindow'><h5>" + fishDatafactoryOutsideUnderground[i]+ "</h5></div>" // 支援html
+			});
+
+			  factoryOutsideUndergroundMarker[i].addListener('click', e => {
+				if ( prev_infowindow ) {
+				   prev_infowindow.close();
+				}
+				prev_infowindow = factoryOutsideUndergroundInfowindow[i];
+				factoryOutsideUndergroundInfowindow[i].open(this.map, factoryOutsideUndergroundMarker[i]);
+			});
+
+			});
+			
 			 // info window  https://www.letswrite.tw/google-map-api-marker-custom/
 			 
 			let infowindowFactoryOutsideBig1 = new google.maps.InfoWindow({
@@ -1377,11 +1619,6 @@
 			var factoryCircle = [];
 			var factoryCircleMarker = [];
 			var factoryCircleInfowindow = [];
-			var circleIcon = {
-				url: "", // url image/circle_icon.svg
-				scaledSize: new google.maps.Size(18, 18), // scaled size
-				anchor: new google.maps.Point(9, 9),
-			};
 			positionCircleFactory.forEach(function(e, i) {
 			 if  (i<=19)
 			 {
@@ -1532,7 +1769,7 @@
 				  if(response == "成功")
 				  {
 					alert("修改成功。");
-					
+					/*會重新取得Table資料，但地圖不會變*/
 					if  (currentPage == "工廠")
 					{
 						changePositionFactory();
@@ -1552,6 +1789,8 @@
 					
 					 $('#button1').removeAttr('disabled');
 					hideSpinner();
+					
+					// window.location.reload(); reload會找不到原本定位而且表格會跑掉
 					 return;
 				   }
 				 },
