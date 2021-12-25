@@ -38,7 +38,7 @@
 			  padding: 0;
 		}
 		#map {
-		  height: 52%;
+		  height: 360px;
 		  width: 100%;
 		  margin-top:-8px;
 		  <!--margin: 0 auto; -->
@@ -1768,7 +1768,7 @@ XX	22.4877829587822 	120.5802130490010
 			
 			getSheetData("建功A", "溫室"); 
 			map.setCenter({ lat: 22.47870410125927, lng:  120.56927710840841 }); // A區定位
-			map.setZoom(18);  // A區定位定位縮放  18.5最好
+			map.setZoom(18);  // A區定位定位縮放  18.5最好, 但有時候不work，所以改18
 		}
 		function changePositionJKB()
 		{
@@ -1784,7 +1784,7 @@ XX	22.4877829587822 	120.5802130490010
 			
 			getSheetData("建功B");
 			map.setCenter({ lat: 22.476415881334077, lng: 120.5690490942485 }); // B區定位
-			map.setZoom(17);  // B區定位定位縮放  17.6最好
+			map.setZoom(17);  // B區定位定位縮放  17.6最好, 但有時候不work，所以改17
 		}
 		
 		function modifySubmit()
@@ -1894,7 +1894,7 @@ XX	22.4877829587822 	120.5802130490010
     ></script></div><!-- //&callback=initMap-->
 	
 	 <!--<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-top:-30px" >-->
-		<div class="btn-group btn-group-sm" role="group" style="margin-top:-370px; margin-left: 0px; " >
+		<div class="btn-group btn-group-sm" role="group" style="margin-top:-360px; margin-left: 0px; " >
 		  <button type="button" id="factoryButton" class="btn btn-info"  style="font-size:11pt;" onclick="changePositionFactory()">工廠</button>
 		  <button type="button" id="SDButton"  class="btn btn-info"  style="font-size:11pt;"  onclick="changePositionSD()">ＳＤ</button>
 		  <button type="button" id="JKAButton"  class="btn btn-info"  style="font-size:11pt;" onclick="changePositionJKA()">Ａ區</button>
