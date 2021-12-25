@@ -769,6 +769,38 @@
 
 			});
 
+			// SD斗池
+			var pointsSDHome = [
+			{lat: 22.485970894943403  , lng:  120.5786325552167},// 左上
+			{lat: 22.485792458004877, lng: 120.57860238036709},    // 左下
+			{lat: 22.48578254483487 , lng:  120.5786566950964}, //右下22., 120.
+			{lat: 22.48596407964789, lng:  120.57868619939381} //右上
+			];
+			
+			var pathSDHome = new google.maps.Polygon({
+			paths: pointsSDHome,
+			strokeColor: '#ffffff',
+			strokeOpacity: .5,
+			strokeWeight: 3,
+			strokePosition: google.maps.StrokePosition.CENTER,
+			fillColor: '#FF8F59',
+			fillOpacity: 0.5,
+			label: 'H',
+			map:map
+			});   
+			
+			var markerSDOrangeH = new google.maps.Marker({
+			position:  { lat:  22.485876719921176, lng: 120.57864261349992 },
+			map: map,
+			icon: circleIcon,
+			fillColor: "blue",
+			 label :{
+				text: "H",
+				color: "#642100",
+				fontSize: "12px",},
+			});
+			
+			
 			// A區戶外圓池
 			var positionCircleJKA = [{ 
 
