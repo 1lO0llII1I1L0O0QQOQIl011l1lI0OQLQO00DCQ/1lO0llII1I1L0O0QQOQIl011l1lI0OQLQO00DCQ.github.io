@@ -149,9 +149,9 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-					<input type="date" id="dateID" min="2024-01-18"  class="form-control datepicker"  onchange="dateOnchangeHandler(event);" onkeypress="return false"required />
-                    <!-- Topbar Navbar -->
-					
+					<input type="date" id="dateID" min="2024-01-18"  class="form-control datepicker"  onchange="dateOnchangeHandler(event);" onkeypress="return false" required />
+                    
+					<!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -337,7 +337,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tables - 儲能櫃資訊</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Tables - 儲能櫃每日資料</h6>
                         </div>
 						
                         <div class="card-body">
@@ -350,7 +350,7 @@
                                             <th data-field="soc">SOC</th>
                                             <th data-field="capacity" data-sortable="true" >容量</th>
                                             <th data-field="currently" data-sortable="true" >電流</th>
-                                            <th data-field="MPPT1Currently_L" data-sortable="true" >MPPT</th>
+                                            <th data-field="MPPT1Currently_L" data-sortable="true" >光伏</th>
                                             <th data-field="volt" data-sortable="true" >電壓</th>
                                             <th data-field="maxTemp" data-sortable="true" >溫度</th>
                                         </tr>
@@ -454,7 +454,7 @@
 		async function dateOnchangeHandler(e){
 			// Wait for data
 			$("#dataTable").bootstrapTable('load', new Array()); 
-			$('#dataTable').bootstrapTable('refresh', {pageSize:10});	
+			$('#dataTable').bootstrapTable('refresh');	
 			document.getElementById('loading').style = "";
 			document.getElementById('dataTable').style = "display:none;";
 			
@@ -468,7 +468,7 @@
 			$("#dataTable").bootstrapTable('load', sheetJsonData); 
 			  
 			console.log("YA");
-			$('#dataTable').bootstrapTable('refresh', {pageSize:10});	
+			$('#dataTable').bootstrapTable('refresh');	
 			document.getElementById('dataTable').style = "";	
 			document.getElementById('loading').style = "visibility:hidden";
 		}

@@ -49,7 +49,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -63,7 +63,7 @@
             </div>
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
@@ -145,21 +145,9 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- Topbar Navbar -->
+					<input type="date" id="dateID" min="2024-01-18"  class="form-control datepicker"  onchange="dateOnchangeHandler(event);" onkeypress="return false" required />
+                    
+					<!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -342,13 +330,6 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Charts</h1>
-                    <p class="mb-4">Chart.js is a third party plugin that is used to generate the charts in this theme.
-                        The charts below have been customized - for further customization options, please visit the <a
-                            target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js
-                            documentation</a>.</p>
-
                     <!-- Content Row -->
                     <div class="row">
 
@@ -356,16 +337,15 @@
 
                             <!-- Area Chart -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-                                </div>
+                                
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">SOC</h6>
+								</div>
+
                                 <div class="card-body">
                                     <div class="chart-area">
                                         <canvas id="myAreaChart"></canvas>
                                     </div>
-                                    <hr>
-                                    Styling for the area chart can be found in the
-                                    <code>/js/demo/chart-area-demo.js</code> file.
                                 </div>
                             </div>
 
@@ -386,24 +366,6 @@
 
                         </div>
 
-                        <!-- Donut Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <hr>
-                                    Styling for the donut chart can be found in the
-                                    <code>/js/demo/chart-pie-demo.js</code> file.
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -467,9 +429,83 @@
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+	
+    
+	<script src="js/demo/chart-area-demo.js"></script>
+	
     <script src="js/demo/chart-bar-demo.js"></script>
+
+	<script>
+	
+		function convertToISO(timebit) {
+		  // remove GMT offset
+		  timebit.setHours(0, -timebit.getTimezoneOffset(), 0, 0);
+		  // format convert and take first 10 characters of result
+		  var isodate = timebit.toISOString().slice(0,10);
+		  return isodate;
+		}
+
+	
+		var bookdate = document.getElementById('dateID');
+		var currentdate = new Date();
+		bookdate.max = convertToISO(currentdate);
+		bookdate.value = bookdate.max;
+		/*
+		async function dateOnchangeHandler(e){
+			// Wait for data
+			$("#dataTable").bootstrapTable('load', new Array()); 
+			$('#dataTable').bootstrapTable('refresh');	
+			document.getElementById('loading').style = "";
+			document.getElementById('dataTable').style = "display:none;";
+			
+			
+			var selectDate = document.getElementById('dateID').value;
+			
+			const uri = 'https://script.google.com/macros/s/AKfycbz7uNqDwa71rzJ2fKed3Xa-HndnVGOeyYc9XYDvXp981dGQPMjXxbFcjfv0RSxSJg-KVg/exec?date=' + selectDate;
+			const response = await fetch(uri);
+			const data = await response.json();
+			var sheetJsonData = data;
+			$("#dataTable").bootstrapTable('load', sheetJsonData); 
+			  
+			console.log("YA");
+			$('#dataTable').bootstrapTable('refresh');	
+			document.getElementById('dataTable').style = "";	
+			document.getElementById('loading').style = "visibility:hidden";
+		}
+		
+		
+		getData();
+		
+		async function getData() {
+		
+			var selectDate = document.getElementById('dateID').value;
+			
+			const uri = 'https://script.google.com/macros/s/AKfycbz7uNqDwa71rzJ2fKed3Xa-HndnVGOeyYc9XYDvXp981dGQPMjXxbFcjfv0RSxSJg-KVg/exec?date=' + selectDate;
+			const response = await fetch(uri);
+			const data = await response.json();
+			var sheetJsonData = data;
+			
+			$("#dataTable").bootstrapTable({ 
+				//search:true, 
+				//searchOnEnterKey:false,
+				pagination:true, // 分頁
+				
+				pageNumber:1, //第一頁
+				pageSize:10, //每頁資訊量
+				searchAlign:'left',
+				minimumCountColumns: 10,
+				sortable: true,
+				data: sheetJsonData 
+			  }); 
+			  $('#dataTable').bootstrapTable('refresh', {pageSize:10});			
+			
+			document.getElementById('dataTable').style = "";	
+			document.getElementById('loading').style = "visibility:hidden";
+		}
+		
+	*/
+	</script>
+
 
 </body>
 
