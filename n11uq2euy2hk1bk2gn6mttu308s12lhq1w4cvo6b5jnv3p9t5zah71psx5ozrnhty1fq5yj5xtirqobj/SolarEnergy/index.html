@@ -335,9 +335,15 @@
                 </nav>
                 <!-- End of Topbar -->
 				<!-- End of Page Same-->
-
+				<div class="d-flex justify-content-center" id="loading">
+					  <div class="spinner-border" role="status">
+						<span class="visually-hidden"></span>
+					  </div>
+				</div>
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" id="containerID" style="display:none;visibility:hidden;">
+					
+				
 					<!-- Content Row -->
                     <div class="row">
 
@@ -422,22 +428,21 @@
 									<button type="button" class="btn btn-sm btn-success " id="MPPTSWID" disabled>MPPT 開啟</button>
 									<span class="float-right" id="socSpanID">
 										<button type="button" class="btn btn-sm btn-success" id="MPPTFlagID" disabled>正常運作</button>
-										<!--<button type="button" class="btn btn-sm btn-danger" id="MPPTFlagID" disabled>異常故障</button>-->
 									</span>
 									</h4>
 											
 									
-                                    <h4 class="small font-weight-bold text-dark">高壓側電壓<span
-                                            class="float-right" id="MPPTvoltHSpanID">6621 V</span></h4>
+                                    <h4 class="small font-weight-bold text-dark">高壓側電壓
+										<span class="float-right" id="MPPTvoltHSpanID">6621 V</span></h4>
                                     
-                                    <h4 class="small font-weight-bold text-dark">低壓側電壓<span
-                                            class="float-right text-danger" id="MPPTVoltLSpanID">1 V</span></h4>
+                                    <h4 class="small font-weight-bold text-dark">低壓側電壓
+										<span class="float-right" id="MPPTvoltLSpanID">1 V</span></h4>
 											
-                                    <h4 class="small font-weight-bold text-dark" id="MPPTCurrentlyLSpanID">低壓側電流<span
-                                            class="float-right">0 A</span></h4>
+                                    <h4 class="small font-weight-bold text-dark">低壓側電流<span
+                                            class="float-right text-danger" id="MPPTCurrentlyLSpanID">0 A</span></h4>
 											
-                                    <h4 class="small font-weight-bold text-dark" id="avgTempSpanID">低壓側功率<span
-                                            class="float-right">0 kW</span></h4>
+                                    <h4 class="small font-weight-bold text-dark">低壓側功率<span
+                                            class="float-right" id="MPPTPowerSpanID">0 kW</span></h4>
 									
 									<!-- PCS -->
 									<h4 class="small font-weight-bold text-dark">
@@ -453,13 +458,13 @@
                                     <h4 class="small font-weight-bold text-dark">DC輸出功率<span
                                             class="float-right" id="PCSDCPowerSpanID">62 kW</span></h4>
 											
-                                    <h4 class="small font-weight-bold text-dark" id="PCSDCCurrentSpanID">DC輸出電流<span
-                                            class="float-right">95 A</span></h4>
+                                    <h4 class="small font-weight-bold text-dark">DC輸出電流<span
+                                            class="float-right"  id="PCSDCCurrentSpanID">95 A</span></h4>
 											
-                                    <h4 class="small font-weight-bold text-dark" id="PCSACPowerSpanID">AC輸出有效功率<span
-                                            class="float-right">50 kW</span></h4>
-									<h4 class="small font-weight-bold text-dark" id="PCSACVarSpanID">AC輸出無效功率<span
-									class="float-right">0 kW</span></h4>
+                                    <h4 class="small font-weight-bold text-dark">AC輸出有效功率<span
+                                            class="float-right"  id="PCSACPowerSpanID">50 kW</span></h4>
+									<h4 class="small font-weight-bold text-dark">AC輸出無效功率<span
+									class="float-right" id="PCSACVarSpanID">0 kW</span></h4>
 
 											
                                 </div>
@@ -501,11 +506,12 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
                 <!-- /.container-fluid -->
-
+				
             </div>
             <!-- End of Main Content -->
 
@@ -568,33 +574,154 @@
     <script src="js/demo/chart-pie-demo.js"></script>
 	
 	<script>
-		var item = [];
-		item.soc = '60';
-		item.capacity = '240';
-		item.volt = '560';
-		item.time = '2024/01/21 00:00';
-		item.currently = '-16';
-		var socSpanID = document.getElementById('socSpanID');
-		socSpanID.textContent ='(' + item.capacity + '/400)'; 
-		var socProgressID = document.getElementById('socProgressID');
-		socProgressID.textContent = item.soc + '%';
-		socProgressID.style.width = item.soc + '%';
-		//error socProgressIDEle.attr('aria-valuenow', '60');
-		var timeSpanID = document.getElementById('timeSpanID');
-		timeSpanID.textContent = item.time;
-		var voltSpanID = document.getElementById('voltSpanID');
-		voltSpanID.textContent = item.volt + ' V';
-		var currentlySpanID = document.getElementById('currentlySpanID');
-		if (item.currently > 0)
-		{
-			currentlySpanID.textContent = '充電 '  + item.currently + ' A';
+		getData();
+		async function getData() {
+		
+			document.getElementById('loading').style = "";
+			document.getElementById('containerID').style = "display:none; visibility:hidden";
+			
+			const uri = 'https://script.google.com/macros/s/AKfycbxBBcV0F-4PnNflg3zytsgs1keVYYrkoOKxsQfos4l3mAluSxx1sjGvw8ymw7iObKgWTg/exec?date=dashboard';
+			const response = await fetch(uri);
+			const data = await response.json();
+			var item = data[0];
+			
+			var socSpanID = document.getElementById('socSpanID');
+			socSpanID.textContent ='(' + item.capacity + '/400)'; 
+			var socProgressID = document.getElementById('socProgressID');
+			socProgressID.textContent = item.soc + '%';
+			socProgressID.style.width = item.soc + '%';
+			//error socProgressIDEle.attr('aria-valuenow', '60');
+			var timeSpanID = document.getElementById('timeSpanID');
+			timeSpanID.textContent = item.time;
+			var voltSpanID = document.getElementById('voltSpanID');
+			voltSpanID.textContent = item.volt + ' V';
+			var currentlySpanID = document.getElementById('currentlySpanID');
+			if (item.currently > 0)
+			{
+				currentlySpanID.textContent = '充電 '  + item.currently + ' A';
+			}
+			else
+			{
+				currentlySpanID.textContent = '放電 '  + item.currently + ' A';
+			}
+			
+			var capacitySpanID = document.getElementById('capacitySpanID');
+			capacitySpanID.textContent = item.capacity + ' AH';
+			
+			var olineNumSpanID =  document.getElementById('olineNumSpanID');
+			olineNumSpanID.textContent = item.OlineNum + ' 簇';
+			
+			var cellNumSpanID =  document.getElementById('cellNumSpanID');
+			cellNumSpanID.textContent = item.CellNum + ' 串';
+			
+			var tempNumSpanID =  document.getElementById('tempNumSpanID');
+			tempNumSpanID.textContent = item.TempNum + ' 串';
+			
+			var avgTempSpanID =  document.getElementById('avgTempSpanID');
+			avgTempSpanID.textContent = item.avgTemp + ' ℃';
+			
+			var maxTempSpanID =  document.getElementById('maxTempSpanID');
+			maxTempSpanID.textContent = item.MaxTemp + ' ℃';
+			
+			var minTempSpanID =  document.getElementById('minTempSpanID');
+			minTempSpanID.textContent = item.MinTemp + ' ℃';
+			
+			var avgVoltSpanID =  document.getElementById('avgVoltSpanID');
+			avgVoltSpanID.textContent = item.avgVolt + ' V';
+			
+			var maxVoltSpanID =  document.getElementById('maxVoltSpanID');
+			maxVoltSpanID.textContent = item.MaxVolt + ' V';
+			
+			var minVoltSpanID =  document.getElementById('minVoltSpanID');
+			minVoltSpanID.textContent = item.MinVolt + ' V';
+			
+			var MPPTSWID =  document.getElementById('MPPTSWID');
+			
+			if (item.MPPT1_Sw == true)
+			{
+				MPPTSWID.className = "btn btn-sm btn-success ";
+				MPPTSWID.textContent = 'MPPT 開啟';
+			}
+			else
+			{
+				MPPTSWID.className = "btn btn-sm btn-danger ";
+				MPPTSWID.textContent = 'MPPT 關閉';
+			}
+			
+			var MPPTFlagID =  document.getElementById('MPPTFlagID');
+			
+			if (item.failFlagMPPT == '正常')
+			{
+				MPPTFlagID.className = "btn btn-sm btn-success ";
+				MPPTFlagID.textContent = '正常運作';
+			}
+			else
+			{
+				MPPTFlagID.className = "btn btn-sm btn-danger ";
+				MPPTFlagID.textContent = '異常故障';
+			}
+			
+			
+			var MPPTvoltHSpanID =  document.getElementById('MPPTvoltHSpanID');
+			MPPTvoltHSpanID.textContent = item.MPPT1Volt_H + ' V';
+			
+			var MPPTvoltLSpanID =  document.getElementById('MPPTvoltLSpanID');
+			MPPTvoltLSpanID.textContent = item.MPPT1Volt_L + ' V';
+			
+			var MPPTCurrentlyLSpanID =  document.getElementById('MPPTCurrentlyLSpanID');
+			MPPTCurrentlyLSpanID.textContent = item.MPPT1Currently_L + ' A';
+
+			var MPPTPowerSpanID =  document.getElementById('MPPTPowerSpanID');
+			MPPTPowerSpanID.textContent = item.MPPT1Power_L + ' kW';
+
+
+			var PCSSWID =  document.getElementById('PCSSWID');
+			
+			if (item.PCS_Sw == true)
+			{
+				PCSSWID.className = "btn btn-sm btn-success ";
+				PCSSWID.textContent = 'PCS 開啟 - 狀態 ' + item.PCS_Status;
+			}
+			else
+			{
+				PCSSWID.className = "btn btn-sm btn-danger ";
+				PCSSWID.textContent = 'PCS 關閉 - 狀態 ' + item.PCS_Status;
+			}
+			
+			var PCSFlagID =  document.getElementById('PCSFlagID');
+			
+			if (item.failFlagPcs == '正常')
+			{
+				PCSFlagID.className = "btn btn-sm btn-success ";
+				PCSFlagID.textContent = '正常運作';
+			}
+			else
+			{
+				PCSFlagID.className = "btn btn-sm btn-danger ";
+				PCSFlagID.textContent = '異常故障';
+			}
+
+			var PCSDCVoltSpanID =  document.getElementById('PCSDCVoltSpanID');
+			PCSDCVoltSpanID.textContent = item.PCSDC_Volt + ' V';
+
+			var PCSDCPowerSpanID =  document.getElementById('PCSDCPowerSpanID');
+			PCSDCPowerSpanID.textContent = item.PCSDC_Power + ' kW';
+
+			var PCSDCCurrentSpanID =  document.getElementById('PCSDCCurrentSpanID');
+			PCSDCCurrentSpanID.textContent = item.PCSDC_Currently + ' A';
+
+			var PCSACPowerSpanID =  document.getElementById('PCSACPowerSpanID');
+			PCSACPowerSpanID.textContent = item.PCSAC_Power + ' A';
+
+			var PCSACVarSpanID =  document.getElementById('PCSACVarSpanID');
+			PCSACVarSpanID.textContent = item.PCSAC_Var + ' A';
+
+
+			document.getElementById('loading').style = "display:none; visibility:hidden;";
+			document.getElementById('containerID').style = "";
 		}
-		else
-		{
-			currentlySpanID.textContent = '放電 '  + item.currently + ' A';
-		}
-		var capacitySpanID = document.getElementById('capacitySpanID');
-		capacitySpanID.textContent = item.capacity + ' AH';
+		
+		
 	</script>
 </body>
 
