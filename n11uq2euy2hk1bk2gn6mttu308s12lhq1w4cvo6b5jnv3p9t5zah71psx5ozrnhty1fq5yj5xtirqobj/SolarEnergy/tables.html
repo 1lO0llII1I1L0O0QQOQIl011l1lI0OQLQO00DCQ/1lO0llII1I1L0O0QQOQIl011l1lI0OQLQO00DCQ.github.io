@@ -44,7 +44,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-fish" style='font-size:24px'></i> <i class="fas fa-sun" style='font-size:24px'></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">SDAT 聖鯛</div>
             </a>
@@ -459,25 +459,7 @@
 		bookdate.value = bookdate.max;
 		
 		async function dateOnchangeHandler(e){
-			// Wait for data
-			$("#dataTable").bootstrapTable('load', new Array()); 
-			$('#dataTable').bootstrapTable('refresh');	
-			document.getElementById('loading').style = "";
-			document.getElementById('dataTable').style = "display:none;";
-			
-			
-			var selectDate = document.getElementById('dateID').value;
-			
-			const uri = 'https://script.google.com/macros/s/AKfycbz7uNqDwa71rzJ2fKed3Xa-HndnVGOeyYc9XYDvXp981dGQPMjXxbFcjfv0RSxSJg-KVg/exec?date=' + selectDate;
-			const response = await fetch(uri);
-			const data = await response.json();
-			var sheetJsonData = data;
-			$("#dataTable").bootstrapTable('load', sheetJsonData); 
-			  
-			console.log("YA");
-			$('#dataTable').bootstrapTable('refresh');	
-			document.getElementById('dataTable').style = "";	
-			document.getElementById('loading').style = "visibility:hidden";
+			getData();
 		}
 		
 		
@@ -485,9 +467,15 @@
 		
 		async function getData() {
 		
+			// Wait for data
+			$("#dataTable").bootstrapTable('load', new Array()); 
+			$('#dataTable').bootstrapTable('refresh');	
+			document.getElementById('loading').style = "";
+			document.getElementById('dataTable').style = "display:none;";
+			
 			var selectDate = document.getElementById('dateID').value;
 			
-			const uri = 'https://script.google.com/macros/s/AKfycbz7uNqDwa71rzJ2fKed3Xa-HndnVGOeyYc9XYDvXp981dGQPMjXxbFcjfv0RSxSJg-KVg/exec?date=' + selectDate;
+			const uri = 'https://script.google.com/macros/s/AKfycbxxDhwV5y7jcqyq0gwvkzw9YmiJD8t9DF5D9bIe_HIl17hw6RjuEcTKH4iojhbyHsES9w/exec?date=' + selectDate;
 			const response = await fetch(uri);
 			const data = await response.json();
 			var sheetJsonData = data;
@@ -504,7 +492,11 @@
 				sortable: true,
 				data: sheetJsonData 
 			  }); 
-			  $('#dataTable').bootstrapTable('refresh', {pageSize:10});			
+			  
+			$("#dataTable").bootstrapTable('load', sheetJsonData); 
+			  
+			  
+			$('#dataTable').bootstrapTable('refresh', {pageSize:10});			
 			
 			document.getElementById('dataTable').style = "";	
 			document.getElementById('loading').style = "visibility:hidden";
