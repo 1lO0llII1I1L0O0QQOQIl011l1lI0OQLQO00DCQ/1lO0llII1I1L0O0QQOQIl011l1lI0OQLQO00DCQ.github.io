@@ -26,9 +26,10 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css?v=5" rel="stylesheet">
+	
+    <link href="https://fonts.googleapis.com/earlyaccess/cwtexming.css" rel="stylesheet">
 
 </head>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -38,11 +39,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" >
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-fish" style='font-size:24px'></i> <i class="fas fa-sun" style='font-size:24px'></i>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html" >
+			    <!--<div class="sidebar-brand-text rotate-n-15"><i class="fas fa-fish" style='font-size:24px'></i> <i class="fas fa-sun" style='font-size:24px'></i></div>-->
+                <div class="sidebar-brand-icon mx-3">
+					<font style="font-size:13pt; font-family:'cwTeXMing'">聖 鯛</font>
                 </div>
-                <div class="sidebar-brand-text mx-3">SDAT 聖鯛</div>
             </a>
 
             <!-- Divider -->
@@ -54,7 +55,7 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-<!-- Divider -->
+			<!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
@@ -145,8 +146,16 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
+					
+					<a class="sidebar-brand d-flex align-items-center justify-content-center " href="index.html"  style="text-decoration:none;">
+						<div class="sidebar-brand-text mx-3" style="font-size:20px"><B>Solar System</B></div> <!-- background-color:#ECF5FF-->
+						<div class="sidebar-brand-icon rotate-n-15" >
+							<font size=1>　</font><i class="fas fa-fish" style='font-size:20px'></i> <i class="fas fa-sun" style='font-size:20px'></i>
+						</div>
+					</a>
 
                     <!-- Topbar Search -->
+					<!--
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
@@ -155,7 +164,7 @@
 								 
                         </div>
                     </form>
-
+					-->
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -349,13 +358,13 @@
 					<!-- Content Row -->
                     <div class="row">
 					
-						<div class="col-xl-12 col-lg-7">
+						<div class="col-lg-6 mb-4">
 
 							<!-- Weather Chart -->
-							<div class="card shadow mb-4">
+							<div class="card shadow mb-1">
 								
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">新埤鄉 - 天氣預報</h6>
+									<h6 class="m-0 font-weight-bold text-primary">新埤鄉 - 即時氣象預報</h6>
 								</div>
 
 								<div class="card-body">
@@ -378,7 +387,7 @@
                         <div class="col-lg-6 mb-4">
 
                             <!-- Data Card Example -->
-                            <div class="card shadow mb-4">
+                            <div class="card shadow mb-1">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">電池資訊</h6>
                                 </div>
@@ -439,8 +448,6 @@
                                     
                                 </div>
                             </div>
-
-                            
                         </div>
 
                         <div class="col-lg-6 mb-4">
@@ -575,16 +582,22 @@
 		async function getData() {
 				
 			// momo
-			const uriWeather = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-033?Authorization=CWA-AC9B44D3-2CAC-44B7-8051-CB5FD07D7276&locationName=%E6%96%B0%E5%9F%A4%E9%84%89&elementName=Wx,T' ;
+			const uriWeather = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-033?Authorization=CWA-AC9B44D3-2CAC-44B7-8051-CB5FD07D7276&locationName=%E6%96%B0%E5%9F%A4%E9%84%89&elementName=Wx,T'+'&v=' +  Date.now();
 			const responseWeather = await fetch(uriWeather);
 			const dataWeather = await responseWeather.json();
 			var jsonDataWeather = dataWeather.records.locations[0].location[0];
-			console.log(jsonDataWeather);
-			var timeLabels = [];
+			//console.log(jsonDataWeather);
 			var countLabels = 0;
-			var wxValue = [];
-			var tempValue = [];
-			var weatherStyle = [];
+			
+			
+			var timeLabels = [];
+			var wxValue1 = [];
+			var tempValue1 = [];
+			var weatherStyle1 = [];
+			
+			var wxValue2 = [];
+			var tempValue2 = [];
+			var weatherStyle2 = [];
 			
 			
 			var dayBigRainIcon = new Image();
@@ -602,6 +615,14 @@
 			var daySunIcon = new Image();
 			daySunIcon.src = "img/weather/resize25/daySunIcon.svg"; //白天 + 晴
 			
+/*			多雲時陰 
+			陰短暫雨
+			
+			對照表 https://www.cwa.gov.tw/V8/C/K/Weather_Icon.html
+			
+			https://www.cwa.gov.tw/V8/assets/img/weather_icons/weathers/svg_icon/night/01.svg
+*/
+			
 			
 			var nightBigRainIcon = new Image();
 			nightBigRainIcon.src = "img/weather/resize25/nightBigRainIcon.svg"; //晚上 + 有雨
@@ -618,79 +639,104 @@
 			var nightSunIcon = new Image();
 			nightSunIcon.src = "img/weather/resize25/nightSunIcon.svg"; //晚上 + 晴
 			
+			var dayCount = 0;
+			var oldDateStr = "";
 			
-			console.log('jsonDataWeather.weatherElement[0].time.length ' + jsonDataWeather.weatherElement[0].time.length);
-			
-			for (var i=0; i<12; i++) // jsonDataWeather.weatherElement[0].time.length 共32筆
+			for (var i=0; countLabels<10; i++) // jsonDataWeather.weatherElement[0].time.length 共32筆
 			{
 				var startTime = jsonDataWeather.weatherElement[0].time[i].startTime;
 				var parseDate = startTime.slice(5,10);
+				
+				if (oldDateStr !== parseDate)
+				{
+					if (dayCount == 2)
+					{
+						break;
+					}
+					oldDateStr = parseDate;
+					dayCount++;
+				}
+							
 				var parseTime = startTime.slice(11,13);
-								
 				var wxDesc = jsonDataWeather.weatherElement[0].time[i].elementValue[0].value;
+				var wxNum = jsonDataWeather.weatherElement[0].time[i].elementValue[1].value;
 				
-				console.log(parseDate + ' ' + parseTime);
 				
-				// set weather icon
-				if (parseTime.indexOf('18')>=0 || parseTime.indexOf('21')>=0 || parseTime.indexOf('00')>=0 || parseTime.indexOf('03')>=0) //night
-				{
-					switch (wxDesc) 
+				//console.log(dayCount);
+				if (dayCount == 1)
+				{	
+					// set weather icon
+					if ( parseTime.indexOf('21')>=0 || parseTime.indexOf('00')>=0 || parseTime.indexOf('03')>=0)
 					{
-						case '有雨':
-							weatherStyle.push(nightBigRainIcon);
-							break;
-						case '多雲':
-							weatherStyle.push(nightCloudIcon);
-							break;
-						case '陰':
-							weatherStyle.push(nightDarkIcon);
-							break;
-						case '短暫雨':
-							weatherStyle.push(nightDarkIcon);
-							break;
-						case '晴':
-							weatherStyle.push(nightSmallRainIcon);
-							break;
-						default:
-							//console.log('Not found' + wxDesc);
+						continue;// do nothing
+					}
+					else if (parseTime.indexOf('18')>=0) //night
+					{
+						var MyImage = new Image();
+						MyImage.src = 'img/weather/resize25/night/'+ wxNum +'.svg';
+						weatherStyle1.push(MyImage);
+					}
+					else //day
+					{
+						var MyImage = new Image();
+						MyImage.src = 'img/weather/resize25/day/'+ wxNum +'.svg';
+						weatherStyle1.push(MyImage);						
+					}
+					//console.log('今天 ' + parseTime + ' 點' + wxDesc);
+					timeLabels.push('今天 ' + parseTime + ' 點');
+					
+					wxValue1.push(wxDesc);
+					tempValue1.push(jsonDataWeather.weatherElement[1].time[i].elementValue[0].value);
+					
+					
+					weatherStyle2.push(null);
+					wxValue2.push(null);
+					tempValue2.push(null);
+					
+					countLabels ++; 
+				}
+				else if (dayCount == 2)
+				{
+					
+					// set weather icon
+					if ( parseTime.indexOf('21')>=0 || parseTime.indexOf('00')>=0 || parseTime.indexOf('03')>=0)
+					{
+						continue;// do nothing
+					}
+					else if (parseTime.indexOf('18')>=0) //night
+					{
+						var MyImage = new Image();
+						MyImage.src = 'img/weather/resize25/night/'+ wxNum +'.svg';
+						weatherStyle2.push(MyImage);
+					}
+					else //day
+					{
+						var MyImage = new Image();
+						MyImage.src = 'img/weather/resize25/day/'+ wxNum +'.svg';
+						weatherStyle2.push(MyImage);						
 					}
 					
-					timeLabels.push(parseDate + ' 晚上 ' + parseTime + ' 點');
-				}
-				else //day
-				{
+					//console.log('明天 ' + parseTime + ' 點' + wxDesc);
+					timeLabels.push('明天 ' + parseTime + ' 點');
+					wxValue2.push(wxDesc);
+					tempValue2.push(jsonDataWeather.weatherElement[1].time[i].elementValue[0].value);
 					
-					switch (wxDesc) 
-					{
-						case '有雨':
-							weatherStyle.push(dayBigRainIcon);
-							break;
-						case '多雲':
-							weatherStyle.push(dayCloudIcon);
-							break;
-						case '陰':
-							weatherStyle.push(dayDarkIcon);
-							break;
-						case '短暫雨':
-							weatherStyle.push(dayDarkIcon);
-							break;
-						case '晴':
-							weatherStyle.push(daySmallRainIcon);
-							break;
-						default:
-							console.log('Not found' + wxDesc);
-					}
-					
-					timeLabels.push(parseDate + ' 早上 ' + parseTime + ' 點');
+					weatherStyle1.push(null);
+					wxValue1.push(null);
+					tempValue1.push(null);
+				
+					countLabels ++; 
 				}
 				
-				wxValue.push(wxDesc);
-				console.log(wxValue);
-				tempValue.push(jsonDataWeather.weatherElement[1].time[i].elementValue[0].value);
 				
-				
-				countLabels ++; 
 			}
+			/*
+			console.log(timeLabels);
+			console.log(tempValue1);
+			console.log(tempValue2);
+			console.log(weatherStyle1);
+			console.log(weatherStyle2);
+			*/
 			
 			// weatherChart
 			document.querySelector("#weatherReport").innerHTML = '<canvas id="weatherChart"></canvas>';
@@ -699,30 +745,49 @@
 			  type: 'line',
 			  data: {
 				labels: timeLabels,				  
-				datasets: [{
-				  label: "溫度",
-				  lineTension: 0.3,
-				  backgroundColor: "rgba(54, 185, 204, 0.05)", //#36b9cc - info color
-				  borderColor: "rgba(54, 185, 204, 1)",
-				  pointRadius: 2,
-				  pointBackgroundColor: "rgba(54, 185, 204, 1)",
-				  pointBorderColor: "rgba(54, 185, 204, 1)",
-				  pointHoverRadius: 5,
-				  pointHoverBackgroundColor: "#f8f9fc", //light
-				  pointHoverBorderColor: "rgba(54, 185, 204, 1)",
-				  pointHitRadius: 10,
-				  pointBorderWidth: 2,
-				  data: tempValue,
-				  pointStyle: weatherStyle
-				}],
+				datasets: 
+				[
+					{
+					  label: "今天溫度",
+					  lineTension: 0.3,
+					  backgroundColor: "rgba(54, 185, 204, 0.05)", //#36b9cc - info color
+					  borderColor: "rgba(54, 185, 204, 1)",
+					  pointRadius: 2,
+					  pointBackgroundColor: "rgba(54, 185, 204, 1)",
+					  pointBorderColor: "rgba(54, 185, 204, 1)",
+					  pointHoverRadius: 5,
+					  pointHoverBackgroundColor: "#f8f9fc", //light
+					  pointHoverBorderColor: "rgba(54, 185, 204, 1)",
+					  pointHitRadius: 10,
+					  pointBorderWidth: 2,
+					  data: tempValue1,
+					  pointStyle: weatherStyle1
+					},
+					{
+					  label: "明天溫度",
+					  lineTension: 0.3,
+					  backgroundColor: "rgba(246, 194, 62, 0.05)", // #f6c23e warning color
+					  borderColor: "rgba(246, 194, 62, 1)",
+					  pointRadius: 2,
+					  pointBackgroundColor: "rgba(246, 194, 62,  1)",
+					  pointBorderColor: "rgba(246, 194, 62,  1)",
+					  pointHoverRadius: 5,
+					  pointHoverBackgroundColor: "#f8f9fc", //light
+					  pointHoverBorderColor: "rgba(246, 194, 62,  1)",
+					  pointHitRadius: 10,
+					  pointBorderWidth: 2,
+					  data: tempValue2,
+					  pointStyle: weatherStyle2
+					}
+				],
 			  },
 			  options: {
 				maintainAspectRatio: false,
 				layout: {
 				  padding: {
-					left: 10,
-					right: 25,
-					top: 25,
+					left: 0,
+					right: 0,
+					top: 0,
 					bottom: 0
 				  }
 				},
