@@ -25,7 +25,488 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css?v=5" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="HighCharts7/code/highcharts.js"></script>
+    <script src="HighCharts7/code/modules/exporting.js"></script>
+    <script src="HighCharts7/code/modules/variwide.js"></script>
+	<script>
+	/*
+	function GetShowPC() {
+	return ( $('.townBody #PC_week .report-table.pc').is(':hidden') ) ? false : true;
+	}
+	*/
+	
+	var CbChart3hr = function () {
+	/*
+	// 2022.12.22 72hr
+	ShowPC = GetShowPC();
+	if ( ShowPC ) {
+		ChartLabelAlign = 'center';
+	} else {
+		ChartLabelAlign = 'left';
+	}
+	*/
+	$('#div_chart .chart-md-scroll').css({'width':'991px'});
+	
+	Data3hr = TempArray_3hr;
+	
+	var TempSeries = {
+		"DataType":"h3",
+		"X":Time_3hr,
+		"T":{
+			"C":Data3hr[TID].C.T,
+			"F":Data3hr[TID].F.T
+		},
+		"AT":{
+			"C":Data3hr[TID].C.AT,
+			"F":Data3hr[TID].F.AT
+		},
+		"Icon":Data3hr[TID].Wx[VER]
+	};
+	
+	//console.log(TempSeries)
+	
+	plotHighcharts_hr('ChartId3hr', TempSeries);
+};
+	
+	function plotHighcharts_hr(ChartTarget, TempSeries) {
+	TempUnit = getTempUnit();
+	
+	$('#'+ChartTarget).html('');
+	
+	//var DivW = $('#chart_tem').width();
+	var MyMaxPadding, LineHR;
+	var FromHR, ToHR = 0;
+	var MyPlotLines = [];
+	var MyPlotBands = [];
+	var DateLineWidth = 1;
+	var DateLineZindex = 2;
+	var DateLineColor = '#cccccc';
+	var NightBandColor = '#f9f9f9';
+	var Visibility = {'T':true,'AT':true};
+	var DoRedraw = false;
+	
+	switch(TempSeries.DataType){
+		case 'h3':  
+			//MyMaxPadding = 0.3;
+			MyMaxPadding = 0.5;
+			
+			FromHR = ( 15 - parseInt(TempSeries.X[0].substr(0,2)) ) / 3 + 0.5;
+			if ( ( FromHR === 4.5 )||( FromHR === 5.5 ) ) FromHR -= 8;
+			
+			// 2022.12.22 72hr 16.5 -> 24.5
+			while ( ( FromHR < 24.5 )&&( ToHR < 24.5 ) ) {
+				ToHR = FromHR + 4;
+				if ( ToHR > 24.5 ) ToHR = 24.5;
+				
+				MyPlotBands.push({
+					color: NightBandColor,
+					from: FromHR,
+					to: ToHR
+				});
+				
+				LineHR = FromHR + 2;
+				
+				MyPlotLines.push({
+					color: DateLineColor,
+					width: DateLineWidth,
+					value: LineHR,
+					zIndex: DateLineZindex
+				});
+				
+				FromHR += 8;
+			}
+			break;
+			
+		case 'h24':
+			MyMaxPadding = 0;
+			
+			FromHR = ( 17 - parseInt(TempSeries.X[0].substr(0,2)) ) + 0.5;
+			if( ( FromHR >= 12.5 )&&( FromHR <= 17.5 ) ) FromHR -= 24;
+			
+			while ( ( FromHR < 23.5 )&&( ToHR < 23.5 ) ) {
+				ToHR = FromHR + 12;
+				if ( ToHR > 23.5 ) ToHR = 23.5;
+				
+				MyPlotBands.push({
+					color: NightBandColor,
+					from: FromHR,
+					to: ToHR
+				});
+				
+				LineHR = FromHR + 6;
+				
+				MyPlotLines.push({
+					color: DateLineColor,
+					width: DateLineWidth,
+					value: LineHR,
+					zIndex: DateLineZindex
+				});
+				
+				FromHR += 24;
+			}
+			break;
+			
+		default: break;
+	}
+	
+	//console.log(MyPlotBands)
+	
+	Highcharts.chart(ChartTarget, {
+		chart: {
+			type: 'spline',
+			height: 400,
+			style: {
+				fontSize: '1em'
+			},
+			events: {
+				redraw: function () {
+					if( ( TempSeries.DataType === "h3" )&&( DoRedraw === true ) ){
+						DoRedraw = false;
+						//console.log('Redraw...');
+						//console.log(Visibility);
+						
+						if( Visibility.T !== Visibility.AT ){
+							switch(true){
+								case ( Visibility.T  === true ): var MySeries = this.series[0].data; break;
+								case ( Visibility.AT === true ): var MySeries = this.series[1].data; break;
+								default: break;
+							}
+							
+							Highcharts.each(MySeries, function(point, i){
+								var Pt  = MySeries[i];
+								var MyH = parseInt(Pt.category.substr(0,2));
+								var DN = ( ( MyH >= 6 )&&( MyH < 18 ) ) ? 'day' : 'night';
+								var MyImage = '/V8/assets/img/weather_icons/weathers/svg_icon/'+DN+'/'+TempSeries.Icon[i][0]+'.svg';
+								
+								point.update({
+									dataLabels: {
+										//enabled: true,
+										useHTML: true,
+										format: '<div style="text-align:center;margin-bottom:10px;"><img alt="'+TempSeries.Icon[i][1]+'" src="'+MyImage+'" style="width:25px" /><br><span>'+Pt.y+'</span></div>'
+									}
+								});
+							});
+						}else{
+							if( ( Visibility.T === true )&&( Visibility.AT === true ) ){
+								var MySeries1 = this.series[0].data;
+								var MySeries2 = this.series[1].data;
+								
+								Highcharts.each(MySeries1, function(point, i){
+									var Pt  = MySeries1[i];
+									var Pat = MySeries2[i];
+									
+									if ( Pat.plotY >= Pt.plotY ) {
+										if ( TempSeries.DataType === "h3" ) {
+											var MyH = parseInt(Pt.category.substr(0,2));
+											var DN = ( ( MyH >= 6 )&&( MyH < 18 ) ) ? 'day' : 'night';
+											var MyImage = '/V8/assets/img/weather_icons/weathers/svg_icon/'+DN+'/'+TempSeries.Icon[i][0]+'.svg';
+											
+											point.update({
+												dataLabels: {
+													//enabled: true,
+													useHTML: true,
+													format: '<div style="text-align:center;margin-bottom:10px;"><img alt="'+TempSeries.Icon[i][1]+'" src="'+MyImage+'" style="width:25px" /><br><span>'+Pt.y+'</span></div>'
+												}
+											});
+										}
+									} else {
+										point.update({
+											dataLabels: {
+												verticalAlign:'top' // 銝𧢲�埝𤩅蝺𡁏�嗵惜摮烾�牐�𧢲䲮
+											}
+										});
+									}
+								});
+								
+								Highcharts.each(MySeries2, function(point, i){
+									var Pt  = MySeries1[i];
+									var Pat = MySeries2[i];
+									
+									if ( Pt.plotY >= Pat.plotY ) {
+										if ( TempSeries.DataType === "h3" ) {
+											var MyH = parseInt(Pat.category.substr(0,2));
+											var DN = ( ( MyH >= 6 )&&( MyH < 18 ) ) ? 'day' : 'night';
+											var MyImage = '/V8/assets/img/weather_icons/weathers/svg_icon/'+DN+'/'+TempSeries.Icon[i][0]+'.svg';
+											
+											point.update({
+												dataLabels: {
+													//enabled: true,
+													useHTML: true,
+													format: '<div style="text-align:center;margin-bottom:10px;"><img alt="'+TempSeries.Icon[i][1]+'" src="'+MyImage+'" style="width:25px" /><br><span>'+Pat.y+'</span></div>'
+												}
+											});
+										}
+									} else {
+										point.update({
+											dataLabels: {
+												verticalAlign:'top' // 銝𧢲�埝𤩅蝺𡁏�嗵惜摮烾�牐�𧢲䲮
+											}
+										});
+									}
+								});
+							}
+						}
+					}
+				}
+			}
+		},
+		title: {
+			align: ChartLabelAlign,
+			text: MyTownName[VER],
+			style: {
+				fontSize: '0.8em'
+			}
+		},
+		subtitle: {
+			text: '',
+			style: {
+				fontSize: '0.8em'
+			}
+		},
+		xAxis: {
+			categories: TempSeries.X,
+			labels: {
+				autoRotation: false,
+				style: {
+					fontSize: '0.8em'
+				},
+				formatter: function(){
+					var ShowDate = false;
+					var MyHR = this.value.substr(0,2);
+					if( ( MyHR === '00' )||(( this.pos === 0 )&&( parseInt(MyHR) < 21 )) ) ShowDate = true;
+					
+					if( ShowDate ){
+						var MyDD = this.value.substr(3,5);
+						//var MyMM = this.value.substr(3,2);
+						//var MyDD = this.value.substr(6,2);
+						
+						return MyHR + '<br><b style="color:#1a67b1">' + MyDD + '</b>';
+						/*if( DivW > 900 ){
+							return MyHR + '<br><b style="color:#1a67b1">' + MyMM + '/' + MyDD + '</b>';
+						}else{
+							return MyHR + '<br><b style="color:#1a67b1">' + MyMM + '/</b><br><b style="color:#1a67b1">' + MyDD + '</b>';
+						}*/
+					}else{
+						return MyHR;
+					}
+				}
+			},
+			plotLines: MyPlotLines,// ��𥟇𠯫蝺�
+			plotBands: MyPlotBands // 憭𨀣�𡁏�畾萎�羓�啗𠧧�峕艶
+		},
+		yAxis: {
+			title: {
+				text: MyString.T[VER] + '嚗��'+TempUnit+'嚗�',
+				style: {
+					fontSize: '0.8em'
+				}
+			},
+			labels: {
+				style: {
+					fontSize: '0.8em'
+				}
+			},
+			maxPadding: MyMaxPadding // �俈甇Ｗ予瘞� icon 頞��枂銝𢠃�羓��
+		},
+		legend: {
+			align: ChartLabelAlign,
+			itemStyle: {
+				fontSize: '0.8em'
+			}
+		},
+		tooltip: {
+			//headerFormat: '<span style="font-size:1em;font-weight:bolder;">{point.key}</span><br>',
+			//valueSuffix: '簞',
+			borderColor: '#000000',
+			borderRadius: 0,
+			crosshairs: true,
+			padding: 0,
+			shared: true,
+			useHTML: true,
+			style: {
+				fontSize: '0.8em'
+			},
+			formatter: function(){
+				//console.log(this);
+				
+				var MyWx = '';
+				var MyRow = '';
+				var MyLabel = '';
+				var MyColor = '';
+				var MyPointIndex, Pt, Ct;
+				
+				var MyH = this.x.substr(0,2);
+				var MyD = this.x.substr(3,5);
+				
+				if ( TempSeries.DataType === "h3" ) {
+					try {
+						typeof this.points[0].point.index;
+						MyPointIndex = this.points[0].point.index;
+						MyWx = '<span>��� '+MyString.Wx[VER]+': <span style="font-weight:bolder;">'+TempSeries.Icon[MyPointIndex][1]+'</span><br>';
+					} catch (e) {
+						MyWx = '';
+					}
+				}
+				
+				for(i=0; i<this.points.length; i++){
+					var MyIdx = this.points[i].colorIndex;
+					switch(MyIdx){
+						case 0:
+							MyLabel = MyString.T[VER];
+							MyColor = MyString.tempChart_ex.hr.Color1;
+							break;
+						case 1:
+							MyLabel = MyString.AT[VER];
+							MyColor = MyString.tempChart_ex.hr.Color2;
+							break;
+						default: break;
+					}
+					
+					if( ( i === 0 )&&( MyIdx === 1 ) ) MyIdx = 0;
+					
+					try { typeof this.points[MyIdx].y; Pt = this.points[MyIdx].y; } catch (e) { Pt = '-'; }
+					try { typeof this.points[MyIdx].color; Ct = this.points[MyIdx].color; } catch (e) { Ct = MyColor; }
+					
+					MyRow += '<span><span style="color:'+Ct+';">���</span> '+MyLabel+': <span style="font-weight:bolder;">'+Pt+' 簞'+TempUnit+'</span></span><br>';
+				}
+				
+				var Pobj = ''+
+					//'<div style="position:relative;top:1px;left:1px;padding:10px;border:1px solid #000000;border-bottom:2px solid #000000;background-color:rgba(255,255,255,0.75);">'+
+					'<div style="position:relative;padding:10px;border-top:1px solid #000000;border-left:1px solid #000000;background-color:rgba(255,255,255,0.75);">'+
+						'<span style="font-size:1em;font-weight:bolder;">'+MyD+' '+MyH+':00</span><br>'+
+						MyWx+
+						MyRow+
+					'</div>';
+				
+				return Pobj;
+			}
+		},
+		series: [{
+			name: MyString.T[VER] + ' (簞' + TempUnit + ')',
+			data: TempSeries.T[TempUnit]
+		}, {
+			name: MyString.AT[VER] + ' (簞' + TempUnit + ')',
+			data: TempSeries.AT[TempUnit]
+		}],
+		colors: [MyString.tempChart_ex.hr.Color1, MyString.tempChart_ex.hr.Color2],
+		plotOptions: {
+			series: {
+				connectNulls: true,
+				events: {
+					legendItemClick: function () {
+						//console.log(this.visible);
+						//console.log(this.index);
+						switch(this.index){
+							case 0: Visibility.T = !this.visible; break;
+							case 1: Visibility.AT = !this.visible; break;
+							default: break;
+						}
+						DoRedraw = true;
+					}
+				}
+			},
+			spline: {
+				dataLabels: {
+					allowOverlap: true, // 撘瑕��𤩅蝺𡁜�碶�羓��彍摮烾＊蝷綽���𡝗���滨�𡃏䌊��閖黸��誩�蠘��
+					enabled: true,
+					color: '#555',
+					style: {
+						fontSize: '0.8em'
+					}
+				},
+				// enableMouseTracking: false
+			}
+		},
+		navigation: {
+			buttonOptions: {
+				enabled: false
+			}
+		},
+		exporting: {
+			enabled: false
+		},
+		credits: {
+			text: MyString.Copyright[VER],
+			href: 'javascript:void(0)',
+			style: {
+				fontSize: '0.8em'
+			}
+		}
+	}, function (chart) {
+		/*for ( i=0; i<chart.series[0].data.length; i++ ) {
+			//console.log(chart.series[0].data[i]);
+			var Pt  = chart.series[0].data[i];
+			var Pat = chart.series[1].data[i];
+			var MyPlotY = ( Pt.plotY >= Pat.plotY ) ? Pat.plotY : Pt.plotY;
+			var MyH = parseInt(Pt.category.substr(0,2));
+			var DN = ( ( MyH >= 6 )&&( MyH < 18 ) ) ? 'day' : 'night';
+			
+			chart.renderer.image(
+				'/V8/assets/img/weather_icons/weathers/svg_icon/'+DN+'/'+TempSeries.Icon[i][0]+'.svg',
+				Pt.plotX+chart.plotLeft-13, 
+				MyPlotY+chart.plotTop-50,
+				25,
+				25
+			).add();
+		}*/
+		
+		Highcharts.each(chart.series[0].data, function(point, i){
+			var Pt  = chart.series[0].data[i];
+			var Pat = chart.series[1].data[i];
+			
+			if ( Pat.plotY >= Pt.plotY ) {
+				if ( TempSeries.DataType === "h3" ) {
+					var MyH = parseInt(Pt.category.substr(0,2));
+					var DN = ( ( MyH >= 6 )&&( MyH < 18 ) ) ? 'day' : 'night';
+					var MyImage = '/V8/assets/img/weather_icons/weathers/svg_icon/'+DN+'/'+TempSeries.Icon[i][0]+'.svg';
+					
+					point.update({
+						dataLabels: {
+							//enabled: true,
+							useHTML: true,
+							format: '<div style="text-align:center;margin-bottom:10px;"><img alt="'+TempSeries.Icon[i][1]+'" src="'+MyImage+'" style="width:25px" /><br><span>'+Pt.y+'</span></div>'
+						}
+					});
+				}
+			} else {
+				point.update({
+					dataLabels: {
+						verticalAlign:'top' // 銝𧢲�埝𤩅蝺𡁏�嗵惜摮烾�牐�𧢲䲮
+					}
+				});
+			}
+		});
+		
+		Highcharts.each(chart.series[1].data, function(point, i){
+			var Pt  = chart.series[0].data[i];
+			var Pat = chart.series[1].data[i];
+			
+			if ( Pt.plotY >= Pat.plotY ) {
+				if ( TempSeries.DataType === "h3" ) {
+					var MyH = parseInt(Pat.category.substr(0,2));
+					var DN = ( ( MyH >= 6 )&&( MyH < 18 ) ) ? 'day' : 'night';
+					var MyImage = '/V8/assets/img/weather_icons/weathers/svg_icon/'+DN+'/'+TempSeries.Icon[i][0]+'.svg';
+					
+					point.update({
+						dataLabels: {
+							//enabled: true,
+							useHTML: true,
+							format: '<div style="text-align:center;margin-bottom:10px;"><img alt="'+TempSeries.Icon[i][1]+'" src="'+MyImage+'" style="width:25px" /><br><span>'+Pat.y+'</span></div>'
+						}
+					});
+				}
+			} else {
+				point.update({
+					dataLabels: {
+						verticalAlign:'top' // 銝𧢲�埝𤩅蝺𡁏�嗵惜摮烾�牐�𧢲䲮
+					}
+				});
+			}
+		});
+	});
+}
+	</script>
 
 </head>
 
@@ -345,33 +826,56 @@
 				
                 <!-- Begin Page Content -->
 				
-				<div class="container-fluid">
-					<!-- Content Row -->
-                    <div class="row">
-					
-						<div class="col-xl-12 col-lg-7">
-
-							<!-- Weather Chart -->
-							<div class="card shadow mb-4">
-								
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">新埤鄉 - 天氣預報</h6>
-								</div>
-
-								<div class="card-body">
-									<div class="chart-area" id="weatherReport">
-										<canvas id="weatherChart"></canvas>
-									</div>
-								</div>
+				
+				<!--charts-->
+				<div accesskey="T" title="鄉鎮預報曲線圖" id="div_chart">
+				<!--
+					<h3 id="tab_chart" class="heading-title type_7">
+						<a href="javascript:void(0)" class="anchor tab_hr active" id="Tab_3hr" data-tab="3hr" title="逐三小時溫度曲線" data-gtmtitle="鄉鎮預報_天氣資訊_逐三小時溫度曲線圖">
+							<i class="icon-3hr" aria-hidden="true"></i>
+							<span>逐三小時<br class="hidden visible-xs">預報</span>
+						</a>
+						<a href="javascript:void(0)" class="anchor tab_hr" id="Tab_weeks" data-tab="weeks" title="一週溫度曲線" data-gtmtitle="鄉鎮預報_天氣資訊_一週溫度曲線圖">
+							<i class="icon-weekTemperature" aria-hidden="true"></i>
+							<span>一週<br class="hidden visible-xs">溫度曲線</span>
+						</a>
+						<a href="javascript:void(0)" class="anchor tab_hr" id="Tab_body" data-tab="weeks_at" title="一週體感溫度曲線" data-gtmtitle="鄉鎮預報_天氣資訊_一週體感溫度曲線圖">
+							<i class="icon-bodyTemperature" aria-hidden="true"></i>
+							<span>一週體感<br class="hidden visible-xs">溫度曲線</span>
+						</a>
+						<a href="javascript:void(0)" class="anchor tab_hr" id="Tab_24hr" data-tab="24hr" title="過去24小時溫度曲線" data-gtmtitle="鄉鎮預報_天氣資訊_過去24小時溫度曲線圖">
+							<i class="icon-24hr" aria-hidden="true"></i>
+							<span>過去<br class="hidden visible-xs">24小時</span>
+						</a>
+					</h3>
+				-->
+					<div class="tempChart_ex visible-xs">
+						<ul>
+							<li class="ttem-C">溫度</li>
+							<li class="ttem-C">體感溫度</li>
+							<li class="ttem-C d-none">高溫</li>
+							<li class="ttem-C d-none">低溫</li>
+						</ul>
+					</div>
+					<div class="table-responsive">
+						<div class="chart-md-scroll">
+							<div id="chart_tem" style="min-width: 280px; margin: 0 auto">
+								<div id="ChartId3hr" class=""></div>
+								<div id="ChartIdweeks" class="d-none"></div>
+								<div id="ChartIdweeksbody" class="d-none"></div>
+								<div id="ChartId24hr" class="d-none"></div>
 							</div>
 						</div>
-						
 					</div>
-					
 				</div>
+                <!--end charts-->
+				
+				
+				
 				
                 <div class="container-fluid" id="containerID" style="display:none;visibility:hidden;">
 					
+					<!-- Content Row -->
                     <div class="row">
 
                         <!-- Content Column -->
@@ -384,7 +888,7 @@
                                 </div>
                                 <div class="card-body">
                                     <h4 class="font-weight-bold text-dark">SOC <span
-                                            class="float-right" id="socSpanID">120</span></h4>
+                                            class="float-right" id="socSpanID">(120/400)</span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" 
 											role="progressbar" style="width: 30%" aria-valuenow="30" 
@@ -572,241 +1076,6 @@
 	<script>
 		getData();
 		async function getData() {
-				
-			// momo
-			const uriWeather = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-033?Authorization=CWA-AC9B44D3-2CAC-44B7-8051-CB5FD07D7276&locationName=%E6%96%B0%E5%9F%A4%E9%84%89&elementName=Wx,T' ;
-			const responseWeather = await fetch(uriWeather);
-			const dataWeather = await responseWeather.json();
-			var jsonDataWeather = dataWeather.records.locations[0].location[0];
-			console.log(jsonDataWeather);
-			var timeLabels = [];
-			var countLabels = 0;
-			var wxValue = [];
-			var tempValue = [];
-			var weatherStyle = [];
-			
-			
-			var dayBigRainIcon = new Image();
-			dayBigRainIcon.src = "img/weather/resize25/dayBigRainIcon.svg"; //白天 + 有雨
-			
-			var dayCloudIcon = new Image();
-			dayCloudIcon.src = "img/weather/resize25/dayCloudIcon.svg"; //白天 + 多雲
-			
-			var dayDarkIcon = new Image();
-			dayDarkIcon.src = "img/weather/resize25/dayDarkIcon.svg"; //白天 + 陰
-			
-			var daySmallRainIcon = new Image();
-			daySmallRainIcon.src = "img/weather/resize25/daySmallRainIcon.svg"; //白天 + 短暫雨
-			
-			var daySunIcon = new Image();
-			daySunIcon.src = "img/weather/resize25/daySunIcon.svg"; //白天 + 晴
-			
-			
-			var nightBigRainIcon = new Image();
-			nightBigRainIcon.src = "img/weather/resize25/nightBigRainIcon.svg"; //晚上 + 有雨
-			
-			var nightCloudIcon = new Image();
-			nightCloudIcon.src = "img/weather/resize25/nightCloudIcon.svg"; //晚上 + 多雲
-			
-			var nightDarkIcon = new Image();
-			nightDarkIcon.src = "img/weather/resize25/nightDarkIcon.svg"; //晚上 + 陰
-			
-			var nightSmallRainIcon = new Image();
-			nightSmallRainIcon.src = "img/weather/resize25/nightSmallRainIcon.svg"; //晚上 + 短暫雨
-			
-			var nightSunIcon = new Image();
-			nightSunIcon.src = "img/weather/resize25/nightSunIcon.svg"; //晚上 + 晴
-			
-			
-			console.log('jsonDataWeather.weatherElement[0].time.length ' + jsonDataWeather.weatherElement[0].time.length);
-			
-			for (var i=0; i<12; i++) // jsonDataWeather.weatherElement[0].time.length 共32筆
-			{
-				var startTime = jsonDataWeather.weatherElement[0].time[i].startTime;
-				var parseDate = startTime.slice(5,10);
-				var parseTime = startTime.slice(11,13);
-								
-				var wxDesc = jsonDataWeather.weatherElement[0].time[i].elementValue[0].value;
-				
-				console.log(parseDate + ' ' + parseTime);
-				
-				// set weather icon
-				if (parseTime.indexOf('18')>=0 || parseTime.indexOf('21')>=0 || parseTime.indexOf('00')>=0 || parseTime.indexOf('03')>=0) //night
-				{
-					switch (wxDesc) 
-					{
-						case '有雨':
-							weatherStyle.push(nightBigRainIcon);
-							break;
-						case '多雲':
-							weatherStyle.push(nightCloudIcon);
-							break;
-						case '陰':
-							weatherStyle.push(nightDarkIcon);
-							break;
-						case '短暫雨':
-							weatherStyle.push(nightDarkIcon);
-							break;
-						case '晴':
-							weatherStyle.push(nightSmallRainIcon);
-							break;
-						default:
-							//console.log('Not found' + wxDesc);
-					}
-					
-					timeLabels.push(parseDate + ' 晚上 ' + parseTime + ' 點');
-				}
-				else //day
-				{
-					
-					switch (wxDesc) 
-					{
-						case '有雨':
-							weatherStyle.push(dayBigRainIcon);
-							break;
-						case '多雲':
-							weatherStyle.push(dayCloudIcon);
-							break;
-						case '陰':
-							weatherStyle.push(dayDarkIcon);
-							break;
-						case '短暫雨':
-							weatherStyle.push(dayDarkIcon);
-							break;
-						case '晴':
-							weatherStyle.push(daySmallRainIcon);
-							break;
-						default:
-							console.log('Not found' + wxDesc);
-					}
-					
-					timeLabels.push(parseDate + ' 早上 ' + parseTime + ' 點');
-				}
-				
-				wxValue.push(wxDesc);
-				console.log(wxValue);
-				tempValue.push(jsonDataWeather.weatherElement[1].time[i].elementValue[0].value);
-				
-				
-				countLabels ++; 
-			}
-			
-			// weatherChart
-			document.querySelector("#weatherReport").innerHTML = '<canvas id="weatherChart"></canvas>';
-			var weatherChart = document.getElementById("weatherChart");
-			var weatherCharttData = new Chart(weatherChart, {
-			  type: 'line',
-			  data: {
-				labels: timeLabels,				  
-				datasets: [{
-				  label: "溫度",
-				  lineTension: 0.3,
-				  backgroundColor: "rgba(54, 185, 204, 0.05)", //#36b9cc - info color
-				  borderColor: "rgba(54, 185, 204, 1)",
-				  pointRadius: 2,
-				  pointBackgroundColor: "rgba(54, 185, 204, 1)",
-				  pointBorderColor: "rgba(54, 185, 204, 1)",
-				  pointHoverRadius: 5,
-				  pointHoverBackgroundColor: "#f8f9fc", //light
-				  pointHoverBorderColor: "rgba(54, 185, 204, 1)",
-				  pointHitRadius: 10,
-				  pointBorderWidth: 2,
-				  data: tempValue,
-				  pointStyle: weatherStyle
-				}],
-			  },
-			  options: {
-				maintainAspectRatio: false,
-				layout: {
-				  padding: {
-					left: 10,
-					right: 25,
-					top: 25,
-					bottom: 0
-				  }
-				},
-				scales: {
-				  xAxes: [{
-					time: {
-					  unit: 'date'
-					},
-					gridLines: {
-					  display: true,
-					  drawBorder: true
-					},
-					ticks: {
-					  maxTicksLimit: timeLabels.length,
-					  fontSize: 10
-					}
-				  }],
-				  yAxes: [{
-					ticks: {
-					  maxTicksLimit: 5,
-					  padding: 10,
-					  // Include a dollar sign in the ticks
-					  callback: function(value, index, values) {
-						return number_format(value) + '℃';
-					  }
-					},
-					gridLines: {
-					  color: "rgb(234, 236, 244)",
-					  zeroLineColor: "rgb(234, 236, 244)",
-					  drawBorder: false,
-					  borderDash: [2],
-					  zeroLineBorderDash: [2]
-					}
-				  }],
-				},
-				legend: {
-				  display: false
-				},
-				tooltips: {
-				  backgroundColor: "rgb(255,255,255)",
-				  bodyFontColor: "#858796",
-				  titleMarginBottom: 10,
-				  titleFontColor: '#6e707e',
-				  titleFontSize: 14,
-				  borderColor: '#dddfeb',
-				  borderWidth: 1,
-				  xPadding: 15,
-				  yPadding: 15,
-				  displayColors: false,
-				  intersect: false,
-				  mode: 'index',
-				  caretPadding: 10,
-				  callbacks: {
-					label: function(tooltipItem, chart) {
-					  var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-					  return datasetLabel + ': ' + number_format(tooltipItem.yLabel) + '℃';
-					}
-				  }
-				}
-			  }
-			});
-/*
-			Chart.pluginService.register({
-				afterUpdate: function(weatherChart) {
-					weatherChart.config.datasets[0].data.pointStyle[1] = sun;
-					//http://www.java2s.com/example/javascript/chart.js/chartjs-to-display-legend.html
-					//chart.config.data.datasets[1]._meta[0].data[2]._model.pointStyle = sun;
-				}
-			});
-*/
-			/*
-				const config = {
-			  type: 'line',
-			  data: data,
-			  options: {
-				responsive: true,
-				plugins: {
-				  title: {
-					display: true,
-					text: (ctx) => 'Point Style: ' + ctx.chart.data.datasets[0].pointStyle,
-				  }
-				}
-			  }
-			};
-			*/
 		
 			//today https://github.com/gavinpwd/weather-app/blob/master/js/index.js
 			
@@ -822,7 +1091,7 @@
 			var item = data[0];
 			
 			var socSpanID = document.getElementById('socSpanID');
-			socSpanID.textContent ='(' + item.capacity + ')'; 
+			socSpanID.textContent ='(' + item.capacity + '/400)'; 
 			var socProgressID = document.getElementById('socProgressID');
 			socProgressID.textContent = item.soc + '%';
 			socProgressID.style.width = item.soc + '%';
