@@ -477,7 +477,9 @@
 			
 			var selectDate = document.getElementById('dateID').value;
 			
-			const uri = 'https://script.google.com/macros/s/AKfycbxxDhwV5y7jcqyq0gwvkzw9YmiJD8t9DF5D9bIe_HIl17hw6RjuEcTKH4iojhbyHsES9w/exec?date=' + selectDate;
+			const googleUriString = 'https://script.google.com/macros/s/AKfycbxv6pts1O9krN6PaehCt64zPAmdea_3TpYj5wg_DiHZ3DmONeHsvz0_-6A_y4Ut8Paglg/exec';
+			
+			const uri = googleUriString + '?date=' + selectDate;
 			const response = await fetch(uri);
 			const data = await response.json();
 			var sheetJsonData = data;

@@ -886,7 +886,9 @@
 			document.getElementById('loading').style = "";
 			document.getElementById('containerID').style = "display:none; visibility:hidden";
 			
-			const uri = 'https://script.google.com/macros/s/AKfycbxBBcV0F-4PnNflg3zytsgs1keVYYrkoOKxsQfos4l3mAluSxx1sjGvw8ymw7iObKgWTg/exec?date=dashboard';
+			const googleUriString = 'https://script.google.com/macros/s/AKfycbxv6pts1O9krN6PaehCt64zPAmdea_3TpYj5wg_DiHZ3DmONeHsvz0_-6A_y4Ut8Paglg/exec';
+			
+			const uri = googleUriString + '?date=dashboard';
 			const response = await fetch(uri);
 			const data = await response.json();
 			var item = data[0];
