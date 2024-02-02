@@ -535,7 +535,6 @@
 			var minTempDataValue = [];
 			var currentlyDataValue = [];
 			var MPPTcurrentlyDataValue = [];
-			console.log(sheetJsonData);
 			for (var i=0; i<sheetJsonData.length; i++)
 			{
 			
@@ -583,8 +582,6 @@
 				*/
 			}
 			
-			console.log(timeLabels);
-			console.log(maxTempDataValue);
 			// socChart
 			document.querySelector("#socReport").innerHTML = '<canvas id="socChart"></canvas>';
 			var socChart = document.getElementById("socChart");
