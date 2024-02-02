@@ -522,7 +522,7 @@
 			
 			const googleUriString = 'https://script.google.com/macros/s/AKfycbxv6pts1O9krN6PaehCt64zPAmdea_3TpYj5wg_DiHZ3DmONeHsvz0_-6A_y4Ut8Paglg/exec';
 		
-			const uri = googleUriString + '?date= ' + selectDate;
+			const uri = googleUriString + '?date=' + selectDate;
 			const response = await fetch(uri);
 			const data = await response.json();
 			var sheetJsonData = data;
@@ -535,10 +535,27 @@
 			var minTempDataValue = [];
 			var currentlyDataValue = [];
 			var MPPTcurrentlyDataValue = [];
-			
+			console.log(sheetJsonData);
 			for (var i=0; i<sheetJsonData.length; i++)
 			{
-				if (oneHourOrHalfFlag && sheetJsonData[i].time.indexOf(countLabels + ':00')>=0)
+			
+				console.log(sheetJsonData[i].time);
+				if (countLabels == 0 && sheetJsonData[i].time.indexOf(':00')>=0)
+				{
+					// set data
+					
+					timeLabels.push(sheetJsonData[i].time);
+					socDataValue.push(sheetJsonData[i].soc);
+					currentlyDataValue.push(sheetJsonData[i].currently);
+					maxTempDataValue.push(sheetJsonData[i].maxTemp);
+					avgTempDataValue.push(sheetJsonData[i].avgTemp);
+					minTempDataValue.push(sheetJsonData[i].minTemp);
+					MPPTcurrentlyDataValue.push(sheetJsonData[i].MPPT1Currently_L);
+					
+					const timeStrs = sheetJsonData[i].time.split(':');
+					countLabels = parseInt(timeStrs[0]) +1;
+				}
+				else if (sheetJsonData[i].time.indexOf(countLabels + ':00')>=0)
 				{
 					// set data
 					timeLabels.push(sheetJsonData[i].time);
@@ -550,6 +567,7 @@
 					MPPTcurrentlyDataValue.push(sheetJsonData[i].MPPT1Currently_L);
 					countLabels ++; // if oneHourOrHalfFlag use, delete this row
 					//oneHourOrHalfFlag = false;
+					
 				}
 				/*
 				else if ( !oneHourOrHalfFlag && sheetJsonData[i].time.indexOf(countLabels + ':30')>=0)
@@ -565,6 +583,8 @@
 				*/
 			}
 			
+			console.log(timeLabels);
+			console.log(maxTempDataValue);
 			// socChart
 			document.querySelector("#socReport").innerHTML = '<canvas id="socChart"></canvas>';
 			var socChart = document.getElementById("socChart");
