@@ -586,11 +586,12 @@
 		async function getData() {
 				
 			// momo
-			const uriWeather = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-033?Authorization=CWA-AC9B44D3-2CAC-44B7-8051-CB5FD07D7276&locationName=%E6%96%B0%E5%9F%A4%E9%84%89&elementName=Wx,T'+'&v=' +  Date.now();
+			// 搜尋條件 溫度=> %E6%BA%AB%E5%BA%A6  天氣現象 => %E5%A4%A9%E6%B0%A3%E7%8F%BE%E8%B1%A1  
+			const uriWeather = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-033?Authorization=CWA-AC9B44D3-2CAC-44B7-8051-CB5FD07D7276&LocationName=%E6%96%B0%E5%9F%A4%E9%84%89&ElementName=%E6%BA%AB%E5%BA%A6,%E5%A4%A9%E6%B0%A3%E7%8F%BE%E8%B1%A1'+'&v=2024-12-20' // +  Date.now();  // 2024-12-20 locationName -> LocationName & elementName -> ElementName
 			const responseWeather = await fetch(uriWeather);
 			const dataWeather = await responseWeather.json();
-			var jsonDataWeather = dataWeather.records.locations[0].location[0];
-			//console.log(jsonDataWeather);
+			var jsonDataWeather = dataWeather.records.Locations[0].Location[0]; // 2024-12-20 locations -> Locations & location -> Location
+			console.log(jsonDataWeather);
 			var countLabels = 0;
 			
 			
@@ -648,8 +649,9 @@
 			
 			for (var i=0; countLabels<10; i++) // jsonDataWeather.weatherElement[0].time.length 共32筆
 			{
-				var startTime = jsonDataWeather.weatherElement[0].time[i].startTime;
-				var parseDate = startTime.slice(5,10);
+				var startTime = jsonDataWeather.WeatherElement[1].Time[i].StartTime; // 2024-12-20 weatherElement -> WeatherElement & time -> Time & startTime -> StartTime
+				//console.log(startTime);
+				var parseDate = startTime.slice(5,10);  // 2024-12-20T10:00:00+08:00 => 從1開始擷取0 => result: 12-20
 				
 				if (oldDateStr !== parseDate)
 				{
@@ -661,9 +663,13 @@
 					dayCount++;
 				}
 							
-				var parseTime = startTime.slice(11,13);
-				var wxDesc = jsonDataWeather.weatherElement[0].time[i].elementValue[0].value;
-				var wxNum = jsonDataWeather.weatherElement[0].time[i].elementValue[1].value;
+				var parseTime = startTime.slice(11,13);  // 2024-12-20T10:00:00+08:00  => result: 10
+				//console.log(parseTime);
+				var wxDesc = jsonDataWeather.WeatherElement[1].Time[i].ElementValue[0].Weather; // 2024-12-20 weatherElement -> WeatherElement & time -> Time & elementValue -> ElementValue
+				//console.log(jsonDataWeather.WeatherElement[1]);
+				//console.log(wxDesc);
+				//var parseDate = startTime.slice(5,10);   // 2024-12-20T10:00:00+08:00  => result: 12-20
+				var wxNum = jsonDataWeather.WeatherElement[1].Time[i].ElementValue[0].WeatherCode; // 2024-12-20 weatherElement -> WeatherElement & time -> Time & elementValue -> ElementValue
 				
 				
 				//console.log(dayCount);
@@ -690,7 +696,8 @@
 					timeLabels.push('今天 ' + parseTime + ' 點');
 					
 					wxValue1.push(wxDesc);
-					tempValue1.push(jsonDataWeather.weatherElement[1].time[i].elementValue[0].value);
+					console.log(jsonDataWeather.WeatherElement[0].Time[i]);
+					tempValue1.push(jsonDataWeather.WeatherElement[0].Time[i].ElementValue[0].Temperature); // 2024-12-20 weatherElement -> WeatherElement & time -> Time & elementValue -> ElementValue
 					
 					
 					weatherStyle2.push(null);
@@ -723,7 +730,7 @@
 					//console.log('明天 ' + parseTime + ' 點' + wxDesc);
 					timeLabels.push('明天 ' + parseTime + ' 點');
 					wxValue2.push(wxDesc);
-					tempValue2.push(jsonDataWeather.weatherElement[1].time[i].elementValue[0].value);
+					tempValue2.push(jsonDataWeather.WeatherElement[0].Time[i].ElementValue[0].Temperature); // 2024-12-20 weatherElement -> WeatherElement & time -> Time & elementValue -> ElementValue
 					
 					weatherStyle1.push(null);
 					wxValue1.push(null);
