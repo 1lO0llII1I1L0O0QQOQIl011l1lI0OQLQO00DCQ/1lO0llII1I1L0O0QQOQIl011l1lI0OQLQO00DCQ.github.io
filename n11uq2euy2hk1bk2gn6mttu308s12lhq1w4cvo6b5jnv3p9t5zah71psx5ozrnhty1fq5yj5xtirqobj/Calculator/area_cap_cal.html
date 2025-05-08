@@ -7,9 +7,93 @@
 body{color:#616a6b; font-size:17pt}
 h1 {color:#2874a6; font-size:22pt}
 </style>
-
 </head>
 <body>
+<h1 >《魚苗訂購清單》</h1>
+	<form>
+	　黑：數量<input type="text" id="BNum" size="10" onInput="BCount.value = this.value * BUnitPrice.value;">尾 × 
+	<input type="text" id="BUnitPrice" value="1.5" size="3" onInput="BCount.value = this.value * BNum.value;">元
+	= <input type="text" id="BCount" size="10">元
+	<br/>
+	純紅：數量<input type="text" id="RRNum" size="10" onInput="RRCount.value = this.value * RRUnitPrice.value;">尾 × 
+	<input type="text" id="RRUnitPrice" value="5" size="3" onInput="RRCount.value = this.value * RRNum.value;">元
+	= <input type="text" id="RRCount" value="" size="10">元
+	<br/>
+	斑點：數量<input type="text" id="RBNum" size="10" onInput="RBCount.value = this.value * RBUnitPrice.value;">尾 × 
+	<input type="text" id="RBUnitPrice" value="3" size="3" onInput="RBCount.value = this.value * RBNum.value;">元
+	= <input type="text" id="RBCount" value=""size="10">元
+	<br/>
+	運費：數量<input type="text" id="ShipNum" size="10" onInput="ShipCount.value = this.value * ShipUnitPrice.value;">箱 × 
+	<input type="text" id="ShipUnitPrice" value="500" size="3" onInput="ShipCount.value = this.value * ShipNum.value;">元
+	= <input type="text" id="ShipCount" value="" size="10">元
+	<br/>
+	<input type="button" onclick="changeText()" value="產生文字">
+	<br/>
+	<textarea id="orderText" value=""
+          rows="10"
+          cols="30" onclick="copyOrderText()" 
+          required>
+	</textarea>
+	<textarea id="remitText" value="" 
+			rows="10"
+          cols="30" onclick="copyRemitText()" 
+          required>
+	</textarea>
+	<textarea id="custText" value="" 
+			rows="10"
+          cols="30" onclick="copyCustText()" 
+          required>
+	</textarea>
+	</form>
+	<script>
+	function changeText() {
+		remitText.value=" ┤匯 款 資 訊├\n台灣銀行潮州分行 (004)\n帳號：088001024036\n戶名：聖鯛水產科技有限公司\n\n匯款後請提供收件人姓名、電話及住址，若需要三聯式發票也請您一併提供統編及抬頭，感謝您的配合🙏";
+		custText.value=" ┤收 件 資 料├\n姓名：\n電話：\n住址：\n\n ┤宅 配 單 號├\n🚛 預計到貨日期：\n請輸入單號於黑貓官網追蹤貨況\nhttps://t.17track.net/zh-hk#nums=605023454273,129085799304,129085799315&fc=100215\n1.\n2.\n3.\n4.";
+		orderText.value =  " ┤訂 購 清 單├\n";
+		var totalCount = 0;
+		if (BCount.value != "" && BCount.value != "0")
+		{
+			orderText.value += "黑 " + BNum.value + "尾 × " + BUnitPrice.value + "元\n";
+			totalCount += parseInt(BCount.value);
+		}
+		if (RRCount.value != "" && RRCount.value != "0")
+		{
+			orderText.value += "純紅 " + RRNum.value + "尾 × " + RRUnitPrice.value + "元\n";
+			totalCount += parseInt(RRCount.value);
+		}
+		if (RBCount.value != "" && RBCount.value != "0")
+		{
+			orderText.value += "斑點 " + RBNum.value + "尾 × " + RBUnitPrice.value + "元\n";
+			totalCount += parseInt(RBCount.value);
+		}
+		if (ShipCount.value != "" && ShipCount.value != "0")
+		{
+			orderText.value += "包裝運費 " + ShipNum.value + "箱 × " + ShipUnitPrice.value + "元\n";
+			totalCount += parseInt(ShipCount.value);
+		}
+		else
+		{
+			orderText.value += "提醒：無輸入包裝運費\n";
+		}
+		orderText.value += "▶️ 總金額： " + totalCount + "元\n";
+		orderText.value += "🚛 預計到貨日期：";
+		
+	}
+	function copyOrderText() {
+		orderText.select();
+		document.execCommand('copy');
+	}
+	
+	function copyRemitText() {
+		remitText.select();
+		document.execCommand('copy');
+	}
+	function copyCustText() {
+		custText.select();
+		document.execCommand('copy');
+	}
+	</script>
+<br/>	
 
 	<h1 >《面積單位換算》</h1>
 	<form>
@@ -22,8 +106,7 @@ h1 {color:#2874a6; font-size:22pt}
 		D6.value = 0.3025 * this.value;
 		D7.value = 0.000103 * this.value;
 		D8.value = 0.00025 * this.value;
-		D9.value = 0.00025 * this.value;
-		D10.value = 0.00103 * this.value;">
+		D9.value = 0.00103 * this.value;">
 	　　　　坪<input type="text" name="D6" size="10" onInput="
 		D1.value = 3.30579 * this.value;
 		D2.value = 0.03306 * this.value;
@@ -32,18 +115,16 @@ h1 {color:#2874a6; font-size:22pt}
 		D5.value = 0.00496 * this.value;
 		D7.value = 0.00034 * this.value;
 		D8.value = 0.00082 * this.value;
-		D9.value = 0.00082 * this.value;
-		 D10.value = 0.0034 * this.value;">
-			　　　　分<input type="text" name="D10" size="10" onInput="
+		 D9.value = 0.0034 * this.value;">
+			　　　　分<input type="text" name="D9" size="10" onInput="
 		D1.value = 969.917 * this.value;
 		D2.value = 9.69917 * this.value;
 		D3.value = 0.096992 * this.value;
 		D4.value = 0.000970 * this.value;
 		D5.value = 1.45488 * this.value;
 		D6.value = 293.4 * this.value;
-		 D7.value = 0.1 * this.value;
-		D8.value = 0.239672 * this.value;
-		D9.value = 0.239647 * this.value;">
+		D7.value = 0.1 * this.value;
+		D8.value = 0.239672 * this.value;">
 		
 		<br/>
 		　臺灣甲<input type="text" name="D7" size="10" onInput="
@@ -54,8 +135,7 @@ h1 {color:#2874a6; font-size:22pt}
 		D5.value = 14.5488 * this.value;
 		D6.value = 2934 * this.value;
 		D8.value = 2.39672 * this.value;
-		D9.value = 2.39647 * this.value;
-		 D10.value = 10 * this.value;">
+		 D9.value = 10 * this.value;">
 	　　　公頃<input type="text" name="D3" size="10" onInput="
 		D1.value = 10000 * this.value;
 		D2.value = 100 * this.value;
@@ -64,8 +144,7 @@ h1 {color:#2874a6; font-size:22pt}
 		D6.value = 3025 * this.value;
 		D7.value = 1.03102 * this.value;
 		D8.value = 2.47106 * this.value;
-		D9.value = 2.47104 * this.value;
-		 D10.value = 10.3102 * this.value;">
+		 D9.value = 10.3102 * this.value;">
 	　　公　畝<input type="text" name="D2" size="10" onInput="
 		D1.value = 100 * this.value;
 		D3.value = 0.01 * this.value;
@@ -74,8 +153,7 @@ h1 {color:#2874a6; font-size:22pt}
 		D6.value = 30.25 * this.value;
 		D7.value = 0.01031 * this.value;
 		D8.value = 0.02471 * this.value;
-		D9.value = 0.02471 * this.value;
-		 D10.value = 0.1031 * this.value;">
+		 D9.value = 0.1031 * this.value;">
 		<br>
 	平方公里<input type="text" name="D4" size="10" onInput="
 		D1.value = 1000000 * this.value;
@@ -85,8 +163,7 @@ h1 {color:#2874a6; font-size:22pt}
 		D6.value = 302500 * this.value;
 		D7.value = 10.3102 * this.value;
 		D8.value = 247.104 * this.value;
-		D9.value = 247.104 * this.value;
-		 D10.value = 103.102 * this.value;">
+		 D9.value = 103.102 * this.value;">
 	　　　市畝<input type="text" name="D5" size="10" onInput="
 		D1.value = 666.666 * this.value;
 		D2.value = 6.6667 * this.value;
@@ -95,8 +172,7 @@ h1 {color:#2874a6; font-size:22pt}
 		D6.value = 201.667 * this.value;
 		D7.value = 0.06874 * this.value;
 		D8.value = 0.16441 * this.value;
-		D9.value = 0.16474 * this.value;
-		 D10.value = 0.6874 * this.value;">
+		 D9.value = 0.6874 * this.value;">
 	　　　英畝<input type="text" name="D8" size="10" onInput="
 		D1.value = 4046.85 * this.value;
 		D2.value = 40.4685 * this.value;
@@ -105,8 +181,7 @@ h1 {color:#2874a6; font-size:22pt}
 		D5.value = 6.00029 * this.value;
 		D6.value = 1224.17 * this.value;
 		D7.value = 0.41724 * this.value;
-		D9.value = 0.99999 * this.value;
-		 D10.value = 4.1724 * this.value;">
+		D9.value = 4.1724 * this.value;">
 		
 	　<!--
 		美畝<input type="text" name="D9" size="10" onInput="
@@ -133,6 +208,7 @@ h1 {color:#2874a6; font-size:22pt}
 	1平方公里 = 100公頃<br/>
 	</div>
 <br/>
+
 						<h1>《容積養殖數量換算》</h1>
 <form>
 <B>圓形池：</B>半徑 <input type="text" name="C1_RADIUS" size="1" value="15" onChange="
