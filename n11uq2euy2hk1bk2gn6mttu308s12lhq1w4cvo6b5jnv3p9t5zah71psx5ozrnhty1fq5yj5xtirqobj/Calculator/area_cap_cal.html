@@ -11,7 +11,7 @@ h1 {color:#2874a6; font-size:22pt}
 <body>
 <h1 >《魚苗訂購清單》</h1>
 	<form>
-	　黑：數量<input type="text" id="BNum" size="10" onInput="BCount.value = this.value * BUnitPrice.value;">尾 × 
+	　黑：數量<input type="text" id="BNum" size="10" onInput="BCount.value = this.value * BUnitPrice.value;" autofocus>尾 × 
 	<input type="text" id="BUnitPrice" value="1.5" size="3" onInput="BCount.value = this.value * BNum.value;">元
 	= <input type="text" id="BCount" size="10">元
 	<br/>
@@ -34,11 +34,13 @@ h1 {color:#2874a6; font-size:22pt}
           cols="30" onclick="copyOrderText()" 
           required>
 	</textarea>
+	<br/>
 	<textarea id="remitText" value="" 
 			rows="10"
           cols="30" onclick="copyRemitText()" 
           required>
 	</textarea>
+	<br/>
 	<textarea id="custText" value="" 
 			rows="10"
           cols="30" onclick="copyCustText()" 
@@ -47,9 +49,9 @@ h1 {color:#2874a6; font-size:22pt}
 	</form>
 	<script>
 	function changeText() {
-		remitText.value=" ┤匯 款 資 訊├\n台灣銀行潮州分行 (004)\n帳號：088001024036\n戶名：聖鯛水產科技有限公司\n\n匯款後請提供收件人姓名、電話及住址，若需要三聯式發票也請您一併提供統編及抬頭，感謝您的配合🙏";
-		custText.value=" ┤收 件 資 料├\n姓名：\n電話：\n住址：\n\n ┤宅 配 單 號├\n🚛 預計到貨日期：\n請輸入單號於黑貓官網追蹤貨況\nhttps://t.17track.net/zh-hk#nums=605023454273,129085799304,129085799315&fc=100215\n1.\n2.\n3.\n4.";
-		orderText.value =  " ┤訂 購 清 單├\n";
+		remitText.value=" ┤匯 款 資 訊├\n台灣銀行潮州分行 (004)\n帳號：088001024036\n戶名：聖鯛水產科技有限公司\n\n匯款後請提供收件人姓名、電話及住址，若需要三聯式發票也請您一併提供統編及抬頭，感謝您的配合🙏\n";
+		custText.value=" ┤貨 況 追 蹤├\nhttps://www.t-cat.com.tw/inquire/TraceDetail.aspx?BillID=";
+		orderText.value = " ┤訂 購 清 單├\n";
 		var totalCount = 0;
 		if (BCount.value != "" && BCount.value != "0")
 		{
