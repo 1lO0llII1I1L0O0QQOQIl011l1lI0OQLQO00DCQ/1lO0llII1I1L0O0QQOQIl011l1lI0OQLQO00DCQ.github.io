@@ -6,8 +6,8 @@
 <title>魚苗計價/面積換算/養殖容積數量換算</title>
 
 <style>
-body{color:#616a6b; font-size:18px}
-h1 {color:#2874a6; font-size:18px}
+body{color:#616a6b; font-size:16px}
+h1 {color:#2874a6; font-size:16px}
 /* Style the tab */
 .tab {
   overflow: hidden;
@@ -18,6 +18,7 @@ h1 {color:#2874a6; font-size:18px}
 /* Style the buttons that are used to open the tab content */
 .tab button {
   background-color: inherit;
+  float: left;
   float: left;
   border: none;
   outline: none;
@@ -51,48 +52,48 @@ h1 {color:#2874a6; font-size:18px}
 <body>
 <!-- Tab links -->
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'FishPrice')" style="font-size:18px" id="FishPriceBtn" >｜魚苗小幫手｜</button>
-  <button class="tablinks" onclick="openTab(event, 'AreaCalculate')" style="font-size:18px"  id="AreaCalBtn">｜面積換算｜</button>
-  <button class="tablinks" onclick="openTab(event, 'FishCalculate')" style="font-size:18px"  id="FishCalBtn">｜養殖數量｜</button>
+  <button class="tablinks" onclick="openTab(event, 'FishPrice')" style="font-size:16px" id="FishPriceBtn" >| 魚苗小幫手 |</button>
+  <button class="tablinks" onclick="openTab(event, 'AreaCalculate')" style="font-size:16px"  id="AreaCalBtn">| 面積換算 |</button>
+  <button class="tablinks" onclick="openTab(event, 'FishCalculate')" style="font-size:16px"  id="FishCalBtn">| 養殖數量 |</button>
 </div>
 
 <!-- Tab content -->
-<div id="FishPrice" class="tabcontent" style="font-size:18px" >
+<div id="FishPrice" class="tabcontent" style="font-size:16px" >
 	<form>
-	　黑： <input type="text" id="BNum" size="4" style="font-size:18px" onInput="BCount.value = this.value * BUnitPrice.value;"> 尾 × 
-	<input type="text" id="BUnitPrice" value="1.5" size="1" style="font-size:18px" onInput="BCount.value = this.value * BNum.value;"> 元
-	= <input type="text" id="BCount" size="4" style="font-size:18px"> 元
+	　黑： <input type="text" id="BNum" size="4" style="font-size:16px" onInput="BCount.value = this.value * BUnitPrice.value;"> 尾 × 
+	<input type="text" id="BUnitPrice" value="1.5" size="1" style="font-size:16px" onInput="BCount.value = this.value * BNum.value;"> 元
+	= <input type="text" id="BCount" size="4" style="font-size:16px"> 元
 	<br/>
-	純紅： <input type="text" id="RRNum" size="4" style="font-size:18px" onInput="RRCount.value = this.value * RRUnitPrice.value;"> 尾 × 
-	<input type="text" id="RRUnitPrice" value="5" size="1" style="font-size:18px" onInput="RRCount.value = this.value * RRNum.value;"> 元
-	= <input type="text" id="RRCount" value="" size="4" style="font-size:18px"> 元
+	純紅： <input type="text" id="RRNum" size="4" style="font-size:16px" onInput="RRCount.value = this.value * RRUnitPrice.value;"> 尾 × 
+	<input type="text" id="RRUnitPrice" value="5" size="1" style="font-size:16px" onInput="RRCount.value = this.value * RRNum.value;"> 元
+	= <input type="text" id="RRCount" value="" size="4" style="font-size:16px"> 元
 	<br/>
-	斑點： <input type="text" id="RBNum" size="4" style="font-size:18px" onInput="RBCount.value = this.value * RBUnitPrice.value;"> 尾 × 
-	<input type="text" id="RBUnitPrice" value="3" size="1" style="font-size:18px" onInput="RBCount.value = this.value * RBNum.value;"> 元
-	= <input type="text" id="RBCount" value=""size="4" style="font-size:18px"> 元
+	斑點： <input type="text" id="RBNum" size="4" style="font-size:16px" onInput="RBCount.value = this.value * RBUnitPrice.value;"> 尾 × 
+	<input type="text" id="RBUnitPrice" value="3" size="1" style="font-size:16px" onInput="RBCount.value = this.value * RBNum.value;"> 元
+	= <input type="text" id="RBCount" value=""size="4" style="font-size:16px"> 元
 	<br/>
-	運費： <input type="text" id="ShipNum" size="4" style="font-size:18px" onInput="ShipCount.value = this.value * ShipUnitPrice.value;"> 箱 × 
-	<input type="text" id="ShipUnitPrice" value="500" size="1" style="font-size:18px" onInput="ShipCount.value = this.value * ShipNum.value;"> 元
-	= <input type="text" id="ShipCount" value="" size="4" style="font-size:18px"> 元
+	運費： <input type="text" id="ShipNum" size="4" style="font-size:16px" onInput="ShipCount.value = this.value * ShipUnitPrice.value;"> 箱 × 
+	<input type="text" id="ShipUnitPrice" value="500" size="1" style="font-size:16px" onInput="ShipCount.value = this.value * ShipNum.value;"> 元
+	= <input type="text" id="ShipCount" value="" size="4" style="font-size:16px"> 元
 	<br/>
-	<input type="button" onclick="changeText()" value="產生文字" style="font-size:18px;margin-top:5px;">
+	<input type="button" onclick="changeText()" value="產生文字" style="font-size:16px;margin-top:5px;">
 	<br/>
 	<textarea id="orderText" value=""
           rows="8"
           cols="30" onclick="copyOrderText()" 
-          required style="font-size:18px;margin-top:5px;">
+          required style="font-size:16px;margin-top:5px;">
 	</textarea>
 	<br/>
 	<textarea id="custText" value="" 
 			rows="5"
           cols="30" onclick="copyCustText()" 
-          required style="font-size:18px;margin-top:5px;">
+          required style="font-size:16px;margin-top:5px;">
 	</textarea>
 	<br/>
 	<textarea id="remitText" value="" 
 			rows="10"
           cols="30" onclick="copyRemitText()" 
-          required style="font-size:18px;margin-top:5px;">
+          required style="font-size:16px;margin-top:5px;">
 	</textarea>
 	</form>
 	<script>
@@ -146,10 +147,10 @@ h1 {color:#2874a6; font-size:18px}
 <br/>	
 
 </div>
-<div id="AreaCalculate" class="tabcontent" style="font-size:18px" >
+<div id="AreaCalculate" class="tabcontent" style="font-size:16px" >
 	<form>
 	<!-- D1 平方公尺、D6坪、D7甲、D3公頃、D2公畝、D4平方公里、D5市畝、D8英畝、D9美畝、D10分-->
-	平方公尺<input type="text" name="D1" size="2" style="font-size:18px" style="font-size:18px" onInput="
+	平方公尺<input type="text" name="D1" size="2" style="font-size:16px" style="font-size:16px" onInput="
 		D2.value = 0.01 * this.value;
 		D3.value = 0.0001 * this.value;
 		D4.value = 0.000001 * this.value;
@@ -158,7 +159,7 @@ h1 {color:#2874a6; font-size:18px}
 		D7.value = 0.000103 * this.value;
 		D8.value = 0.00025 * this.value;
 		D9.value = 0.00103 * this.value;">
-	　　坪<input type="text" name="D6" size="2" style="font-size:18px" style="font-size:18px" onInput="
+	　　坪<input type="text" name="D6" size="2" style="font-size:16px" style="font-size:16px" onInput="
 		D1.value = 3.30579 * this.value;
 		D2.value = 0.03306 * this.value;
 		D3.value = 0.00033 * this.value;
@@ -167,7 +168,7 @@ h1 {color:#2874a6; font-size:18px}
 		D7.value = 0.00034 * this.value;
 		D8.value = 0.00082 * this.value;
 		 D9.value = 0.0034 * this.value;">
-	　　分<input type="text" name="D9" size="2" style="font-size:18px" style="font-size:18px" onInput="
+	　　分<input type="text" name="D9" size="2" style="font-size:16px" style="font-size:16px" onInput="
 		D1.value = 969.917 * this.value;
 		D2.value = 9.69917 * this.value;
 		D3.value = 0.096992 * this.value;
@@ -178,7 +179,7 @@ h1 {color:#2874a6; font-size:18px}
 		D8.value = 0.239672 * this.value;">
 		
 		<br/>
-	　臺灣甲<input type="text" name="D7" size="2" style="font-size:18px" style="font-size:18px" onInput="
+	　臺灣甲<input type="text" name="D7" size="2" style="font-size:16px" style="font-size:16px" onInput="
 		D1.value = 9699.17 * this.value;
 		D2.value = 96.9917 * this.value;
 		D3.value = 0.96992 * this.value;
@@ -187,7 +188,7 @@ h1 {color:#2874a6; font-size:18px}
 		D6.value = 2934 * this.value;
 		D8.value = 2.39672 * this.value;
 		 D9.value = 10 * this.value;">
-	　公頃<input type="text" name="D3" size="2" style="font-size:18px" style="font-size:18px" onInput="
+	　公頃<input type="text" name="D3" size="2" style="font-size:16px" style="font-size:16px" onInput="
 		D1.value = 10000 * this.value;
 		D2.value = 100 * this.value;
 		D4.value = 0.01 * this.value;
@@ -196,7 +197,7 @@ h1 {color:#2874a6; font-size:18px}
 		D7.value = 1.03102 * this.value;
 		D8.value = 2.47106 * this.value;
 		 D9.value = 10.3102 * this.value;">
-	　公畝<input type="text" name="D2" size="2" style="font-size:18px" style="font-size:18px" onInput="
+	　公畝<input type="text" name="D2" size="2" style="font-size:16px" style="font-size:16px" onInput="
 		D1.value = 100 * this.value;
 		D3.value = 0.01 * this.value;
 		D4.value = 0.0001 * this.value;
@@ -206,7 +207,7 @@ h1 {color:#2874a6; font-size:18px}
 		D8.value = 0.02471 * this.value;
 		 D9.value = 0.1031 * this.value;">
 		<br>
-	平方公里<input type="text" name="D4" size="2" style="font-size:18px" style="font-size:18px" onInput="
+	平方公里<input type="text" name="D4" size="2" style="font-size:16px" style="font-size:16px" onInput="
 		D1.value = 1000000 * this.value;
 		D2.value = 10000 * this.value;
 		D3.value = 100 * this.value;
@@ -215,7 +216,7 @@ h1 {color:#2874a6; font-size:18px}
 		D7.value = 10.3102 * this.value;
 		D8.value = 247.104 * this.value;
 		 D9.value = 103.102 * this.value;">
-	　市畝<input type="text" name="D5" size="2" style="font-size:18px" style="font-size:18px" onInput="
+	　市畝<input type="text" name="D5" size="2" style="font-size:16px" style="font-size:16px" onInput="
 		D1.value = 666.666 * this.value;
 		D2.value = 6.6667 * this.value;
 		D3.value = 0.06667 * this.value;
@@ -224,7 +225,7 @@ h1 {color:#2874a6; font-size:18px}
 		D7.value = 0.06874 * this.value;
 		D8.value = 0.16441 * this.value;
 		 D9.value = 0.6874 * this.value;">
-	　英畝<input type="text" name="D8" size="2" style="font-size:18px" style="font-size:18px" onInput="
+	　英畝<input type="text" name="D8" size="2" style="font-size:16px" style="font-size:16px" onInput="
 		D1.value = 4046.85 * this.value;
 		D2.value = 40.4685 * this.value;
 		D3.value = 0.40469 * this.value;
@@ -235,7 +236,7 @@ h1 {color:#2874a6; font-size:18px}
 		D9.value = 4.1724 * this.value;">
 		
 	　<!--
-		美畝<input type="text" name="D9" size="2" style="font-size:18px" style="font-size:18px" onInput="
+		美畝<input type="text" name="D9" size="2" style="font-size:16px" style="font-size:16px" onInput="
 		D1.value = 4046.87 * this.value;
 		D2.value = 40.4687 * this.value;
 		D3.value = 0.40469 * this.value;
@@ -249,7 +250,7 @@ h1 {color:#2874a6; font-size:18px}
 	</form>
 
 	<br>		
-	<div style="border-style:dotted;border-color:gray;padding-left:10px;padding-top:3px;padding-bottom:3px;max-width:418px;font-size:18px">
+	<div style="border-style:dotted;border-color:gray;padding-left:10px;padding-top:3px;padding-bottom:3px;max-width:416px;font-size:16px">
 	<STRONG>地籍測量常用面積單位換算：</STRONG><br/>
 	1平方公尺 = 0.3025坪<br/>
 	1坪 = 3.3058平方公尺<br/>
@@ -262,46 +263,46 @@ h1 {color:#2874a6; font-size:18px}
 
 </div>
 
-<div id="FishCalculate" class="tabcontent" style="font-size:18px" >
+<div id="FishCalculate" class="tabcontent" style="font-size:16px" >
 	<form>
-	<B><FONT COLOR="#2874a6">圓形池：</FONT></B>半徑 <input type="text" name="C1_RADIUS" size="1" style="font-size:18px" value="15" onChange="
+	<B><FONT COLOR="#2874a6">圓形池：</FONT></B>半徑 <input type="text" name="C1_RADIUS" size="1" style="font-size:16px" value="15" onChange="
 		C1_FISH.value = (this.value*this.value*3.14*C1_HEIGHT.value*C1_SIZE.value).toFixed(0);">米
-	　深 <input type="text" name="C1_HEIGHT" size="1" style="font-size:18px" value="1.7" onChange="
+	　深 <input type="text" name="C1_HEIGHT" size="1" style="font-size:16px" value="1.7" onChange="
 		C1_FISH.value = (C1_RADIUS.value*C1_RADIUS.value*3.14*this.value*C1_SIZE.value).toFixed(0);">米
-	</BR> 一噸幾尾 <input type="text" name="C1_SIZE" value="25" size="1" style="font-size:18px" onChange="
+	</BR>>>>>> 一噸幾尾 <input type="text" name="C1_SIZE" value="25" size="1" style="font-size:16px" onChange="
 		C1_FISH.value = (C1_RADIUS.value*C1_RADIUS.value*3.14*C1_HEIGHT.value*this.value).toFixed(0);">
-		　建議數量 <input type="text" name="C1_FISH" value="30000" size="2" style="font-size:18px">
+		　建議數量 <input type="text" name="C1_FISH" value="30000" size="2" style="font-size:16px">
 <BR/><BR/>
 <B><FONT COLOR="#2874a6">方池：</FONT></B>
-	長 <input type="text" name="C2_LENGTH" size="1" style="font-size:18px" value="40"onChange="
+	長 <input type="text" name="C2_LENGTH" size="1" style="font-size:16px" value="40"onChange="
 		C2_FISH.value = (this.value*C2_WIDTH.value*C2_HEIGHT.value*C2_SIZE.value).toFixed(0);">米
-	　寬 <input type="text" name="C2_WIDTH" size="1" style="font-size:18px" value="25" onChange="
+	　寬 <input type="text" name="C2_WIDTH" size="1" style="font-size:16px" value="25" onChange="
 		C2_FISH.value = (this.value*C2_LENGTH.value*C2_HEIGHT.value*C2_SIZE.value).toFixed(0);">米
-	　深 <input type="text" name="C2_HEIGHT" size="1" style="font-size:18px" value="1.5" onChange="
+	　深 <input type="text" name="C2_HEIGHT" size="1" style="font-size:16px" value="1.5" onChange="
 		C2_FISH.value = (this.value*C2_LENGTH.value*C2_WIDTH.value*C2_SIZE.value).toFixed(0);">米
-<BR/>一噸幾尾 <input type="text" name="C2_SIZE" value="25" size="1" style="font-size:18px" onChange="
+<BR/>>>>>> 一噸幾尾 <input type="text" name="C2_SIZE" value="25" size="1" style="font-size:16px" onChange="
 		C2_FISH.value = (C2_LENGTH.value*C2_WIDTH.value*C2_HEIGHT.value*this.value).toFixed(0);">
-		　建議數量 <input type="text" name="C2_FISH" value="37500" size="2" style="font-size:18px">
+		　建議數量 <input type="text" name="C2_FISH" value="37500" size="2" style="font-size:16px">
 		<BR/>
 		<BR/>
-<B><FONT COLOR="#2874a6">方池：</FONT></B> 幾分地 <input type="text" name="C3_UNIT" size="1" style="font-size:18px" value="1"onChange="
+<B><FONT COLOR="#2874a6">方池：</FONT></B> 幾分地 <input type="text" name="C3_UNIT" size="1" style="font-size:16px" value="1"onChange="
 		C3_FISH.value = (this.value*C3_HEIGHT.value*C3_SIZE.value*970).toFixed(0);">
-	　深 <input type="text" name="C3_HEIGHT" size="1" style="font-size:18px" value="1.5" onChange="
+	　深 <input type="text" name="C3_HEIGHT" size="1" style="font-size:16px" value="1.5" onChange="
 		C3_FISH.value = (this.value*C3_UNIT.value*C3_SIZE.value*970).toFixed(0);">米
-<BR/>一噸幾尾 <input type="text" name="C3_SIZE" value="25" size="1" style="font-size:18px" onChange="
+<BR/>>>>>> 一噸幾尾 <input type="text" name="C3_SIZE" value="25" size="1" style="font-size:16px" onChange="
 		C3_FISH.value = (C3_UNIT.value*C3_HEIGHT.value*this.value*970).toFixed(0);">
-		　建議數量 <input type="text" name="C3_FISH" value="36375" size="2" style="font-size:18px">
+		　建議數量 <input type="text" name="C3_FISH" value="36375" size="2" style="font-size:16px">
 		<BR/>
 		<BR/>
 		
-		<div style="border-style:dotted;border-color:gray;padding-left:10px;padding-top:3px;padding-bottom:3px;max-width:418px;font-size:14pt">
+		<div style="border-style:dotted;border-color:gray;padding-left:10px;padding-top:3px;padding-bottom:3px;max-width:416px;">
 		<STRONG>計算方式：</STRONG><br/>
 		一立方公尺=一噸水，一噸水可養殖25隻魚(1尾斤)<br/>
 		直徑30的圓形系統池：15*15*1.7*3.14*25=30000尾<br/>
 		</div>
 		<BR/>
 		<!-- TABLE-->
-		<table border="1" cellpadding="0" cellspacing="0" style="width:450px;font-size:12pt" >
+		<table border="1" cellpadding="0" cellspacing="0" style="max-width:416px;font-size:12pt" >
 		<tbody>
 			<tr>
 				<td rowspan="2"><p align="center"><strong>養殖方式</strong></p>
@@ -416,17 +417,17 @@ h1 {color:#2874a6; font-size:18px}
 
 		
 		<!--
-	長<input type="text" name="C2_LENGTH" size="2" style="font-size:18px" style="font-size:18px" value="15" onChange="
+	長<input type="text" name="C2_LENGTH" size="2" style="font-size:16px" style="font-size:16px" value="15" onChange="
 		C2_NORMAL_FISH.value = (this.value*C2_WIDTH.value*C2_HEIGHT.value*50).toFixed(0);
 		C2_SD_FISH.value = (this.value*C2_WIDTH.value*C2_HEIGHT.value*50/3).toFixed(0);">
-	　寬<input type="text" name="C2_WIDTH" size="2" style="font-size:18px" style="font-size:18px" value="15" onChange="
+	　寬<input type="text" name="C2_WIDTH" size="2" style="font-size:16px" style="font-size:16px" value="15" onChange="
 	   C2_NORMAL_FISH.value = (C2_LENGTH.value*this.value*C2_HEIGHT.value*50).toFixed(0);
 		C2_SD_FISH.value = (C2_RADIUS.value*C2_RADIUS.value*3.14*this.value*50/3).toFixed(0);">
-	　高<input type="text" name="C2_HEIGHT" size="2" style="font-size:18px" style="font-size:18px" value="1.7" onChange="
+	　高<input type="text" name="C2_HEIGHT" size="2" style="font-size:16px" style="font-size:16px" value="1.7" onChange="
 		C2_NORMAL_FISH.value = (C2_RADIUS.value*C2_RADIUS.value*3.14*this.value*50).toFixed(0);
 		C2_SD_FISH.value = (C2_RADIUS.value*C2_RADIUS.value*3.14*this.value*50/3).toFixed(0);">
-		一般養殖<input type="text" name="C2_NORMAL_FISH" value="60053" size="2" style="font-size:18px" style="font-size:18px">
-		種魚養殖<input type="text" name="C2_SD_FISH" value="20018" size="2" style="font-size:18px" style="font-size:18px"> 公:母=1:2
+		一般養殖<input type="text" name="C2_NORMAL_FISH" value="60053" size="2" style="font-size:16px" style="font-size:16px">
+		種魚養殖<input type="text" name="C2_SD_FISH" value="20018" size="2" style="font-size:16px" style="font-size:16px"> 公:母=1:2
 		-->
 	<!--<input type="Reset" value="重新計算面積">-->
 	</form>
