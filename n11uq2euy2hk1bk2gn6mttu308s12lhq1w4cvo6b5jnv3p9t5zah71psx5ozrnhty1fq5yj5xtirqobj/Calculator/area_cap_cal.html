@@ -60,7 +60,7 @@ h1 {color:#2874a6; font-size:16px}
 <!-- Tab content -->
 <div id="FishPrice" class="tabcontent" style="font-size:16px" >
 	<form>
-	　黑： <input type="text" id="BNum" size="4" style="font-size:16px" onInput="BCount.value = this.value * BUnitPrice.value;"> 尾 × 
+	　黑： <input inputmode="numeric" type="text" id="BNum" size="4" style="font-size:16px" onInput="BCount.value = this.value * BUnitPrice.value;"> 尾 × 
 	<input type="text" id="BUnitPrice" value="1.5" size="1" style="font-size:16px" onInput="BCount.value = this.value * BNum.value;"> 元
 	= <input type="text" id="BCount" size="4" style="font-size:16px"> 元
 	<br/>
