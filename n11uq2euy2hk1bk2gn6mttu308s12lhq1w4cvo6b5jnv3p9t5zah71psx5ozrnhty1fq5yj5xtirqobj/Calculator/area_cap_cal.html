@@ -48,16 +48,16 @@ h1 {color:#2874a6; font-size:22pt}
 <body>
 <!-- Tab links -->
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'FishPrice')">魚苗計價文字產生器</button>
-  <button class="tablinks" onclick="openTab(event, 'AreaCalculate')">面積單位換算</button>
-  <button class="tablinks" onclick="openTab(event, 'FishCalculate')">養殖容積數量換算</button>
+  <button class="tablinks" onclick="openTab(event, 'FishPrice')" style="font-size:18px">｜魚苗計價文字產生器｜</button>
+  <button class="tablinks" onclick="openTab(event, 'AreaCalculate')" style="font-size:18px">｜面積單位換算｜</button>
+  <button class="tablinks" onclick="openTab(event, 'FishCalculate')" style="font-size:18px">｜養殖容積數量換算｜</button>
 </div>
 
 <!-- Tab content -->
 <div id="FishPrice" class="tabcontent">
 <h1 >《魚苗計價文字產生器》</h1>
 	<form>
-	　黑：數量<input type="text" id="BNum" size="4" style="font-size:18px"4" onInput="BCount.value = this.value * BUnitPrice.value;">尾 × 
+	　黑：數量<input type="text" id="BNum" size="4" style="font-size:18px" onInput="BCount.value = this.value * BUnitPrice.value;">尾 × 
 	<input type="text" id="BUnitPrice" value="1.5" size="1" style="font-size:18px" onInput="BCount.value = this.value * BNum.value;">元
 	= <input type="text" id="BCount" size="4" style="font-size:18px">元
 	<br/>
@@ -73,24 +73,24 @@ h1 {color:#2874a6; font-size:22pt}
 	<input type="text" id="ShipUnitPrice" value="500" size="1" style="font-size:18px" onInput="ShipCount.value = this.value * ShipNum.value;">元
 	= <input type="text" id="ShipCount" value="" size="4" style="font-size:18px">元
 	<br/>
-	<input type="button" onclick="changeText()" value="產生文字">
-	<br/>
+	<input type="button" onclick="changeText()" value="產生文字" style="font-size:18px">
+	<br/><br/>
 	<textarea id="orderText" value=""
           rows="10"
           cols="30" onclick="copyOrderText()" 
-          required>
+          required style="font-size:18px">
 	</textarea>
-	<br/>
+	<br/><br/>
 	<textarea id="remitText" value="" 
 			rows="10"
           cols="30" onclick="copyRemitText()" 
-          required>
+          required style="font-size:18px">
 	</textarea>
-	<br/>
+	<br/><br/>
 	<textarea id="custText" value="" 
 			rows="10"
           cols="30" onclick="copyCustText()" 
-          required>
+          required style="font-size:18px">
 	</textarea>
 	</form>
 	<script>
