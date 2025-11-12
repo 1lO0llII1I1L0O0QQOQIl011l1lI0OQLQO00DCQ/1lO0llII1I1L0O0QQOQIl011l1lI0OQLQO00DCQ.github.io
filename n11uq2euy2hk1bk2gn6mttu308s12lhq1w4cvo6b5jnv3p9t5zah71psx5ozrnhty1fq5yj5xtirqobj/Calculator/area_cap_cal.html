@@ -266,31 +266,24 @@ h1 {color:#2874a6; font-size:16px}
 <div id="FishCalculate" class="tabcontent" style="font-size:16px" >
 	<form>
 	<B><FONT COLOR="#2874a6">圓形池：</FONT></B>半徑 <input type="text" name="C1_RADIUS" style="width:30px;font-size:16px" value="15" onChange="
-		C1_FISH.value = (this.value*this.value*3.14*C1_HEIGHT.value*C1_SIZE.value).toFixed(0);"> 米
-	　深 <input type="text" name="C1_HEIGHT" size="1" style="width:30px;font-size:16px" value="1.7" onChange="
-		C1_FISH.value = (C1_RADIUS.value*C1_RADIUS.value*3.14*this.value*C1_SIZE.value).toFixed(0);"> 米
-		　一噸 <input type="text" name="C1_SIZE" value="25" style="width:30px;font-size:16px" onChange="C1_FISH.value = (C1_RADIUS.value*C1_RADIUS.value*3.14*C1_HEIGHT.value*this.value).toFixed(0);"> 尾
+		C1_FISH.value = (this.value*this.value*3.14*C1_HEIGHT.value*C1_SIZE.value).toFixed(0);"> 米、深 <input type="text" name="C1_HEIGHT" size="1" style="width:30px;font-size:16px" value="1.7" onChange="
+		C1_FISH.value = (C1_RADIUS.value*C1_RADIUS.value*3.14*this.value*C1_SIZE.value).toFixed(0);"> 米、 <input type="text" name="C1_SIZE" value="25" style="width:30px;font-size:16px" onChange="C1_FISH.value = (C1_RADIUS.value*C1_RADIUS.value*3.14*C1_HEIGHT.value*this.value).toFixed(0);"> 尾/噸
 	</BR>
 >>>>>> 建議數量 <input type="text" name="C1_FISH" value="30000" size="2" style="font-size:16px"> 尾
 <BR/><BR/>
 <B><FONT COLOR="#2874a6">方池：</FONT></B>
 	長 <input type="text" name="C2_LENGTH" style="width:30px;font-size:16px" value="40"onChange="
-		C2_FISH.value = (this.value*C2_WIDTH.value*C2_HEIGHT.value*C2_SIZE.value).toFixed(0);">米
-	　寬 <input type="text" name="C2_WIDTH" style="width:30px;font-size:16px" value="25" onChange="
-		C2_FISH.value = (this.value*C2_LENGTH.value*C2_HEIGHT.value*C2_SIZE.value).toFixed(0);">米
-	　深 <input type="text" name="C2_HEIGHT" style="width:30px;font-size:16px" value="1.5" onChange="
-		C2_FISH.value = (this.value*C2_LENGTH.value*C2_WIDTH.value*C2_SIZE.value).toFixed(0);">米
-	　一噸 <input type="text" name="C2_SIZE" value="25" style="width:30px;font-size:16px" onChange="
-		C2_FISH.value = (C2_LENGTH.value*C2_WIDTH.value*C2_HEIGHT.value*this.value).toFixed(0);"> 尾
+		C2_FISH.value = (this.value*C2_WIDTH.value*C2_HEIGHT.value*C2_SIZE.value).toFixed(0);"> 米、寬 <input type="text" name="C2_WIDTH" style="width:30px;font-size:16px" value="25" onChange="
+		C2_FISH.value = (this.value*C2_LENGTH.value*C2_HEIGHT.value*C2_SIZE.value).toFixed(0);"> 米、深 <input type="text" name="C2_HEIGHT" style="width:30px;font-size:16px" value="1.5" onChange="
+		C2_FISH.value = (this.value*C2_LENGTH.value*C2_WIDTH.value*C2_SIZE.value).toFixed(0);"> 米、<input type="text" name="C2_SIZE" value="25" style="width:30px;font-size:16px" onChange="
+		C2_FISH.value = (C2_LENGTH.value*C2_WIDTH.value*C2_HEIGHT.value*this.value).toFixed(0);"> 尾/噸
 <BR/>>>>>>> 建議數量 <input type="text" name="C2_FISH" value="37500" size="2" style="font-size:16px"> 尾
 		<BR/>
 		<BR/>
 <B><FONT COLOR="#2874a6">方池：</FONT></B> 幾分地 <input type="text" name="C3_UNIT" style="width:30px;font-size:16px" value="1"onChange="
-		C3_FISH.value = (this.value*C3_HEIGHT.value*C3_SIZE.value*970).toFixed(0);">
-	　深 <input type="text" name="C3_HEIGHT" style="width:30px;font-size:16px" value="1.5" onChange="
-		C3_FISH.value = (this.value*C3_UNIT.value*C3_SIZE.value*970).toFixed(0);">米
-	　一噸 <input type="text" name="C3_SIZE" value="25" style="width:30px;font-size:16px" onChange="
-		C3_FISH.value = (C3_UNIT.value*C3_HEIGHT.value*this.value*970).toFixed(0);"> 尾
+		C3_FISH.value = (this.value*C3_HEIGHT.value*C3_SIZE.value*970).toFixed(0);">、深 <input type="text" name="C3_HEIGHT" style="width:30px;font-size:16px" value="1.5" onChange="
+		C3_FISH.value = (this.value*C3_UNIT.value*C3_SIZE.value*970).toFixed(0);"> 米、<input type="text" name="C3_SIZE" value="25" style="width:30px;font-size:16px" onChange="
+		C3_FISH.value = (C3_UNIT.value*C3_HEIGHT.value*this.value*970).toFixed(0);"> 尾/噸
 <BR/>>>>>>> 建議數量 <input type="text" name="C3_FISH" value="36375" size="2" style="font-size:16px"> 尾
 		<BR/>
 		<BR/>
