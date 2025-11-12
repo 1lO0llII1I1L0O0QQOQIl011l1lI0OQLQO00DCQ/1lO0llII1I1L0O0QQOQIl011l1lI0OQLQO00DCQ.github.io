@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>魚苗計價文字產生器</title>
+<title>魚苗計價/面積換算/養殖容積數量換算</title>
 
 <style>
 body{color:#616a6b; font-size:18px}
@@ -48,14 +48,14 @@ h1 {color:#2874a6; font-size:17pt}
 <body>
 <!-- Tab links -->
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'FishPrice')" style="font-size:18px">｜魚苗計價文字產生器｜</button>
+  <button class="tablinks" onclick="openTab(event, 'FishPrice')" style="font-size:18px">｜魚苗計價小幫手｜</button>
   <button class="tablinks" onclick="openTab(event, 'AreaCalculate')" style="font-size:18px">｜面積單位換算｜</button>
   <button class="tablinks" onclick="openTab(event, 'FishCalculate')" style="font-size:18px">｜養殖容積數量換算｜</button>
 </div>
 
 <!-- Tab content -->
 <div id="FishPrice" class="tabcontent" style="font-size:18px" >
-<h1 >《魚苗計價文字產生器》</h1>
+<h1 >《魚苗計價小幫手》</h1>
 	<form>
 	　黑： <input type="text" id="BNum" size="4" style="font-size:18px" onInput="BCount.value = this.value * BUnitPrice.value;"> 尾 × 
 	<input type="text" id="BUnitPrice" value="1.5" size="1" style="font-size:18px" onInput="BCount.value = this.value * BNum.value;"> 元
