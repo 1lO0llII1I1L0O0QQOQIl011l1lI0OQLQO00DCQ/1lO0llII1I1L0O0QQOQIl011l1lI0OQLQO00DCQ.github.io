@@ -5,8 +5,8 @@
 <title>魚苗計價文字產生器</title>
 
 <style>
-body{color:#616a6b; font-size:17pt}
-h1 {color:#2874a6; font-size:22pt}
+body{color:#616a6b; font-size:18px}
+h1 {color:#2874a6; font-size:17pt}
 /* Style the tab */
 .tab {
   overflow: hidden;
@@ -54,43 +54,43 @@ h1 {color:#2874a6; font-size:22pt}
 </div>
 
 <!-- Tab content -->
-<div id="FishPrice" class="tabcontent">
+<div id="FishPrice" class="tabcontent" style="font-size:18px" >
 <h1 >《魚苗計價文字產生器》</h1>
 	<form>
-	　黑：數量<input type="text" id="BNum" size="4" style="font-size:18px" onInput="BCount.value = this.value * BUnitPrice.value;">尾 × 
-	<input type="text" id="BUnitPrice" value="1.5" size="1" style="font-size:18px" onInput="BCount.value = this.value * BNum.value;">元
-	= <input type="text" id="BCount" size="4" style="font-size:18px">元
+	　黑： <input type="text" id="BNum" size="4" style="font-size:18px" onInput="BCount.value = this.value * BUnitPrice.value;"> 尾 × 
+	<input type="text" id="BUnitPrice" value="1.5" size="1" style="font-size:18px" onInput="BCount.value = this.value * BNum.value;"> 元
+	= <input type="text" id="BCount" size="4" style="font-size:18px"> 元
 	<br/>
-	純紅：數量<input type="text" id="RRNum" size="4" style="font-size:18px" onInput="RRCount.value = this.value * RRUnitPrice.value;">尾 × 
-	<input type="text" id="RRUnitPrice" value="5" size="1" style="font-size:18px" onInput="RRCount.value = this.value * RRNum.value;">元
-	= <input type="text" id="RRCount" value="" size="4" style="font-size:18px">元
+	純紅： <input type="text" id="RRNum" size="4" style="font-size:18px" onInput="RRCount.value = this.value * RRUnitPrice.value;"> 尾 × 
+	<input type="text" id="RRUnitPrice" value="5" size="1" style="font-size:18px" onInput="RRCount.value = this.value * RRNum.value;"> 元
+	= <input type="text" id="RRCount" value="" size="4" style="font-size:18px"> 元
 	<br/>
-	斑點：數量<input type="text" id="RBNum" size="4" style="font-size:18px" onInput="RBCount.value = this.value * RBUnitPrice.value;">尾 × 
-	<input type="text" id="RBUnitPrice" value="3" size="1" style="font-size:18px" onInput="RBCount.value = this.value * RBNum.value;">元
-	= <input type="text" id="RBCount" value=""size="4" style="font-size:18px">元
+	斑點： <input type="text" id="RBNum" size="4" style="font-size:18px" onInput="RBCount.value = this.value * RBUnitPrice.value;"> 尾 × 
+	<input type="text" id="RBUnitPrice" value="3" size="1" style="font-size:18px" onInput="RBCount.value = this.value * RBNum.value;"> 元
+	= <input type="text" id="RBCount" value=""size="4" style="font-size:18px"> 元
 	<br/>
-	運費：數量<input type="text" id="ShipNum" size="4" style="font-size:18px" onInput="ShipCount.value = this.value * ShipUnitPrice.value;">箱 × 
-	<input type="text" id="ShipUnitPrice" value="500" size="1" style="font-size:18px" onInput="ShipCount.value = this.value * ShipNum.value;">元
-	= <input type="text" id="ShipCount" value="" size="4" style="font-size:18px">元
+	運費： <input type="text" id="ShipNum" size="4" style="font-size:18px" onInput="ShipCount.value = this.value * ShipUnitPrice.value;"> 箱 × 
+	<input type="text" id="ShipUnitPrice" value="500" size="1" style="font-size:18px" onInput="ShipCount.value = this.value * ShipNum.value;"> 元
+	= <input type="text" id="ShipCount" value="" size="4" style="font-size:18px"> 元
 	<br/>
-	<input type="button" onclick="changeText()" value="產生文字" style="font-size:18px">
-	<br/><br/>
+	<input type="button" onclick="changeText()" value="產生文字" style="font-size:18px;margin-top:5px;">
+	<br/>
 	<textarea id="orderText" value=""
-          rows="10"
+          rows="8"
           cols="30" onclick="copyOrderText()" 
-          required style="font-size:18px">
+          required style="font-size:18px;margin-top:5px;">
 	</textarea>
-	<br/><br/>
+	<br/>
+	<textarea id="custText" value="" 
+			rows="5"
+          cols="30" onclick="copyCustText()" 
+          required style="font-size:18px;margin-top:5px;">
+	</textarea>
+	<br/>
 	<textarea id="remitText" value="" 
 			rows="10"
           cols="30" onclick="copyRemitText()" 
-          required style="font-size:18px">
-	</textarea>
-	<br/><br/>
-	<textarea id="custText" value="" 
-			rows="10"
-          cols="30" onclick="copyCustText()" 
-          required style="font-size:18px">
+          required style="font-size:18px;margin-top:5px;">
 	</textarea>
 	</form>
 	<script>
@@ -144,7 +144,7 @@ h1 {color:#2874a6; font-size:22pt}
 <br/>	
 
 </div>
-<div id="AreaCalculate" class="tabcontent">
+<div id="AreaCalculate" class="tabcontent" style="font-size:18px" >
   	<h1 >《面積單位換算》</h1>
 	<form>
 	<!-- D1 平方公尺、D6坪、D7甲、D3公頃、D2公畝、D4平方公里、D5市畝、D8英畝、D9美畝、D10分-->
@@ -261,7 +261,7 @@ h1 {color:#2874a6; font-size:22pt}
 
 </div>
 
-<div id="FishCalculate" class="tabcontent">
+<div id="FishCalculate" class="tabcontent" style="font-size:18px" >
 
 	<h1>《容積養殖數量換算》</h1>
 	<form>
